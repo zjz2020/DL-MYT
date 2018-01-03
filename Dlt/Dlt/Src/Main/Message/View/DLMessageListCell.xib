@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageListCellId" id="KGk-i7-Jjw" customClass="DLMessageListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_11.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Zs-hu-1h5">
+                        <rect key="frame" x="10" y="12.5" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="Lbl-Gi-d3a"/>
+                            <constraint firstAttribute="height" constant="45" id="cF4-t6-fgz"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苏小萌" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EK6-S8-7qG">
+                        <rect key="frame" x="70" y="12" width="52" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="LyM-eF-ix6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.17254901960784313" green="0.17254901960784313" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQq-UV-aUT">
+                        <rect key="frame" x="305" y="22.5" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.61176470588235299" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="eui-vT-wyu">
+                        <rect key="frame" x="282" y="42.5" width="23" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="23" id="hwe-cy-6K7"/>
+                            <constraint firstAttribute="height" constant="15" id="sYv-wp-sWG"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你好啊！很高兴认识你" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5p0-PB-8kW">
+                        <rect key="frame" x="70" y="40" width="197" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="EK6-S8-7qG" firstAttribute="leading" secondItem="3Zs-hu-1h5" secondAttribute="trailing" constant="15" id="4ck-0Y-B6D"/>
+                    <constraint firstItem="3Zs-hu-1h5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5VO-eC-c8x"/>
+                    <constraint firstItem="EK6-S8-7qG" firstAttribute="top" secondItem="3Zs-hu-1h5" secondAttribute="top" id="5dh-RZ-mfl"/>
+                    <constraint firstItem="5p0-PB-8kW" firstAttribute="bottom" secondItem="3Zs-hu-1h5" secondAttribute="bottom" id="5j5-5b-kgs"/>
+                    <constraint firstItem="jQq-UV-aUT" firstAttribute="centerY" secondItem="EK6-S8-7qG" secondAttribute="centerY" id="GUX-qw-ptR"/>
+                    <constraint firstItem="jQq-UV-aUT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EK6-S8-7qG" secondAttribute="trailing" constant="15" id="H1A-yj-erl"/>
+                    <constraint firstItem="3Zs-hu-1h5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Ng2-0m-fr8"/>
+                    <constraint firstItem="eui-vT-wyu" firstAttribute="leading" secondItem="5p0-PB-8kW" secondAttribute="trailing" constant="15" id="Pol-m3-Z6L"/>
+                    <constraint firstItem="5p0-PB-8kW" firstAttribute="leading" secondItem="EK6-S8-7qG" secondAttribute="leading" id="QWC-9D-jLr"/>
+                    <constraint firstAttribute="trailing" secondItem="jQq-UV-aUT" secondAttribute="trailing" constant="15" id="beq-hb-ip4"/>
+                    <constraint firstItem="jQq-UV-aUT" firstAttribute="trailing" secondItem="eui-vT-wyu" secondAttribute="trailing" id="gma-mB-Auw"/>
+                    <constraint firstItem="eui-vT-wyu" firstAttribute="bottom" secondItem="3Zs-hu-1h5" secondAttribute="bottom" id="y9M-N0-MoQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="detail" destination="5p0-PB-8kW" id="Dsi-Bg-3um"/>
+                <outlet property="headImg" destination="3Zs-hu-1h5" id="3Q9-KY-Zv9"/>
+                <outlet property="nickName" destination="EK6-S8-7qG" id="eIR-Gz-NRK"/>
+                <outlet property="time" destination="jQq-UV-aUT" id="1Gi-N0-hxj"/>
+                <outlet property="unreadMsgCount" destination="eui-vT-wyu" id="fwb-fJ-fTg"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="message_1.png" width="23" height="15"/>
+        <image name="wallet_11.png" width="70" height="45"/>
+    </resources>
+</document>

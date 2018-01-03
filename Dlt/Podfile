@@ -1,0 +1,34 @@
+platform :ios, '8.0'
+use_frameworks!
+
+target 'Dlt' do
+
+ pod 'AFNetworking'
+ pod 'MJExtension'
+ pod 'MBProgressHUD', '~> 0.9.1'
+ pod 'FMDB'
+ pod 'SDAutoLayout'
+ pod 'YYKit'
+ pod 'SDWebImage', '~>3.8'
+# pod 'Masonry'
+ pod 'ReactiveObjC'
+ pod 'IQKeyboardManager', '~> 5.0.6’
+ pod 'DateTools', '~> 2.0.0'
+ pod 'TZImagePickerController', '~> 1.7.9'
+ pod 'M80AttributedLabel'
+# pod 'WechatShortVideo'
+ pod 'MJRefresh', '~> 3.1.12'
+pod'ActionSheetPicker-3.0'
+ pod 'BMKLocationKit'
+ #SDK
+ pod 'AlipaySDK-2.0', '~> 15.0.2'
+ pod 'RongCloudIM/IMLib', '~> 2.8.3'
+ pod 'RongCloudIM/IMKit', '~> 2.8.3'
+# pod 'RongCloudIM/CallLib', '~> 2.8.3'
+# pod 'RongCloudIM/CallKit', '~> 2.8.3'
+# pod 'RongCloudIM/RedPacket'     # 包含 AlipaySDK
+ pod 'SDCycleScrollView'
+ pod 'Objective-LevelDB'
+ pod 'SAMKeychain'
+ pod 'WechatOpenSDK'
+end

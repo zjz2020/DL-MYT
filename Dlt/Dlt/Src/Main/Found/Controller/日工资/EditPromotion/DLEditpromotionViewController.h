@@ -1,0 +1,13 @@
+//
+//  DLEditpromotionViewController.h
+//  Dlt
+//
+//  Created by USER on 2017/9/15.
+//  Copyright © 2017年 mr_chen. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface DLEditpromotionViewController : UIViewController
+@property (nonatomic , assign)BOOL islink;
+@end
