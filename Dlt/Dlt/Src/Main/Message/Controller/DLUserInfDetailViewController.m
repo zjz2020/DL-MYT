@@ -467,6 +467,7 @@ static NSString *const kClassinfomationCell = @"kClassinfomationCell_identifier"
                              };
     @weakify(self)
     [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
+        //NSLog(@"%@",response);
         @strongify(self)
         if ([response[@"code"] integerValue] == 1) {
             DLTUserProfile *model = [DLTUserProfile modelWithJSON:response[@"data"]];

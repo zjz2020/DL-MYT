@@ -10,6 +10,7 @@
 
 @interface DLDailyWageViewController : UIViewController
 @property (nonatomic , strong)NSString *cityCode;
+@property (nonatomic , strong)NSString *URLSTR;
 @property (nonatomic , assign)BOOL isAdvertiser;
 
 @end

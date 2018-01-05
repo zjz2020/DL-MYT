@@ -71,7 +71,10 @@ form.submit();\
     _webView.mainView = self;
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    str  = [NSString stringWithFormat:@"%@/daywage",BASE_IMGURL];
+    if (_URLSTR) {
+        str = [NSString stringWithFormat:@"%@/%@",BASE_IMGURL,_URLSTR];
+    }else{
+        str  = [NSString stringWithFormat:@"%@/daywage",BASE_IMGURL];}
     NSDictionary *params = @{
                              @"token" : [DLTUserCenter userCenter].token,
                              @"uid" : [DLTUserCenter userCenter].curUser.uid,
@@ -98,7 +101,11 @@ form.submit();\
                              @"uid" : user.uid
                              };
     
-    NSString *advUrl = [NSString stringWithFormat:@"%@promote/IsAder",BASE_URL];
+    NSString *advUrl;
+    
+        advUrl = [NSString stringWithFormat:@"%@promote/IsAder",BASE_URL];
+    
+    
     [BANetManager ba_request_POSTWithUrlString:advUrl parameters:params successBlock:^(id response) {
         
         NSString *STR = [NSString stringWithFormat:@"%@",[response valueForKey:@"data"][@"isAder"]];

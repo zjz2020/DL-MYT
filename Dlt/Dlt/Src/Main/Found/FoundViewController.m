@@ -26,15 +26,39 @@
 #import <BMKLocationkit/BMKLocationAuth.h>
 #define FoundCellIdenifer @"FoundCellIdenifer"
 #define GroupandStoreCellIdenifer @"GroupandStoreCellIdenifer"
-
+#define HHHH 23
 @interface FoundViewController () <
   STQRCodeControllerDelegate,BMKLocationManagerDelegate,BMKLocationAuthDelegate
 >
 @property (nonatomic ,strong)BMKLocationManager *locationManager;
+@property (nonatomic , strong)NSString * ispromote;
 @end
 
 @implementation FoundViewController
-
+-(void)viewWillAppear:(BOOL)animated{
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSString *url = [NSString stringWithFormat:@"%@promote/PromoterStatus",BASE_URL];
+    NSDictionary *params = @{
+                             @"token" : [DLTUserCenter userCenter].token,
+                             @"uid" : user.uid
+                             };
+    @weakify(self)
+    [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
+        @strongify(self)
+         dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *str = [NSString stringWithFormat:@"%@",response[@"data"][@"status"]];
+        if ([str isEqualToString:@"0"]&&[[NSUserDefaults standardUserDefaults]boolForKey:@"UserIsPromoter"]) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"UserIsPromoter"];
+            [self.tableView reloadData];
+        }else if ([str isEqualToString:@"2"]&&![[NSUserDefaults standardUserDefaults]boolForKey:@"UserIsPromoter"]){
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"UserIsPromoter"];
+            [self.tableView reloadData];
+        }
+         });
+    } failureBlock:^(NSError *error) {
+       
+    } progress:nil];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -47,7 +71,12 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    if (HHHH == 1) {
+        return 5;
+    }else{
+        return 3;
+    }
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -66,6 +95,17 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (HHHH == 1) {
+      return   [self Administrators:tableView IndexPath:indexPath];
+    }else{
+       return   [self noAdministrators:tableView IndexPath:indexPath];
+    }
+   
+    return nil;
+    
+    
+}
+-(UITableViewCell *)Administrators:(UITableView *)tableView IndexPath:(NSIndexPath *)indexPath{
     NSUInteger row = indexPath.row;
     if (row == 0) {
         FoundCell * cell = [tableView dequeueReusableCellWithIdentifier:FoundCellIdenifer];
@@ -82,27 +122,27 @@
         if (cell == nil) {
             cell = [[GroupandStoreCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:GroupandStoreCellIdenifer];
         }
-   
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    [cell file:@{@"icon":@"friends_01",@"title":@"热门蚂蚁群"}];
-     
-
-
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell file:@{@"icon":@"friends_01",@"title":@"热门蚂蚁群"}];
+        
+        
+        
         return cell;
-
+        
     }else if (row==2)
     {
         FoundCell * cell = [tableView dequeueReusableCellWithIdentifier:FoundCellIdenifer];
         if (cell == nil) {
             cell = [[FoundCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FoundCellIdenifer];
         }
-
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    [cell file:@{@"icon":@"friends_02",@"title":@"新手推荐"}];
-
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell file:@{@"icon":@"friends_02",@"title":@"新手推荐"}];
+        
         
         return cell;
-
+        
     }else if (row==3)
     {
         FoundCell * cell = [tableView dequeueReusableCellWithIdentifier:FoundCellIdenifer];
@@ -111,9 +151,9 @@
         }
         
         [cell file:@{@"icon":@"friends_03",@"title":@"扫一扫"}];
-
+        
         return cell;
-
+        
     }else if (row==4)
     {
         GroupandStoreCell * cell = [tableView dequeueReusableCellWithIdentifier:GroupandStoreCellIdenifer];
@@ -122,18 +162,67 @@
         }
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
-        [cell file:@{@"icon":@"friends_39",@"title":@"日工资"}];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsPromoter"]) {
+            [cell file:@{@"icon":@"friends_39",@"title":@"日工资"}];
+        }else{
+            [cell file:@{@"icon":@"friends_426",@"title":@"申请推广员"}];
+        }
         
         
-
+        
+        
         return cell;
-       
-
+        
+        
     }
     return nil;
-    
-    
+}
+-(UITableViewCell *)noAdministrators:(UITableView *)tableView IndexPath:(NSIndexPath *)indexPath{
+    NSUInteger row = indexPath.row;
+    if (row == 0) {
+        FoundCell * cell = [tableView dequeueReusableCellWithIdentifier:FoundCellIdenifer];
+        if (cell == nil) {
+            cell = [[FoundCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FoundCellIdenifer];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell file:@{@"icon":@"friends_00",@"title":@"蚂蚁圈"}];
+        
+        return cell;
+    }else if (row ==1)
+    {
+        FoundCell * cell = [tableView dequeueReusableCellWithIdentifier:FoundCellIdenifer];
+        if (cell == nil) {
+            cell = [[FoundCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FoundCellIdenifer];
+        }
+        
+        [cell file:@{@"icon":@"friends_03",@"title":@"扫一扫"}];
+        
+        return cell;
+        
+    }else if (row==2)
+    {
+        
+        GroupandStoreCell * cell = [tableView dequeueReusableCellWithIdentifier:GroupandStoreCellIdenifer];
+        if (cell == nil) {
+            cell = [[GroupandStoreCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:GroupandStoreCellIdenifer];
+        }
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsPromoter"]) {
+            [cell file:@{@"icon":@"friends_39",@"title":@"日工资"}];
+        }else{
+            [cell file:@{@"icon":@"friends_426",@"title":@"申请推广员"}];
+        }
+        
+        
+        
+        return cell;
+        
+        
+        
+    }
+    return nil;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -145,8 +234,31 @@
 
     }else if (row==1 || row == 2)
     {
-      DLTAntColonyAndNoviceGuideViewController *vc = [[DLTAntColonyAndNoviceGuideViewController alloc] initAntColonyAndNoviceGuideViewControllerWithType:(row == 1)? DLTAntColonyAndNoviceGuideTypeAntColony :DLTAntColonyAndNoviceGuideTypeNoviceGuide];
-      [self.navigationController pushViewController:vc animated:YES];
+        if (HHHH == 1) {
+            DLTAntColonyAndNoviceGuideViewController *vc = [[DLTAntColonyAndNoviceGuideViewController alloc] initAntColonyAndNoviceGuideViewControllerWithType:(row == 1)? DLTAntColonyAndNoviceGuideTypeAntColony :DLTAntColonyAndNoviceGuideTypeNoviceGuide];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            if ( row == 1) {
+                STQRCodeController *codeVC = [[STQRCodeController alloc]init];
+                codeVC.delegate = self;
+                BaseNC *navVC = [[BaseNC alloc]initWithRootViewController:codeVC];
+                [self presentViewController:navVC animated:YES completion:nil];
+            }else{
+                 if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsPromoter"]) {
+                [DLAlert alertShowLoad];
+                     [self bmkLocation];
+
+                 }else{
+                     DLDailyWageViewController *sdView = [DLDailyWageViewController new];
+                     sdView.URLSTR = @"daywage/applypromoter";
+                     sdView.cityCode = @"100000";
+                     [self.navigationController pushViewController:sdView animated:YES];
+                     }
+             
+
+            }
+        }
+      
       
     }else if (row == 3){
       STQRCodeController *codeVC = [[STQRCodeController alloc]init];
@@ -156,8 +268,17 @@
    }
     else if(row == 4){
   //  [DLAlert alertWithText:@"该功能暂未开启"];
-        [DLAlert alertShowLoad];
-        [self bmkLocation];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsPromoter"]) {
+            [DLAlert alertShowLoad];
+            [self bmkLocation];
+            
+        }else{
+            DLDailyWageViewController *sdView = [DLDailyWageViewController new];
+            sdView.URLSTR = @"daywage/applypromoter";
+            sdView.cityCode = @"100000";
+            [self.navigationController pushViewController:sdView animated:YES];
+        }
+       
     }
   
   
@@ -196,17 +317,17 @@
         }
         if (location) {//得到定位信息，添加annotation
             
-            
-            if (location.rgcData) {
-                 [DLAlert alertHideLoad];
-                DLDailyWageViewController *sdView = [DLDailyWageViewController new];
-               
-                sdView.cityCode  =  location.rgcData.adCode;
-                [self.navigationController pushViewController:sdView animated:YES];
+            [DLAlert alertHideLoad];
+            DLDailyWageViewController *sdView = [DLDailyWageViewController new];
+            if (location.rgcData.countryCode == 0) {
                 
-               
+                NSString *cody = [NSString stringWithFormat:@"%@00",[location.rgcData.adCode substringToIndex:location.rgcData.adCode.length - 2]];
+                sdView.cityCode  =  cody;
                 
+            }else{
+                sdView.cityCode  =  location.rgcData.countryCode;
             }
+            [self.navigationController pushViewController:sdView animated:YES];
         }
         
     }];

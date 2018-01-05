@@ -321,6 +321,7 @@ static DLTUserCenter *_userCenter = nil;
                                   parameters:params
                                 successBlock:^(id response) {
                                       @strongify(self)
+                                   // NSLog(@"%@",response);
                                       if ([response[@"code"] integerValue] == 1) {
                                         [self _updateUserInfo:response[@"data"]];
                                       }
