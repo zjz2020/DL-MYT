@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [self httpIsPromoterData];
     [self setupAllChildViewControllers];
     
 //    UIView * backview = [[UIView alloc]initWithFrame:RectMake_LFL(0, 0, WIDTH, 49)];
@@ -259,5 +259,48 @@
 //    return image;
 //}
 
+-(void)httpIsPromoterData{
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSDictionary *params = @{
+                             @"token" : [DLTUserCenter userCenter].token,
+                             @"uid" : user.uid
+                             };
+    
+    NSString *advUrl = [NSString stringWithFormat:@"%@promote/IsPromoter",BASE_URL];
+    [BANetManager ba_request_POSTWithUrlString:advUrl parameters:params successBlock:^(id response) {
+        NSLog( @"%@",response);
+        NSString *STR = [NSString stringWithFormat:@"%@",[response valueForKey:@"data"][@"IsPromoter"]];
+        if ([STR isEqualToString:@"0"]) {
+            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"UserIsPromoter"];
 
+        }else{
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"UserIsPromoter"];
+
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    } progress:nil];
+    
+   
+    NSString *promoteurl = [NSString stringWithFormat:@"%@promote/PromoterStatus",BASE_URL];
+    NSDictionary *promoteparams = @{
+                             @"token" : [DLTUserCenter userCenter].token,
+                             @"uid" : user.uid
+                             };
+    @weakify(self)
+    [BANetManager ba_request_POSTWithUrlString:promoteurl parameters:promoteparams successBlock:^(id response) {
+        @strongify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *str = [NSString stringWithFormat:@"%@",response[@"data"][@"status"]];
+            if ([str isEqualToString:@"0"]) {
+                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"UserIsPromoter"];
+            }else if ([str isEqualToString:@"2"]){
+                  [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"UserIsPromoter"];
+            }
+        });
+    } failureBlock:^(NSError *error) {
+        
+    } progress:nil];
+}
 @end

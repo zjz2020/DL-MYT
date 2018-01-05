@@ -51,8 +51,16 @@
     self.wageBtn.titleLabel.width_sd = 100;
 //    self.wageBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
     [self.wageBtn addTarget:self action:@selector(wage:) forControlEvents:UIControlEventTouchUpInside];
-    [self.wageBtn setImage:[UIImage imageNamed:@"wallet_06"] forState:UIControlStateNormal];
-    [self.wageBtn setTitle:@"日工资" forState:UIControlStateNormal];
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UserIsPromoter"]) {
+         [self.wageBtn setTitle:@"日工资" forState:UIControlStateNormal];
+            [self.wageBtn setImage:[UIImage imageNamed:@"wallet_06"] forState:UIControlStateNormal];
+
+    }else{
+         [self.wageBtn setTitle:@"申请推广员" forState:UIControlStateNormal];
+        [self.wageBtn setImage:[UIImage imageNamed:@"friends_426"] forState:UIControlStateNormal];
+
+    }
+   
     [self.wageBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.wageBtn.titleLabel.font = AdaptedFontSize(12);
     [self.wageBtn.titleLabel sizeToFit];

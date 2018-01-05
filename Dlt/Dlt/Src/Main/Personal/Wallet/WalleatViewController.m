@@ -250,9 +250,17 @@
             };
             //日工资
             cell.wageClick = ^(UIButton *btn) {
-                [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(bmkLocation) object:nil];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsPromoter"]) {
+                    [DLAlert alertShowLoad];
+                    [self bmkLocation];
+                    
+                }else{
+                    DLDailyWageViewController *sdView = [DLDailyWageViewController new];
+                    sdView.URLSTR = @"daywage/applypromoter";
+                    sdView.cityCode = @"100000";
+                    [self.navigationController pushViewController:sdView animated:YES];
+                }
                 
-                [self performSelector:@selector(bmkLocation) withObject:nil afterDelay:0.4f];
             };
             
             return cell;
@@ -306,8 +314,17 @@
                 [self.navigationController pushViewController:selectorfriend animated:YES];
             };
             cell.wageClick = ^(UIButton *btn) {
-                [DLAlert alertShowLoad];
-                [self bmkLocation];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsPromoter"]) {
+                    [DLAlert alertShowLoad];
+                    [self bmkLocation];
+                    
+                }else{
+                    DLDailyWageViewController *sdView = [DLDailyWageViewController new];
+                    sdView.URLSTR = @"daywage/applypromoter";
+                    sdView.cityCode = @"100000";
+                    [self.navigationController pushViewController:sdView animated:YES];
+                }
+                
             };
             return cell;
         }
@@ -346,16 +363,17 @@
             [self.navigationController pushViewController:sdView animated:YES];
         }
         if (location) {//得到定位信息，添加annotation
-            
-             [DLAlert alertHideLoad];
-            if (location.rgcData) {
-                DLDailyWageViewController *sdView = [DLDailyWageViewController new];
-                sdView.cityCode  =  location.rgcData.adCode;
-                [self.navigationController pushViewController:sdView animated:YES];
+            [DLAlert alertHideLoad];
+            DLDailyWageViewController *sdView = [DLDailyWageViewController new];
+            if (location.rgcData.countryCode == 0) {
                 
+                NSString *cody = [NSString stringWithFormat:@"%@00",[location.rgcData.adCode substringToIndex:location.rgcData.adCode.length - 2]];
+                sdView.cityCode  =  cody;
                 
-                
+            }else{
+                sdView.cityCode  =  location.rgcData.countryCode;
             }
+            [self.navigationController pushViewController:sdView animated:YES];
         }
         
     }];
