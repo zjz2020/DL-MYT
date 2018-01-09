@@ -24,6 +24,7 @@
 @property (nonatomic, copy  ) NSString  *balance;// 余额
 @property (nonatomic, copy  ) NSString  *uid;
 @property (nonatomic, copy  ) NSString  *token;
+@property (nonatomic, copy  ) NSString  *type;
 @property (nonatomic, assign) BOOL    sex;
 @property (nonatomic, assign) BOOL isFriend;
 

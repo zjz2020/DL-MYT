@@ -29,7 +29,8 @@ form.submit();\
 #import "DLThirdShare.h"
 #import "DLMyExtionViewController.h"
 #import "DLFirstBillViewController.h"
-@interface SDWebView ()<SDPhotoBrowserDelegate>{
+#import <WXApi.h>
+@interface SDWebView ()<SDPhotoBrowserDelegate,WXApiDelegate>{
     BOOL _displayHTML;  //  显示页面元素
     BOOL _displayCookies;// 显示页面Cookies
     BOOL _displayURL;// 显示即将调转的URL
@@ -57,7 +58,14 @@ form.submit();\
     [self setDefaultValue];
     return self;
 }
-
++ (instancetype)WebViewInstance {
+    static SDWebView *sdWebView = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sdWebView = [[SDWebView alloc] init];
+    });
+    return sdWebView;
+}
 - (instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration {
     WKWebViewConfiguration *configer = [[WKWebViewConfiguration alloc] init];
     configer.userContentController = [[WKUserContentController alloc] init];
@@ -70,6 +78,7 @@ form.submit();\
     [configer.userContentController addScriptMessageHandler:self name:@"DaywageRecord"];
     [configer.userContentController addScriptMessageHandler:self name:@"ApplyPromote"];
     [configer.userContentController addScriptMessageHandler:self name:@"CopyTextMOdel"];
+     [configer.userContentController addScriptMessageHandler:self name:@"WXBinding"];
     self = [super initWithFrame:frame configuration:configer];
     return self;
 }
@@ -135,6 +144,7 @@ form.submit();\
     if ([message.name isEqualToString:@"DaywageRecord"]) {
         DLFirstBillViewController *sdView = [DLFirstBillViewController new];
         [_mainView.navigationController pushViewController:sdView animated:YES];
+      
     }
     //拷贝文字
     if ([message.name isEqualToString:@"CopyTextMOdel"]) {
@@ -155,10 +165,76 @@ form.submit();\
         [alertview show];
 
     }
-
+    //微信绑定
+    if ([message.name isEqualToString:@"WXBinding"]) {
+        [self wxBinging];
+        
+        
+    }
     
+
+}
+-(void)wxBinging{
+    if (![WXApi isWXAppInstalled]) {
+        [DLAlert alertWithText:@"请先安装“微信”客户端"];
+        return;
+    }
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(getWeiXinOpenId:) name:@"WEIXINBINDING" object:nil];
+    SendAuthReq* req =[[SendAuthReq alloc ] init ];
+    req.scope = @"snsapi_userinfo" ;
+    req.state = @"mayitongAPP";
+    
+    [WXApi sendReq:req];
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"WEIXINBINDING" object:nil];
+    //  这里清除或者不清除cookies 按照业务要求
+    //    [self removeCookies];
 }
 
+
+//通过code获取access_token，openid，unionid
+- (void)getWeiXinOpenId:(NSNotification *)not{
+
+    NSString *AppSerect = @"25745ab858b00be11f67845053cde62f";
+    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx33af1f1e0e029d19&secret=%@&code=%@&grant_type=authorization_code",AppSerect,not.object];
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *zoneUrl = [NSURL URLWithString:url];
+        NSString *zoneStr = [NSString stringWithContentsOfURL:zoneUrl encoding:NSUTF8StringEncoding error:nil];
+        NSData *data = [zoneStr dataUsingEncoding:NSUTF8StringEncoding];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (data){
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                NSString *openID = dic[@"openid"];
+                NSString *accessToken = dic[@"access_token"];
+                [self getUserInfoWithAccessToken:accessToken andOpenId:openID];
+            }
+        });
+    });
+    
+}
+- (void)getUserInfoWithAccessToken:(NSString *)accessToken andOpenId:(NSString *)openId{
+    
+    NSString *urlString =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",accessToken,openId];
+    [BANetManager ba_requestWithType:BAHttpRequestTypeGet urlString:urlString parameters:nil successBlock:^(id response) {
+        NSString *detailsStr = [NSString stringWithFormat:@"{{%@}}{{%@}}{{%@}}",response[@"headimgurl"],response[@"nickname"],response[@"openid"]];
+        NSString *js = [NSString stringWithFormat:@"akertWxBinging('%@')",detailsStr];
+        [self evaluateJavaScript:js completionHandler:^(id _Nullable rulest, NSError * _Nullable error) {
+            //            if (error) {
+            //                NSLog(@"错误:%@", error.localizedDescription);
+            //            }else{
+            //                NSLog(@"成功了");
+            //            }
+            
+        }];
+    } failureBlock:^(NSError *error) {
+        
+    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+        
+    }];
+    
+}
 - (UIImage *)handleImageWithURLStr:(NSString *)imageURLStr {
     
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURLStr]];
@@ -412,10 +488,7 @@ form.submit();\
     }];
 }
 
-- (void)dealloc {
-    //  这里清除或者不清除cookies 按照业务要求
-//    [self removeCookies];
-}
+
 
 
 

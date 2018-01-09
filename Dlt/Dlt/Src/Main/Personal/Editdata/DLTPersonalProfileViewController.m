@@ -357,7 +357,7 @@ TZImagePickerControllerDelegate
 #pragma mark - 数据请求
 
 - (void)dl_networkForUserInfo {
-  [DLT_USER_CENTER requestUpdateUserInfo];
+  //[DLT_USER_CENTER requestUpdateUserInfo];
 }
 
 /// 获取群数据
@@ -373,7 +373,7 @@ TZImagePickerControllerDelegate
                                     @strongify(self)
                                     if ([response[@"code"] integerValue] == 1) {
                                       NSArray *models = response[@"data"];
-                                      
+                                        
                                       NSMutableArray *modelArray = [NSMutableArray new];
                                       for (NSDictionary *model in models) {
                                         DLGroupsInfo *info = [DLGroupsInfo modelWithDictionary:model];

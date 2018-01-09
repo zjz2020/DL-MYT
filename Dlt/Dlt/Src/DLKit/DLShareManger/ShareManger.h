@@ -10,7 +10,7 @@
 #define SHAREMANAGER [ShareManger ba_shareManage]
 //bmdehs6pbik1s
 //pkfcgjstp9u28      正式环境
-#define RONGCLOUD_IM_APPKEY @"pkfcgjstp9u28" //online key
+#define RONGCLOUD_IM_APPKEY @"bmdehs6pbik1s" //online key
 
 @interface ShareManger : NSObject
 

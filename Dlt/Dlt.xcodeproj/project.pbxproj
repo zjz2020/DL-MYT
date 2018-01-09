@@ -190,6 +190,8 @@
 		CE1B5F841ECCA8F500C39AC6 /* BAModal.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B5F821ECCA8F500C39AC6 /* BAModal.m */; };
 		CE1B5F8A1ECD3C1100C39AC6 /* UesrSqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B5F891ECD3C1100C39AC6 /* UesrSqlite.m */; };
 		CE1B5F8D1ECD3F7200C39AC6 /* BABaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B5F8C1ECD3F7200C39AC6 /* BABaseModel.m */; };
+		CE21367320032208000EB709 /* KeyChainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21367020032207000EB709 /* KeyChainManager.m */; };
+		CE21367420032208000EB709 /* KeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21367220032207000EB709 /* KeyChain.m */; };
 		CE24A6021FDFC979002373B1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE24A6011FDFC979002373B1 /* CoreLocation.framework */; };
 		CE24A6091FDFE21B002373B1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE24A6081FDFE21B002373B1 /* SystemConfiguration.framework */; };
 		CE24A60B1FDFE225002373B1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE24A60A1FDFE225002373B1 /* Security.framework */; };
@@ -960,6 +962,10 @@
 		CE1B5F891ECD3C1100C39AC6 /* UesrSqlite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UesrSqlite.m; sourceTree = "<group>"; };
 		CE1B5F8B1ECD3F7200C39AC6 /* BABaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BABaseModel.h; sourceTree = "<group>"; };
 		CE1B5F8C1ECD3F7200C39AC6 /* BABaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BABaseModel.m; sourceTree = "<group>"; };
+		CE21366F20032206000EB709 /* KeyChainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainManager.h; sourceTree = "<group>"; };
+		CE21367020032207000EB709 /* KeyChainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainManager.m; sourceTree = "<group>"; };
+		CE21367120032207000EB709 /* KeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChain.h; sourceTree = "<group>"; };
+		CE21367220032207000EB709 /* KeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChain.m; sourceTree = "<group>"; };
 		CE24A6011FDFC979002373B1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CE24A6081FDFE21B002373B1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE24A60A1FDFE225002373B1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -3667,6 +3673,10 @@
 		CEFC37261EC301F60036C738 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				CE21367120032207000EB709 /* KeyChain.h */,
+				CE21367220032207000EB709 /* KeyChain.m */,
+				CE21366F20032206000EB709 /* KeyChainManager.h */,
+				CE21367020032207000EB709 /* KeyChainManager.m */,
 				CE80FA271FD6ABF500BF0B3B /* XWCountryCode */,
 				CEFC37361EC31F240036C738 /* LoginViewController.h */,
 				CEFC37371EC31F240036C738 /* LoginViewController.m */,
@@ -4198,6 +4208,7 @@
 				50F32F061EE828D1009E29FE /* DLRedpacketCell.m in Sources */,
 				CEE63D571FA34EDC00ED882F /* DLTComposeToolbar.m in Sources */,
 				865635A61EDAAF0A00802184 /* M80AttributedLabel+Extension.m in Sources */,
+				CE21367320032208000EB709 /* KeyChainManager.m in Sources */,
 				CECCE9D11FA9671F008ACE4A /* ViewController+MASAdditions.m in Sources */,
 				CEE63D971FA34FF700ED882F /* WalletbalanceCell.m in Sources */,
 				CECCE9CD1FA9671E008ACE4A /* MASViewConstraint.m in Sources */,
@@ -4230,6 +4241,7 @@
 				CEE63D921FA34FF700ED882F /* GroupandStoreCell.m in Sources */,
 				50AD42B61EFAB99C00480785 /* DLChooseFriendsTableViewController.m in Sources */,
 				CEE63D941FA34FF700ED882F /* PersonalCell.m in Sources */,
+				CE21367420032208000EB709 /* KeyChain.m in Sources */,
 				50F2136C1EF151BE00114919 /* DLUserInfoHeadView.m in Sources */,
 				8611F7C21EF814D0005AA03F /* DLTAddPhotoTableViewCell.m in Sources */,
 				50053A731EDD192B009F95DB /* DLGroupMemberTableViewController.m in Sources */,
@@ -4614,7 +4626,7 @@
 					"\"${PODS_ROOT}/Headers/Public/WechatOpenSDK\"",
 				);
 				INFOPLIST_FILE = Dlt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4685,7 +4697,7 @@
 					"\"${PODS_ROOT}/Headers/Public/WechatOpenSDK\"",
 				);
 				INFOPLIST_FILE = Dlt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
