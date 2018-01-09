@@ -8,8 +8,9 @@
 
 #import <WebKit/WebKit.h>
 #import "DLDailyWageViewController.h"
+#import <WXApi.h>
 NS_ASSUME_NONNULL_BEGIN
-@interface SDWebView : WKWebView<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
+@interface SDWebView : WKWebView<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler,WXApiDelegate>
 @property (nonatomic , strong)DLDailyWageViewController *mainView;
 /**
  需要加载的URLString
@@ -42,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return WebviewVc实例
  */
 - (instancetype)initWithURLString:(NSString *)urlString;
-
++(instancetype)WebViewInstance;
 /**
  *  加载本地HTML页面
  *

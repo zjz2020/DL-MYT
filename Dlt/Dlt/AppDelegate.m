@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SDWebView.h"
 #import "LoginViewController.h"
 #import "MainTabbarViewController.h"
 #import "BaseNC.h"
@@ -24,7 +25,7 @@
 static NSString * const kWeChatAppKey = @"wx33af1f1e0e029d19";
 
 
-@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource>
+@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,WXApiDelegate>
 
 @end
 
@@ -270,7 +271,13 @@ didRegisterUserNotificationSettings:
     if ([[RCIM sharedRCIM] openExtensionModuleUrl:url]) {
         return YES;
     }
+    if ([WXApi handleOpenURL:url delegate:self]) {
+        return YES;
+    }
     if ([WXApi handleOpenURL:url delegate:[DLThirdShare thirdShareInstance]]) {
+        return YES;
+    }
+    if ([WXApi handleOpenURL:url delegate:[SDWebView WebViewInstance]]) {
         return YES;
     }
     return YES;
@@ -281,6 +288,9 @@ didRegisterUserNotificationSettings:
         return YES;
     }
     if ([WXApi handleOpenURL:url delegate:[DLThirdShare thirdShareInstance]]) {
+        return YES;
+    }
+    if ([WXApi handleOpenURL:url delegate:[SDWebView WebViewInstance]]) {
         return YES;
     }
     if ([url.host isEqualToString:@"safepay"]) {
@@ -365,6 +375,14 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
         });
     }];
 }
-
+-(void)onResp:(BaseResp *)resp{
+    SendAuthResp *aresp = (SendAuthResp *)resp;
+    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"mayitongAPP"])
+    {
+        NSString *code = aresp.code;
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"WEIXINBINDING" object:code];
+    }
+}
 
 @end

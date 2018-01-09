@@ -20,13 +20,13 @@
 #define DemoVC11URLPath2 @"http://chanyouji.com/api/users/likes/268717.json"
 
 
-//#define BASE_URL @"http://117.34.109.146:63425/api/"
-//#define BASE_IMGURL  @"http://117.34.109.146:63425"
+#define BASE_URL @"http://117.34.109.146:63425/api/"
+#define BASE_IMGURL  @"http://117.34.109.146:63425"
 
 //正式
 
-#define BASE_URL @"http://www.mayiton.com/api/"
-#define BASE_IMGURL  @"http://www.mayiton.com"
+//#define BASE_URL @"http://www.mayiton.com/api/"
+//#define BASE_IMGURL  @"http://www.mayiton.com"
 
 
 

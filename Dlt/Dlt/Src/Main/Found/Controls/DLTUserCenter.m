@@ -10,6 +10,7 @@
 #import "ZWBucket.h"
 #import "SAMKeychain+Extension.h"
 #import "RCHttpTools.h"
+#import "KeyChainManager.h"
 
 NSString *const DLTUserCenterUserInfoKey  = @"dltUserCenterUserInfoKey";
 NSString *const DLTKeychainserviceNameKey  = @"dltKeychainserviceNameKey";
@@ -71,16 +72,22 @@ static DLTUserCenter *_userCenter = nil;
 - (RACSignal *)login:(NSString *)account password:(NSString *)pwd {
   NSParameterAssert(account);
   NSParameterAssert(pwd);
-   
+    if(![KeyChainManager readUUID]){
+        NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        [KeyChainManager saveUUID:idfv];
+    }
   @weakify(self);
   return [[[[[RACSignal
           createSignal:^RACDisposable *(id<RACSubscriber>subscriber) {
             @strongify(self);
-            [self remoteToken: @{@"account":account,@"password":pwd}
+              NSString  * saveKeyAccountStr = [KeyChainManager readUUID];
+              
+              [self remoteToken: @{@"account":account,@"password":pwd,@"login_device_id":saveKeyAccountStr}
                  successBlock:^(id response) {   // remote token
                     @strongify(self);
                    int code = [response[@"code"] intValue];
                    if (code == 1 || code == 2 ){  // 登录成功
+                      
                      NSString *tokneStr = response[@"data"][@"token"];
                      DLTUserProfile *user = [self _updateUserInfo:response[@"data"]];
                      ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
@@ -94,6 +101,7 @@ static DLTUserCenter *_userCenter = nil;
                                                     self->_onlineState = DltOnlineState_online;
                                                     [subscriber sendNext:response];
                                                     [subscriber sendCompleted];
+                                                     
                                                   }
                                                     error:^(RCConnectErrorCode status) {
                                                       @strongify(self); 
@@ -108,6 +116,7 @@ static DLTUserCenter *_userCenter = nil;
                      
                    }else{ // 去外部处理
                        if (code == 0) {
+                          
                            [subscriber sendError:[NSError errorWithDomain:@"登录出错了"
                                                                      code:10086
                                                                  userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%@",response[@"msg"]]
@@ -226,8 +235,8 @@ static DLTUserCenter *_userCenter = nil;
   ZWBucket.userDefault.rm(DLTUserCenterUserInfoKey); // 清理用户信息
   ZWBucket.userDefault.set(DLTUserLoggedKey, @NO);   // 变更用户登录状态
   ZWBucket.userDefault.rm(DLTUserTokenKey);
-  [[RCIM sharedRCIM] logout];
-  [[RCIMClient sharedRCIMClient] disconnect:NO];
+   [[RCIMClient sharedRCIMClient] logout];
+    
 }
 
 - (RACSignal *)updateUserProfile{
@@ -312,6 +321,8 @@ static DLTUserCenter *_userCenter = nil;
 
 - (void)requestUpdateUserInfo{
   NSString *url = [NSString stringWithFormat:@"%@UserCenter/userInfo",BASE_URL];
+    NSLog(@"AAAAAA%@",DLT_USER_CENTER.token);
+    NSLog(@"AAAAAAA%@",DLT_USER_CENTER.curUser.uid);
   NSDictionary *params = @{
                            @"token" : DLT_USER_CENTER.token,
                            @"uid" : DLT_USER_CENTER.curUser.uid
@@ -321,13 +332,15 @@ static DLTUserCenter *_userCenter = nil;
                                   parameters:params
                                 successBlock:^(id response) {
                                       @strongify(self)
-                                   // NSLog(@"%@",response);
+                                    NSLog(@"%@",response);
                                       if ([response[@"code"] integerValue] == 1) {
                                         [self _updateUserInfo:response[@"data"]];
                                       }
                                     } failureBlock:^(NSError *error) {
                                       
                                     } progress:nil];
+    
+   
 }
 
 /**

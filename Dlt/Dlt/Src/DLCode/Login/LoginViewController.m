@@ -6,6 +6,7 @@
 //  Copyright © 2017年 mr_chen. All rights reserved.
 //
 #import <RongIMKit/RongIMKit.h>
+#import "KeyChainManager.h"
 #import "RCDataBaseManager.h"
 #import "LoginViewController.h"
 #import "RegisteredViewController.h"
@@ -140,6 +141,10 @@
   
 //  [self test];
     [self addAgreementView];
+    if(![KeyChainManager readUUID]){
+        NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        [KeyChainManager saveUUID:idfv];
+    }
 }
 -(void)addAgreementView{
     UIView *agreeView = [UIView new];
@@ -351,6 +356,7 @@
 }
 #pragma mark ==== Click
 -(void)login:(UIButton *)sender{
+    
     [DLAlert alertShowLoad];
     [self.passwordField resignFirstResponder];
     [self.phoneField resignFirstResponder];
@@ -386,6 +392,7 @@
                 
                  [[RCIM sharedRCIM] setUserInfoDataSource:self];
                  [[RCIM sharedRCIM] setGroupInfoDataSource:self];
+                
            [[AppDelegate  shareAppdelegate] loginCompleted];
              });
          }
@@ -398,11 +405,9 @@
      }
      error:^(NSError * _Nullable error) {
          
-         if ( error.code == 10086) {
-              [DLAlert alertWithText:@"密码或者账号有误"];
-         }else{
+      
               [DLAlert alertWithText:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
-         }
+        
         
      }
      

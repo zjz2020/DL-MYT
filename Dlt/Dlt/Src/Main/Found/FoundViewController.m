@@ -26,17 +26,20 @@
 #import <BMKLocationkit/BMKLocationAuth.h>
 #define FoundCellIdenifer @"FoundCellIdenifer"
 #define GroupandStoreCellIdenifer @"GroupandStoreCellIdenifer"
-#define HHHH 23
+
 @interface FoundViewController () <
   STQRCodeControllerDelegate,BMKLocationManagerDelegate,BMKLocationAuthDelegate
 >
 @property (nonatomic ,strong)BMKLocationManager *locationManager;
 @property (nonatomic , strong)NSString * ispromote;
+@property (nonatomic , assign)int typeInt;
 @end
 
 @implementation FoundViewController
 -(void)viewWillAppear:(BOOL)animated{
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    
+    
     NSString *url = [NSString stringWithFormat:@"%@promote/PromoterStatus",BASE_URL];
     NSDictionary *params = @{
                              @"token" : [DLTUserCenter userCenter].token,
@@ -61,8 +64,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    _typeInt = [user.type integerValue];
+    NSLog(@"##########%d",_typeInt);
     [self.tableView registerClass:[FoundCell class] forCellReuseIdentifier:FoundCellIdenifer];
     [self.tableView registerClass:[GroupandStoreCell class] forCellReuseIdentifier:GroupandStoreCellIdenifer];
     
@@ -71,7 +75,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (HHHH == 1) {
+    if (_typeInt >= 10) {
         return 5;
     }else{
         return 3;
@@ -95,7 +99,7 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (HHHH == 1) {
+    if (_typeInt >= 10) {
       return   [self Administrators:tableView IndexPath:indexPath];
     }else{
        return   [self noAdministrators:tableView IndexPath:indexPath];
@@ -234,7 +238,7 @@
 
     }else if (row==1 || row == 2)
     {
-        if (HHHH == 1) {
+        if (_typeInt >= 10) {
             DLTAntColonyAndNoviceGuideViewController *vc = [[DLTAntColonyAndNoviceGuideViewController alloc] initAntColonyAndNoviceGuideViewControllerWithType:(row == 1)? DLTAntColonyAndNoviceGuideTypeAntColony :DLTAntColonyAndNoviceGuideTypeNoviceGuide];
             [self.navigationController pushViewController:vc animated:YES];
         }else{
