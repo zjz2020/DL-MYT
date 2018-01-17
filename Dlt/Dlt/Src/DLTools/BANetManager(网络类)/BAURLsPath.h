@@ -24,9 +24,9 @@
 #define BASE_IMGURL  @"http://117.34.109.146:63425"
 
 #else
-//正式
-#define BASE_URL @"http://www.mayiton.com/api/"
-#define BASE_IMGURL  @"http://www.mayiton.com"
+////正式
+//#define BASE_URL @"http://www.mayiton.com/api/"
+//#define BASE_IMGURL  @"http://www.mayiton.com"
 #endif
 
 #import "NSDictionary+Parser.h"

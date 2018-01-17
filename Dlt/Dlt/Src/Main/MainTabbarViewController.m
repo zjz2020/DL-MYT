@@ -265,7 +265,7 @@
 
 -(void)httpIsPromoterData{
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
-    //[[DLTUserCenter userCenter] requestUpdateUserInfo];
+   
     NSDictionary *params = @{
                              @"token" : [DLTUserCenter userCenter].token,
                              @"uid" : user.uid
