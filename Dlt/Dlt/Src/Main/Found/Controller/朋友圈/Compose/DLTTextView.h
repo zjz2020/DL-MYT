@@ -12,7 +12,7 @@
 
 @property (nonatomic , copy) NSString *placeholder;
 @property (nonatomic , strong) UIColor *placeholderColor;
-
+@property  (nonatomic , strong) UIViewController *mainView;
 - (void)resetTextView;
 
 @end

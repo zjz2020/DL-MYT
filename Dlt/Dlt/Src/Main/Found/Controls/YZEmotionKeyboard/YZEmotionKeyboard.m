@@ -99,6 +99,7 @@ static NSString * const ID = @"emotion";
         
         if (attachment) { // 表情
           str = attachment.emotionDescribe;
+            
             [strM appendString:str];
         } else { // 文字
             str = [_yz_textView.attributedText.string substringWithRange:range];
@@ -120,23 +121,24 @@ static NSString * const ID = @"emotion";
 // 点击表情
 - (void)didSelectEmotion:(NSNotification *)note
 {
+  
     YZTextAttachment *attachment = note.object;
-    
+   
     NSRange range = _yz_textView.selectedRange;
     
     // 设置textView的文字
     NSMutableAttributedString *textAttr = [[NSMutableAttributedString alloc] initWithAttributedString:_yz_textView.attributedText];
-    
+
     NSAttributedString *imageAttr = [NSMutableAttributedString attributedStringWithAttachment:attachment];
     
     [textAttr replaceCharactersInRange:_yz_textView.selectedRange withAttributedString:imageAttr];
+ 
     [textAttr addAttributes:@{NSFontAttributeName : _yz_textView.font} range:NSMakeRange(_yz_textView.selectedRange.location, 1)];
+
     
-    _yz_textView.attributedText = textAttr;
-    
-    // 会在textView后面插入空的,触发textView文字改变
-    [_yz_textView insertText:@""];
-    
+    [_yz_textView setAttributedText:textAttr];
+ 
+
     // 设置光标位置
     _yz_textView.selectedRange = NSMakeRange(range.location + 1, 0);
     
@@ -147,16 +149,23 @@ static NSString * const ID = @"emotion";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-- (void)setTextView:(UITextView *)textView
-{
+-(void)setTextView:(UIView *)textView{
     _textView  = textView;
     if (!([textView isKindOfClass:[UITextField class]] || [textView isKindOfClass:[UITextView class]])) {
         @throw [NSException exceptionWithName:@"Error" reason:@"传入UITextField或者UITextView" userInfo:nil];
     }
-    _yz_textView = textView;
+    _yz_textView = (UITextView *)textView;
     _yz_textView.inputView = self;
 }
+//- (void)setTextView:(UITextView *)textView
+//{
+//    _textView  = textView;
+//    if (!([textView isKindOfClass:[UITextField class]] || [textView isKindOfClass:[UITextView class]])) {
+//        @throw [NSException exceptionWithName:@"Error" reason:@"传入UITextField或者UITextView" userInfo:nil];
+//    }
+//    _yz_textView = textView;
+//    _yz_textView.inputView = self;
+//}
 
 - (void)setupCollectionView
 {

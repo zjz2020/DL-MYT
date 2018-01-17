@@ -74,14 +74,12 @@
 }
 
 - (void)setText:(NSString *)text {
-  
-  [super setText:text];
-  [self textDidChange];
+        [self setAttributedText:self.attributedText];
 }
 
 
 - (void)setAttributedText:(NSAttributedString *)attributedText {
-  
+    _mainView.navigationItem.rightBarButtonItem.enabled = YES;
   [super setAttributedText:attributedText];
   [self textDidChange];
 }

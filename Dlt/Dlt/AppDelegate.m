@@ -377,7 +377,8 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 }
 -(void)onResp:(BaseResp *)resp{
     SendAuthResp *aresp = (SendAuthResp *)resp;
-    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"mayitongAPP"])
+    //aresp.errCode== 0 &&
+    if([aresp.state isEqualToString:@"mayitongAPP"])
     {
         NSString *code = aresp.code;
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

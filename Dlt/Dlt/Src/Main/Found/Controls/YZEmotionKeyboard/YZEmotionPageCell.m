@@ -84,11 +84,11 @@ static NSString * const ID = @"emojicell";
         return;
     }
     YZEmotionCell *cell = (YZEmotionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-  
-    NSString *emotionName = _emotions[indexPath.row];
+    NSLog(@"%@",[_emotions[indexPath.row] class]);
+    //NSString *emotionName = _emotions[indexPath.row];
     YZTextAttachment *attachment = [[YZTextAttachment alloc] init];
     attachment.image = [cell.emotionButton backgroundImageForState:UIControlStateNormal];
-    attachment.emotionDescribe = [YZEmotionManager emotionToTextDict][emotionName];
+    attachment.emotionDescribe = [YZEmotionManager emotionToTextDict][_emotions[indexPath.row]];
     attachment.bounds = CGRectMake(0, -3, attachment.image.size.width, attachment.image.size.height);
     
     

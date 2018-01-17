@@ -212,20 +212,25 @@ form.submit();\
             }
         });
     });
+
     
 }
 - (void)getUserInfoWithAccessToken:(NSString *)accessToken andOpenId:(NSString *)openId{
     
     NSString *urlString =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",accessToken,openId];
+    NSLog(@"%@",urlString);
     [BANetManager ba_requestWithType:BAHttpRequestTypeGet urlString:urlString parameters:nil successBlock:^(id response) {
-        NSString *detailsStr = [NSString stringWithFormat:@"{{%@}}{{%@}}{{%@}}",response[@"headimgurl"],response[@"nickname"],response[@"openid"]];
+        NSString *name =[response[@"nickname"] stringByReplacingOccurrencesOfString:@";" withString:@""];
+        NSString *detailsStr = [NSString stringWithFormat:@"%@;%@;%@",response[@"headimgurl"],name,response[@"openid"]];
+        NSLog(@"%@",detailsStr);
         NSString *js = [NSString stringWithFormat:@"akertWxBinging('%@')",detailsStr];
+        [[NSNotificationCenter defaultCenter]removeObserver:self name:@"WEIXINBINDING" object:nil];
         [self evaluateJavaScript:js completionHandler:^(id _Nullable rulest, NSError * _Nullable error) {
-            //            if (error) {
-            //                NSLog(@"错误:%@", error.localizedDescription);
-            //            }else{
-            //                NSLog(@"成功了");
-            //            }
+                        if (error) {
+                            NSLog(@"错误:%@", error.localizedDescription);
+                        }else{
+                            NSLog(@"成功了");
+                        }
             
         }];
     } failureBlock:^(NSError *error) {
@@ -235,6 +240,7 @@ form.submit();\
     }];
     
 }
+
 - (UIImage *)handleImageWithURLStr:(NSString *)imageURLStr {
     
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURLStr]];

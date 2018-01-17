@@ -380,7 +380,6 @@
   [self dl_networkForAddArticleCommentText:content commentModel:_selectedCommentModel isAarticle:_commentArticle];
   [_textView resetInputView];
 }
-
 #pragma mark -
 #pragma mark - DLTCircleoffriendDetailHeadCellDelegate
 
