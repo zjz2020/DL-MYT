@@ -152,6 +152,7 @@ typedef NS_ENUM(NSInteger, DLTPublishDynamicType){
 - (void)setupTextView {
   DLTTextView *textView = [[DLTTextView alloc] initWithFrame:(CGRect){CGPointZero,self.view.width, 200}];
   textView.alwaysBounceVertical = YES ;
+  textView.mainView = self;
   textView.backgroundColor = [UIColor whiteColor];
   textView.placeholder = @"分享你的新鲜事吧";
   textView.placeholderColor = rgb(156, 156, 156);

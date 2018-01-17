@@ -19,7 +19,7 @@ target 'Dlt' do
 # pod 'WechatShortVideo'
  pod 'MJRefresh', '~> 3.1.12'
 pod'ActionSheetPicker-3.0'
- pod 'BMKLocationKit'
+ pod ' '
  #SDK
  pod 'AlipaySDK-2.0', '~> 15.0.2'
  pod 'RongCloudIM/IMLib', '~> 2.8.3'

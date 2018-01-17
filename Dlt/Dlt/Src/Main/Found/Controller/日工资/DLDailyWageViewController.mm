@@ -59,7 +59,7 @@ form.submit();\
     negativeSpacer.width = -12;
     
     self.navigationItem.leftBarButtonItems=@[negativeSpacer,item];
-    self.navigationItem.title = @"日工资";
+ 
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -135,7 +135,7 @@ form.submit();\
             }
         }
         if ([keyPath isEqualToString:@"title"]) {
-            if (self.webView.title.length > 10) {
+            if (self.webView.title.length > 13) {
                 self.navigationItem.title = [self.webView.title substringToIndex:14];
             } else {
                 self.navigationItem.title = self.webView.title;
