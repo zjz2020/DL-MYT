@@ -28,6 +28,7 @@ static NSString * const kWeChatAppKey = @"wx33af1f1e0e029d19";
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
 #define GDKEY @"09743428909b1f7e88bfe1db55ae328b"
+#define iosSee @"temp/ios_display"
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,WXApiDelegate>
 //@property(nonatomic,strong)AMapLocationManager *locationManager;
 @end
@@ -101,9 +102,11 @@ didRegisterUserNotificationSettings:
     }
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //进行数据请求  判断是否是审核状态
+    [self judeIsAssessor];
+    
     [self isMyUncaughtExceptionHandler];
     [AMapServices sharedServices].apiKey = GDKEY;//配置高德key
-    [self getCityCodeAtFirst];
     // Override point for customization after application launch.
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _window.backgroundColor = [UIColor whiteColor];
@@ -159,18 +162,29 @@ didRegisterUserNotificationSettings:
 
       return YES;
 }
-//获取定位  城市编码
-- (void)getCityCodeAtFirst{
-//    self.locationManager = [[AMapLocationManager alloc] init];
-//    //设置最新距离过滤
-//    _locationManager.distanceFilter = 200;
-//    //是否开启返回逆地理信息  默认为NO
-//    [_locationManager setLocatingWithReGeocode:YES] ;
-////    locationManager.delegate = self;
-//    [_locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-//        [DLTUserCenter userCenter].cityCode = regeocode.adcode;
-//    }];
-//    [_locationManager startUpdatingLocation];
+
+- (void)judeIsAssessor{
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",BASE_URL,iosSee];
+    @weakify(self);
+    [BANetManager ba_requestWithType:BAHttpRequestTypeGet urlString:urlStr parameters:nil successBlock:^(id response) {
+//        @strongify(self);
+        NSLog(@"%@",response);
+        NSDictionary *dic = response[@"data"];
+        NSString *isDisplay = [dic stringValueForKey:@"isDisplay"];
+        if ([isDisplay isEqualToString:@"1"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:showMYKeyYes forKey:showMYKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:showMYKeyNo forKey:showMYKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    } failureBlock:^(NSError *error) {
+        @strongify(self);
+        [DLAlert alertWithText:@"请求失败" afterDelay:1.5];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self judeIsAssessor];
+        });
+    } progress:nil];
 }
 
 -(void)setUPkeyboardManager {

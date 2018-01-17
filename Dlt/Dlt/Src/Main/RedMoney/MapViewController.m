@@ -328,6 +328,10 @@
     [self.navigationController pushViewController:web animated:YES];
 }
 
+//#pragma mark DLPasswordInputViewDelegate
+//- (void)passwordInputView:(DLPasswordInputView *)passwordInputView inputPasswordText:(NSString *)password{
+//    [self beginOpenMayiControllWithPassWord:password type:<#(NSString *)#>]
+//}
 #pragma mark  数据请求
 
 //蚂蚁领红包
@@ -353,6 +357,7 @@
         }
     } failureBlock:^(NSError *error) {
         NSLog(@"GetRedMoney:%@",error);
+         [DLAlert alertWithText:@"操作失败" afterDelay:3];
     } progress:nil];
 }
 //4获取蚂蚁用户开放状态
@@ -450,6 +455,7 @@
         [self makeNearPeopleAndRedPacketWithDic:dic];
     } failureBlock:^(NSError *error) {
         NSLog(@"NearbyAnt:%@",error);
+        [DLAlert alertWithText:@"操作失败" afterDelay:3];
     } progress:nil];
 }
 //处理附近的人
@@ -528,7 +534,7 @@
         
         
     } failureBlock:^(NSError *error) {
-        NSLog(@"--%@",error);
+        [DLAlert alertWithText:@"操作失败" afterDelay:3];
     } progress:nil];
 }
 

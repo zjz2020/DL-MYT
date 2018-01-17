@@ -20,6 +20,8 @@
 @property (nonatomic , strong) UILabel         * introduceLabel;  //说说
 @property (nonatomic , strong) UIView          * lineView;        //线
 @property (nonatomic , strong) UIScrollView    * imageScrollView; //图片组
+@property (nonatomic , strong) UILabel         * noneLabel;       //没有图片
+
 
 @end
 
@@ -87,6 +89,14 @@
             make.height.equalTo(@(105));
         }];
         
+        [self.cardView addSubview:self.noneLabel];
+        [self.noneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.lineView.mas_bottom).offset(15);
+            make.centerX.equalTo(self.headImageView.mas_centerX);
+            make.width.equalTo(@(kScreenWidth * 0.853 * 0.9));
+            make.bottom.equalTo(@(-10));
+        }];
+        
     }
     return self;
 }
@@ -138,6 +148,11 @@
             [_imageScrollView addSubview:imageView];
         }
         [_imageScrollView setContentSize:CGSizeMake((10+105)*_model.photosArr.count - 10, 105)];
+        _imageScrollView.alpha = 1;
+        _noneLabel.alpha = 0;
+    }else{
+        _imageScrollView.alpha = 0;
+        _noneLabel.alpha = 1;
     }
 
     [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.55 initialSpringVelocity:1 / 0.55 options:0 animations:^{
@@ -233,6 +248,17 @@
         _imageScrollView.showsHorizontalScrollIndicator = NO;
     }
     return _imageScrollView;
+}
+
+-(UILabel *)noneLabel{
+    if(!_noneLabel){
+        _noneLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _noneLabel.textColor = SDColor(44, 44, 44, 1);
+        _noneLabel.font = [UIFont systemFontOfSize:20];
+        _noneLabel.text = @"暂无相关图片";
+        _noneLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _noneLabel;
 }
 
 

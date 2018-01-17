@@ -116,11 +116,15 @@
     FoundViewController * found = [[FoundViewController alloc]init];
      [self setupChildViewController:found title:@"发现" imageName:@"Okami_09" selectedImageName:@"friends_10"];
 
-//            GreatgodViewController * great = [[GreatgodViewController alloc]init];
-//              [self setupChildViewController:great title:@"大神" imageName:@"news_19" selectedImageName:@"Okami_10"];
-    //替换地图红包
-    MapViewController *mapVc = [[MapViewController alloc] init];
-    [self setupChildViewController:mapVc title:@"蚂蚁" imageName:@"mayi_151" selectedImageName:@"mayi_10"];
+    if ([self orShowRedPage]) {
+        //替换地图红包
+        MapViewController *mapVc = [[MapViewController alloc] init];
+        [self setupChildViewController:mapVc title:@"蚂蚁" imageName:@"mayi_151" selectedImageName:@"mayi_10"];
+        
+    } else {
+        GreatgodViewController * great = [[GreatgodViewController alloc]init];
+        [self setupChildViewController:great title:@"大神" imageName:@"news_19" selectedImageName:@"Okami_10"];
+    }
 
     FriendsViewController * friends = [[FriendsViewController alloc]init];
     
@@ -307,5 +311,13 @@
     } failureBlock:^(NSError *error) {
         
     } progress:nil];
+}
+//返回 是否显示红包
+- (BOOL)orShowRedPage{
+    NSString *key = [[NSUserDefaults standardUserDefaults] objectForKey:showMYKey];
+    if ([key isEqualToString:showMYKeyYes]) {
+        return YES;
+    }
+    return NO;
 }
 @end
