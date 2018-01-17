@@ -9,22 +9,35 @@
 #import "MaYiRedPacketDetailController.h"
 #import "MaYiRedPacketDetailCell.h"
 #import "MaYiRedPacketDetailHeadView.h"
+#import "MYRedListModel.h"
+#import <MJRefresh/MJRefresh.h>
+#define MyReceiveAntMoneyList       @"mayi/mayi_rp_record"//我的蚂蚁红包领取记录
+
 #define MaYiRedPacketDetailCellIdenifer @"redPacketReuseIdentifier"
 
 @interface MaYiRedPacketDetailController ()<UITableViewDelegate , UITableViewDataSource>
 
 @property (nonatomic , strong) UITableView     * mainTableView;
 
+//数据列表
+@property (nonatomic , strong)NSMutableArray *dataArray;
+
+//总红包数
+@property (nonatomic, copy)NSString *allCount;
 @end
 
 @implementation MaYiRedPacketDetailController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"红包明细";
+    self.allCount = @"0.00";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self requestData];
+//    [self requestData];
+    [self antGetRedMoneyList];
     [self addrightitem];
     [self.view addSubview:self.mainTableView];
+    self.mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(antGetRedMoneyList)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,7 +47,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.DidDissAppearBlock();
+//    self.DidDissAppearBlock();
 }
 
 #pragma -mark  -------------    代理方法  ------------
@@ -45,12 +58,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 10;
+    return self.dataArray.count;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     MaYiRedPacketDetailHeadView * headView = [[MaYiRedPacketDetailHeadView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth/1.97)];
-    headView.num = @"65.123";
+    headView.num = self.allCount;
     return headView;
 }
 
@@ -67,6 +80,10 @@
     MaYiRedPacketDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:MaYiRedPacketDetailCellIdenifer];
     if(!cell){
         cell = [[MaYiRedPacketDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MaYiRedPacketDetailCellIdenifer];
+    }
+    if (indexPath.row <= self.dataArray.count -1) {
+    
+        cell.redListModel = self.dataArray[indexPath.row];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -86,37 +103,40 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)requestData{
-    
-    NSString *url = [NSString stringWithFormat:@"%@UserCenter/otherUserInfo",BASE_URL];
-    NSDictionary *params = @{@"uid" : @"154"};
-    @weakify(self)
-    [BANetManager ba_request_POSTWithUrlString:url
-                                    parameters:params
-                                  successBlock:^(id response) {
-                                      @strongify(self);
-                                      if ([response[@"code"] intValue] == 1){
-//                                          NSArray *models = [self resultMapForJson:response[@"data"]];
-//
-//                                          if (models) {
-//                                              [self.dataArray removeAllObjects];
-//                                              [self.dataArray addObjectsFromArray:models];
-//                                              [self.tableView reloadData];
-//                                              [ZWBucket.userDefault removeItemForKey:kDltGreatgoddModels];
-//                                              [ZWBucket.userDefault setItem:[models mutableCopy] forKey:kDltGreatgoddModels];
-//                                          }
-                                      }
-                                      else{
-                                          NSLog(@"----error---");
-                                      }
-                                      
-                                  } failureBlock:^(NSError *error) {
-                                      @strongify(self);
-                                     
-                                  } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-
-                                  }];
-    
+//领取红包记录
+- (void)antGetRedMoneyList{
+    NSString *GetRedMoneyList = [NSString stringWithFormat:@"%@%@",BASE_URL,MyReceiveAntMoneyList];
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSDictionary *parameter = @{
+                                @"uid":user.uid,
+                                @"token":user.token
+                                };
+    @weakify(self);
+    [BANetManager ba_request_POSTWithUrlString:GetRedMoneyList parameters:parameter successBlock:^(id response) {
+        @strongify(self);
+        [self redMoneyListWithDic:response];
+    } failureBlock:^(NSError *error) {
+        NSLog(@"antInfoGet:%@",error);
+    } progress:nil];
+    if (self.mainTableView.mj_header) {
+        [self.mainTableView.mj_header endRefreshing];
+    }
+}
+//处理红包列表
+- (void)redMoneyListWithDic:(NSDictionary *)dic{
+    NSDictionary *newDic = [dic dictValueForKey:@"data"];
+    NSNumber *sum = [newDic numberValueForKey:@"sum"];
+    CGFloat flotSum = [sum integerValue]/100;
+    self.allCount = [NSString stringWithFormat:@"%.2f",flotSum];
+     NSArray *array = [newDic arrayValueForKey:@"record"];
+    NSMutableArray *testArray = [NSMutableArray new];
+    for (NSDictionary *aDic in array) {
+        MYRedListModel *model = [MYRedListModel showModel];
+        [model modelSetWithDictionary:aDic];
+        [testArray addObject:model];
+    }
+    self.dataArray = testArray;
+    [self.mainTableView reloadData];
 }
 
 #pragma -mark  -------------    初始化  ------------
@@ -131,6 +151,5 @@
     }
     return _mainTableView;
 }
-
 
 @end

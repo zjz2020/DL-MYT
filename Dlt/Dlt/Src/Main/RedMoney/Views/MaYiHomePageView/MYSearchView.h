@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MYSearchView : UIView
+@protocol MYSearchViewDelegate <NSObject>
 
+-(void)mySearchClicke;
+
+@end
+
+@interface MYSearchView : UIView
++ (MYSearchView *)searchViewWithFram:(CGRect)fram;
+@property(nonatomic,weak)id<MYSearchViewDelegate> delegate;
 @end

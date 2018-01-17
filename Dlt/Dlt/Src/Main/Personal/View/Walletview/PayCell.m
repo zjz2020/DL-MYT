@@ -24,6 +24,12 @@
     _contentLabel.text = model.content;
     _selectedImg.image = model.isSelectedPay ? [UIImage imageNamed:@"friends_26"] : [UIImage imageNamed:@"friends_27"];
 }
+
+-(void)setLineWidth:(NSInteger)lineWidth{
+    _lineWidth = lineWidth;
+    [bottem setFrame:CGRectMake(10, 69, lineWidth, 0.5)];
+}
+
 -(void)ba_setupCell {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }

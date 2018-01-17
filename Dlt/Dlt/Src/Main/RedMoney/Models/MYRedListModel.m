@@ -9,5 +9,11 @@
 #import "MYRedListModel.h"
 
 @implementation MYRedListModel
++ (MYRedListModel *)showModel{
+    return [[MYRedListModel alloc] init];
+}
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    
+}
 @end

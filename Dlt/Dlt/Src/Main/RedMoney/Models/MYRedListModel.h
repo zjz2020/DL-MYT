@@ -9,5 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface MYRedListModel : NSObject
+@property (nonatomic, strong)NSNumber *amount;
+@property (nonatomic, copy)NSString *ctimeStr;
+
++ (MYRedListModel *)showModel;
 
 @end

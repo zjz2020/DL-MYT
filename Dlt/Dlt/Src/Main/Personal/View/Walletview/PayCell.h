@@ -10,5 +10,6 @@
 
 @interface PayCell : BABaseCell
 @property(nonatomic,strong)UILabel * contentLabel;
+@property(nonatomic,assign)NSInteger  lineWidth;
 -(void)file:(id)data;
 @end

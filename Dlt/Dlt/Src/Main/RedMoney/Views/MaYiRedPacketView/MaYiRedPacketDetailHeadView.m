@@ -62,8 +62,8 @@
                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} context:nil];
     
     [self.numLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@((kScreenWidth - numSize.size.width - yuanSize.size.width)/2));
-        make.width.equalTo(@(numSize.size.width));
+        make.left.equalTo(@((kScreenWidth - numSize.size.width - 10 - yuanSize.size.width)/2));
+        make.width.equalTo(@(numSize.size.width + 10));
         make.height.equalTo(@(numSize.size.height-15));
     }];
     
@@ -76,7 +76,7 @@
 -(UIImageView *)headImageView{
     if(!_headImageView){
         _headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth/1.97)];
-        _headImageView.image = [UIImage imageNamed:@"mayi_redPacketDetail_head"];
+        _headImageView.image = [UIImage imageNamed:@"mayi_20"];
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _headImageView;

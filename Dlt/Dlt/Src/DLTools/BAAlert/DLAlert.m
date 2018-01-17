@@ -48,7 +48,15 @@
 }
 
 + (void)alertHideLoad {
+    
      [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
 }
-
++ (void)alertShowLoadStr:(NSString *)msg{
+    [MBProgressHUD showMessage:msg];
+}
++ (void)alertHideLoadStrWithTime:(NSInteger)time{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUD];
+    });
+}
 @end

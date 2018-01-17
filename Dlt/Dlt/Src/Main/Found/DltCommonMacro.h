@@ -23,6 +23,12 @@
 #define kScreenWidth    ([UIScreen mainScreen].bounds.size.width)
 #define kScreenScale    ([UIScreen mainScreen].bounds.size.width)/320
 
+//新添加的屏幕比例
+#define kNewScreenWScale  ([UIScreen mainScreen].bounds.size.width)/375
+#define kNewScreenHScale    ([UIScreen mainScreen].bounds.size.height)/667
+#define xyzW(x) kNewScreenWScale *x
+#define xyzH(x) kNewScreenHScale *x
+
 #define kCurrentSysVersion ([[[UIDevice currentDevice] systemVersion] floatValue])
 
 

@@ -59,6 +59,11 @@ typedef NS_ENUM(NSUInteger, DltOnlineState){
  */
 @property (nonatomic, strong, readonly) RACSignal *userInfoChangeSignal;
 
+//用户所在的经纬度  城市编码
+
+@property(nonatomic, copy) NSString *cityCode;
+//经纬度
+@property (nonatomic, assign)CLLocationCoordinate2D coordinate;
 @end
 
 /**

@@ -9,5 +9,10 @@
 #import "RedPacket.h"
 
 @implementation RedPacket
-
++ (RedPacket *)showRedPacket{
+    return [[RedPacket alloc] init];
+}
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    
+}
 @end

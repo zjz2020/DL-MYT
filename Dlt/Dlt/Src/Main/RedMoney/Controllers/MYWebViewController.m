@@ -9,16 +9,31 @@
 #import "MYWebViewController.h"
 
 @interface MYWebViewController ()
-
+@property(nonatomic,strong)UIWebView *webview;
 @end
 
 @implementation MYWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"蚂蚁官网";
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self addrightitem];
+    self.webview = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:_webview];
+    [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.mayiton.com"]]];
     // Do any additional setup after loading the view.
 }
-
+-(void)addrightitem {
+    UIButton * leftbtn = [[UIButton alloc]initWithFrame:RectMake_LFL(0, 0,40, 40)];
+    [leftbtn setImage:[UIImage imageNamed:@"mayi_22"] forState:UIControlStateNormal];
+    [leftbtn addTarget:self action:@selector(clickeRightBtn) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftbtn];
+    self.navigationItem.rightBarButtonItem = leftItem;
+}
+- (void)clickeRightBtn{
+    [_webview reload];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
