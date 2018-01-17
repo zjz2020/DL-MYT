@@ -25,8 +25,8 @@
 
 #else
 ////正式
-//#define BASE_URL @"http://www.mayiton.com/api/"
-//#define BASE_IMGURL  @"http://www.mayiton.com"
+#define BASE_URL @"http://www.mayiton.com/api/"
+#define BASE_IMGURL  @"http://www.mayiton.com"
 #endif
 
 #import "NSDictionary+Parser.h"
@@ -35,5 +35,9 @@
 #define userInfoMapKey    @"userInfoMapKey"
 #define userInfoMapShow   @"userInfoMapShow"
 #define userInfoMapHidden @"userInfoMapHidden"
+//是否显示蚂蚁
+#define showMYKey      @"showMYKey"
+#define showMYKeyYes   @"showMYKeyYes"
+#define showMYKeyNo    @"showMYKeyNo"
 
 #endif /* BAURLsPath_h */

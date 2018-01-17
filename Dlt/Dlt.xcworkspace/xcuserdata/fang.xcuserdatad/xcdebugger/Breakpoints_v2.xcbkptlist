@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Dlt/Src/Main/RedMoney/MapViewController.m"
-            timestampString = "537872785.411867"
+            timestampString = "537875500.6356471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "422"
@@ -36,90 +36,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Dlt/Src/Main/RedMoney/MapViewController.m"
-            timestampString = "537872785.4147069"
+            timestampString = "537875500.635941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "419"
             endingLineNumber = "419"
             landmarkName = "-antInfoSet"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MapViewController antInfoSet]"
-                  moduleName = "Dlt"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fang/Documents/NewCode/Dlt/Dlt/Src/Main/RedMoney/MapViewController.m"
-                  timestampString = "537872786.696828"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
-                  offsetFromSymbolStart = "806">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[MapViewController antInfoSet]_block_invoke"
-                  moduleName = "Dlt"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fang/Documents/NewCode/Dlt/Dlt/Src/Main/RedMoney/MapViewController.m"
-                  timestampString = "537872786.7002569"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
-                  offsetFromSymbolStart = "614">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.354"
-                  moduleName = "Dlt"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fang/Documents/NewCode/Dlt/Dlt/Src/Main/RedMoney/MapViewController.m"
-                  timestampString = "537872786.7035969"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
-                  offsetFromSymbolStart = "37">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.355"
-                  moduleName = "Dlt"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fang/Documents/NewCode/Dlt/Dlt/Src/Main/RedMoney/MapViewController.m"
-                  timestampString = "537872786.706761"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
-                  offsetFromSymbolStart = "25">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[MapViewController antInfoSet]_block_invoke.357"
-                  moduleName = "Dlt"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fang/Documents/NewCode/Dlt/Dlt/Src/Main/RedMoney/MapViewController.m"
-                  timestampString = "537872786.709499"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -129,12 +52,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Dlt/Src/Main/RedMoney/MapViewController.m"
-            timestampString = "537872785.415327"
+            timestampString = "537875500.636095"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "411"
             endingLineNumber = "411"
             landmarkName = "-antInfoSet"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Dlt/Src/DLCode/Login/LoginViewController.m"
+            timestampString = "537873166.898973"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "-login:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
