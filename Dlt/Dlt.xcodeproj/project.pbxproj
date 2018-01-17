@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		2663680AD3C03C2CD8889CE7 /* Pods_Dlt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F823B8D4D6704AE271C54577 /* Pods_Dlt.framework */; };
+		32244837200C7AD7001B5BB8 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244836200C7AD7001B5BB8 /* MapViewController.m */; };
+		32244843200C7D42001B5BB8 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244842200C7D42001B5BB8 /* DataModel.m */; };
+		32244846200C82A2001B5BB8 /* MAPointAnnotation+Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244844200C82A1001B5BB8 /* MAPointAnnotation+Type.m */; };
+		32244853200C872D001B5BB8 /* MaYiPersonalCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244848200C872D001B5BB8 /* MaYiPersonalCardView.m */; };
+		32244855200C872D001B5BB8 /* MaYiRedPacketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3224484C200C872D001B5BB8 /* MaYiRedPacketView.m */; };
+		32244856200C872D001B5BB8 /* MaYiRedPacketDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244850200C872D001B5BB8 /* MaYiRedPacketDetailCell.m */; };
+		32C1BDC3200E00C30012BD9F /* MaYiPersonalCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C1BDC1200E00C30012BD9F /* MaYiPersonalCardModel.m */; };
+		32C1BDC6200E156E0012BD9F /* MYRedListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C1BDC5200E156E0012BD9F /* MYRedListModel.m */; };
+		32CF5FDE200D976E009A6940 /* ZCAFNHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FDC200D976D009A6940 /* ZCAFNHelp.m */; };
+		32CF5FE1200DAD43009A6940 /* NSDictionary+Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FDF200DAD42009A6940 /* NSDictionary+Parser.m */; };
+		32CF5FE4200DD1AF009A6940 /* RedPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FE3200DD1AF009A6940 /* RedPacket.m */; };
+		32CF5FF0200DE75C009A6940 /* MaYiRedPacketDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FEF200DE75B009A6940 /* MaYiRedPacketDetailController.m */; };
+		32CF5FF3200DEBE5009A6940 /* MaYiRedPacketDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FF2200DEBE5009A6940 /* MaYiRedPacketDetailHeadView.m */; };
+		32CF5FF5200DEC38009A6940 /* MaYiOpenPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FF4200DEC38009A6940 /* MaYiOpenPayView.m */; };
+		32CF5FF7200DEC51009A6940 /* MaYiOpenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FF6200DEC50009A6940 /* MaYiOpenView.m */; };
+		32FEA30B200EDA35000BD118 /* MapDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA30A200EDA35000BD118 /* MapDataModel.m */; };
+		32FEA30E200EFC7A000BD118 /* MYSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA30D200EFC7A000BD118 /* MYSearchView.m */; };
+		32FEA311200F276E000BD118 /* MYWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA310200F276E000BD118 /* MYWebViewController.m */; };
 		50025C971EF227530031A48B /* DLTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50025C951EF227530031A48B /* DLTitleTableViewCell.m */; };
 		50025C981EF227530031A48B /* DLTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50025C961EF227530031A48B /* DLTitleTableViewCell.xib */; };
 		50053A731EDD192B009F95DB /* DLGroupMemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50053A721EDD192B009F95DB /* DLGroupMemberTableViewController.m */; };
@@ -623,6 +641,42 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32244835200C7AD7001B5BB8 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		32244836200C7AD7001B5BB8 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		32244841200C7D42001B5BB8 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		32244842200C7D42001B5BB8 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		32244844200C82A1001B5BB8 /* MAPointAnnotation+Type.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MAPointAnnotation+Type.m"; sourceTree = "<group>"; };
+		32244845200C82A2001B5BB8 /* MAPointAnnotation+Type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MAPointAnnotation+Type.h"; sourceTree = "<group>"; };
+		32244848200C872D001B5BB8 /* MaYiPersonalCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiPersonalCardView.m; sourceTree = "<group>"; };
+		32244849200C872D001B5BB8 /* MaYiRedPacketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiRedPacketView.h; sourceTree = "<group>"; };
+		3224484B200C872D001B5BB8 /* MaYiPersonalCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiPersonalCardView.h; sourceTree = "<group>"; };
+		3224484C200C872D001B5BB8 /* MaYiRedPacketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiRedPacketView.m; sourceTree = "<group>"; };
+		3224484D200C872D001B5BB8 /* MaYiOpenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiOpenView.h; sourceTree = "<group>"; };
+		32244850200C872D001B5BB8 /* MaYiRedPacketDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiRedPacketDetailCell.m; sourceTree = "<group>"; };
+		32244851200C872D001B5BB8 /* MaYiRedPacketDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiRedPacketDetailCell.h; sourceTree = "<group>"; };
+		32C1BDC1200E00C30012BD9F /* MaYiPersonalCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiPersonalCardModel.m; sourceTree = "<group>"; };
+		32C1BDC2200E00C30012BD9F /* MaYiPersonalCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiPersonalCardModel.h; sourceTree = "<group>"; };
+		32C1BDC4200E156E0012BD9F /* MYRedListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYRedListModel.h; sourceTree = "<group>"; };
+		32C1BDC5200E156E0012BD9F /* MYRedListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYRedListModel.m; sourceTree = "<group>"; };
+		32CF5FDC200D976D009A6940 /* ZCAFNHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCAFNHelp.m; sourceTree = "<group>"; };
+		32CF5FDD200D976E009A6940 /* ZCAFNHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCAFNHelp.h; sourceTree = "<group>"; };
+		32CF5FDF200DAD42009A6940 /* NSDictionary+Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Parser.m"; sourceTree = "<group>"; };
+		32CF5FE0200DAD42009A6940 /* NSDictionary+Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Parser.h"; sourceTree = "<group>"; };
+		32CF5FE2200DD1AF009A6940 /* RedPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RedPacket.h; sourceTree = "<group>"; };
+		32CF5FE3200DD1AF009A6940 /* RedPacket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RedPacket.m; sourceTree = "<group>"; };
+		32CF5FEE200DE75B009A6940 /* MaYiRedPacketDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiRedPacketDetailController.h; sourceTree = "<group>"; };
+		32CF5FEF200DE75B009A6940 /* MaYiRedPacketDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiRedPacketDetailController.m; sourceTree = "<group>"; };
+		32CF5FF1200DEBE4009A6940 /* MaYiRedPacketDetailHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiRedPacketDetailHeadView.h; sourceTree = "<group>"; };
+		32CF5FF2200DEBE5009A6940 /* MaYiRedPacketDetailHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiRedPacketDetailHeadView.m; sourceTree = "<group>"; };
+		32CF5FF4200DEC38009A6940 /* MaYiOpenPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiOpenPayView.m; sourceTree = "<group>"; };
+		32CF5FF6200DEC50009A6940 /* MaYiOpenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiOpenView.m; sourceTree = "<group>"; };
+		32CF5FF8200DEC59009A6940 /* MaYiOpenPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiOpenPayView.h; sourceTree = "<group>"; };
+		32FEA309200EDA35000BD118 /* MapDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapDataModel.h; sourceTree = "<group>"; };
+		32FEA30A200EDA35000BD118 /* MapDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapDataModel.m; sourceTree = "<group>"; };
+		32FEA30C200EFC7A000BD118 /* MYSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYSearchView.h; sourceTree = "<group>"; };
+		32FEA30D200EFC7A000BD118 /* MYSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYSearchView.m; sourceTree = "<group>"; };
+		32FEA30F200F276E000BD118 /* MYWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYWebViewController.h; sourceTree = "<group>"; };
+		32FEA310200F276E000BD118 /* MYWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYWebViewController.m; sourceTree = "<group>"; };
 		50025C941EF227530031A48B /* DLTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLTitleTableViewCell.h; sourceTree = "<group>"; };
 		50025C951EF227530031A48B /* DLTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLTitleTableViewCell.m; sourceTree = "<group>"; };
 		50025C961EF227530031A48B /* DLTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DLTitleTableViewCell.xib; sourceTree = "<group>"; };
@@ -1659,6 +1713,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32244834200C7AB1001B5BB8 /* RedMoney */ = {
+			isa = PBXGroup;
+			children = (
+				32244835200C7AD7001B5BB8 /* MapViewController.h */,
+				32244836200C7AD7001B5BB8 /* MapViewController.m */,
+				32244838200C7BF0001B5BB8 /* Controllers */,
+				32244839200C7BF0001B5BB8 /* Models */,
+				3224483B200C7BF0001B5BB8 /* ViewModels */,
+				3224483A200C7BF0001B5BB8 /* Views */,
+			);
+			path = RedMoney;
+			sourceTree = "<group>";
+		};
+		32244838200C7BF0001B5BB8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				32CF5FEE200DE75B009A6940 /* MaYiRedPacketDetailController.h */,
+				32CF5FEF200DE75B009A6940 /* MaYiRedPacketDetailController.m */,
+				32FEA30F200F276E000BD118 /* MYWebViewController.h */,
+				32FEA310200F276E000BD118 /* MYWebViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		32244839200C7BF0001B5BB8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				32C1BDC2200E00C30012BD9F /* MaYiPersonalCardModel.h */,
+				32C1BDC1200E00C30012BD9F /* MaYiPersonalCardModel.m */,
+				32FEA309200EDA35000BD118 /* MapDataModel.h */,
+				32FEA30A200EDA35000BD118 /* MapDataModel.m */,
+				32244841200C7D42001B5BB8 /* DataModel.h */,
+				32244842200C7D42001B5BB8 /* DataModel.m */,
+				32CF5FE2200DD1AF009A6940 /* RedPacket.h */,
+				32CF5FE3200DD1AF009A6940 /* RedPacket.m */,
+				32C1BDC4200E156E0012BD9F /* MYRedListModel.h */,
+				32C1BDC5200E156E0012BD9F /* MYRedListModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3224483A200C7BF0001B5BB8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				32244847200C872D001B5BB8 /* MaYiHomePageView */,
+				3224484E200C872D001B5BB8 /* MaYiRedPacketView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3224483B200C7BF0001B5BB8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				32244845200C82A2001B5BB8 /* MAPointAnnotation+Type.h */,
+				32244844200C82A1001B5BB8 /* MAPointAnnotation+Type.m */,
+				32CF5FE0200DAD42009A6940 /* NSDictionary+Parser.h */,
+				32CF5FDF200DAD42009A6940 /* NSDictionary+Parser.m */,
+				32CF5FDD200D976E009A6940 /* ZCAFNHelp.h */,
+				32CF5FDC200D976D009A6940 /* ZCAFNHelp.m */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		32244847200C872D001B5BB8 /* MaYiHomePageView */ = {
+			isa = PBXGroup;
+			children = (
+				3224484B200C872D001B5BB8 /* MaYiPersonalCardView.h */,
+				32244848200C872D001B5BB8 /* MaYiPersonalCardView.m */,
+				32244849200C872D001B5BB8 /* MaYiRedPacketView.h */,
+				3224484C200C872D001B5BB8 /* MaYiRedPacketView.m */,
+				3224484D200C872D001B5BB8 /* MaYiOpenView.h */,
+				32CF5FF6200DEC50009A6940 /* MaYiOpenView.m */,
+				32CF5FF8200DEC59009A6940 /* MaYiOpenPayView.h */,
+				32CF5FF4200DEC38009A6940 /* MaYiOpenPayView.m */,
+				32FEA30C200EFC7A000BD118 /* MYSearchView.h */,
+				32FEA30D200EFC7A000BD118 /* MYSearchView.m */,
+			);
+			path = MaYiHomePageView;
+			sourceTree = "<group>";
+		};
+		3224484E200C872D001B5BB8 /* MaYiRedPacketView */ = {
+			isa = PBXGroup;
+			children = (
+				32CF5FF1200DEBE4009A6940 /* MaYiRedPacketDetailHeadView.h */,
+				32CF5FF2200DEBE5009A6940 /* MaYiRedPacketDetailHeadView.m */,
+				32244850200C872D001B5BB8 /* MaYiRedPacketDetailCell.m */,
+				32244851200C872D001B5BB8 /* MaYiRedPacketDetailCell.h */,
+			);
+			path = MaYiRedPacketView;
+			sourceTree = "<group>";
+		};
 		50025C991EF28B9E0031A48B /* Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -2766,6 +2911,7 @@
 		CE8723E71EC482D5006CAD85 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				32244834200C7AB1001B5BB8 /* RedMoney */,
 				CE8723E81EC482D5006CAD85 /* AGreatGod */,
 				CE8723E91EC482D5006CAD85 /* Firends */,
 				CE8723EA1EC482D5006CAD85 /* Found */,
@@ -3767,7 +3913,7 @@
 		CEFC36701EC2E2740036C738 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = mr_chen;
 				TargetAttributes = {
 					CEFC36771EC2E2740036C738 = {
@@ -4050,9 +4196,24 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dlt/Pods-Dlt-resources.sh",
+				"${PODS_ROOT}/AMap2DMap-NO-IDFA/MAMapKit.framework/AMap.bundle",
+				"${PODS_ROOT}/AlipaySDK-2.0/AlipaySDK.bundle",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/Emoji.plist",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RongCloud.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Emoji.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCConfig.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4065,13 +4226,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dlt-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		54DED04519616BDFB23451A2 /* [CP] Embed Pods Frameworks */ = {
@@ -4080,9 +4244,46 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dlt/Pods-Dlt-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
+				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/M80AttributedLabel/M80AttributedLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Objective-LevelDB/Objective_LevelDB.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
+				"${BUILT_PRODUCTS_DIR}/SAMKeychain/SAMKeychain.framework",
+				"${BUILT_PRODUCTS_DIR}/SDAutoLayout/SDAutoLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M80AttributedLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objective_LevelDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAMKeychain.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDAutoLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDCycleScrollView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4098,6 +4299,7 @@
 			files = (
 				CEFC36801EC2E2740036C738 /* AppDelegate.m in Sources */,
 				869036881EE8099E0045735F /* DLTUserCenter.m in Sources */,
+				32CF5FF3200DEBE5009A6940 /* MaYiRedPacketDetailHeadView.m in Sources */,
 				CE8C6F631EC9B172005D9964 /* MLEmojiLabel.m in Sources */,
 				CE372EF01FE8B28500867BCA /* DLApplyEndViewController.m in Sources */,
 				50025C971EF227530031A48B /* DLTitleTableViewCell.m in Sources */,
@@ -4147,11 +4349,13 @@
 				50532FAE1EEC169C00BA0C5C /* DLRedpackerRecordModel.m in Sources */,
 				CE8C6E391EC5E6BF005D9964 /* JKDBModel.m in Sources */,
 				CE4D6E971ED67C4700CE82E4 /* SetupViewController.m in Sources */,
+				32244843200C7D42001B5BB8 /* DataModel.m in Sources */,
 				867BAE391EDFB7C100B196D0 /* XFSegementView.m in Sources */,
 				867BAE3E1EDFB87900B196D0 /* TopUpCell.m in Sources */,
 				CE4F23851F6F769B000C8E9E /* SuPhotoBrowser.m in Sources */,
 				CEE63D551FA34EDC00ED882F /* DLTComposePhotosView.m in Sources */,
 				861BEA2E1ED94F5C00EF96E6 /* YZEmotionCell.m in Sources */,
+				32FEA30E200EFC7A000BD118 /* MYSearchView.m in Sources */,
 				867BAE4D1EDFBEF700B196D0 /* MBProgressHUD+Extension.m in Sources */,
 				CEE63D8E1FA34FF700ED882F /* DLTCircleoffriendCellOperationView.m in Sources */,
 				CE4F237D1F6F769B000C8E9E /* NSString+SU.m in Sources */,
@@ -4174,6 +4378,7 @@
 				CE8C6F681EC9B172005D9964 /* MLTextAttachment.m in Sources */,
 				CE8C6E301EC5E5A1005D9964 /* BANewsNetManager.m in Sources */,
 				CEE0E64F1EE504CA00FF19EF /* DLFriendprofileViewController.m in Sources */,
+				32CF5FE1200DAD43009A6940 /* NSDictionary+Parser.m in Sources */,
 				867BAE381EDFB7C100B196D0 /* TXTradePasswordView.m in Sources */,
 				CE87BEE61ED82CE8004334F1 /* SelectorphoteCell.m in Sources */,
 				CECCE9C91FA9671E008ACE4A /* MASConstraint.m in Sources */,
@@ -4209,6 +4414,7 @@
 				CEE63D571FA34EDC00ED882F /* DLTComposeToolbar.m in Sources */,
 				865635A61EDAAF0A00802184 /* M80AttributedLabel+Extension.m in Sources */,
 				CE21367320032208000EB709 /* KeyChainManager.m in Sources */,
+				32FEA30B200EDA35000BD118 /* MapDataModel.m in Sources */,
 				CECCE9D11FA9671F008ACE4A /* ViewController+MASAdditions.m in Sources */,
 				CEE63D971FA34FF700ED882F /* WalletbalanceCell.m in Sources */,
 				CECCE9CD1FA9671E008ACE4A /* MASViewConstraint.m in Sources */,
@@ -4220,7 +4426,9 @@
 				CE8723FB1EC48AA8006CAD85 /* FoundViewController.m in Sources */,
 				CE4F23831F6F769B000C8E9E /* SuPhotoAblumList.m in Sources */,
 				CEE63D981FA34FF700ED882F /* WalletCell.m in Sources */,
+				32CF5FF5200DEC38009A6940 /* MaYiOpenPayView.m in Sources */,
 				CEE63D581FA34EDC00ED882F /* DLTInputView.m in Sources */,
+				32C1BDC3200E00C30012BD9F /* MaYiPersonalCardModel.m in Sources */,
 				CED293201F8F54730008914E /* DLThirdShare.m in Sources */,
 				CE63EB561FE36065009FB56A /* SDLoadingView.m in Sources */,
 				506ADD841EE00DA1004A5F86 /* MessageChateViewController.m in Sources */,
@@ -4239,6 +4447,7 @@
 				CE63EB4C1FE35E3B009FB56A /* SDWebView.m in Sources */,
 				CE8723E01EC410F5006CAD85 /* XFDaterView.m in Sources */,
 				CEE63D921FA34FF700ED882F /* GroupandStoreCell.m in Sources */,
+				32244846200C82A2001B5BB8 /* MAPointAnnotation+Type.m in Sources */,
 				50AD42B61EFAB99C00480785 /* DLChooseFriendsTableViewController.m in Sources */,
 				CEE63D941FA34FF700ED882F /* PersonalCell.m in Sources */,
 				CE21367420032208000EB709 /* KeyChain.m in Sources */,
@@ -4263,6 +4472,7 @@
 				860A0E6B1EDC88B9008CB4E1 /* TransferCell.m in Sources */,
 				CE789AE41EDBC17B00160F99 /* JoingroupCell.m in Sources */,
 				50E3CFF31ED8345300E6CC67 /* DLFriendsCell.m in Sources */,
+				32CF5FF7200DEC51009A6940 /* MaYiOpenView.m in Sources */,
 				CE372ECE1FE8AF0700867BCA /* DLApplyAdvertiserViewController.m in Sources */,
 				CE789AC31ED9D39200160F99 /* JXActionSheet.m in Sources */,
 				CECCE9CB1FA9671E008ACE4A /* MASLayoutConstraint.m in Sources */,
@@ -4285,6 +4495,7 @@
 				50FD05EF1ED9BBD400E0CC2D /* DLSeachViewController.m in Sources */,
 				CE63EB601FE36CC9009FB56A /* DLPayNewsTableViewCell.m in Sources */,
 				505F5B2B1EE2C7D000714954 /* DLInvitationNewMemberVC.m in Sources */,
+				32C1BDC6200E156E0012BD9F /* MYRedListModel.m in Sources */,
 				CE8C6EEE1EC9A79E005D9964 /* SDBrowserImageView.m in Sources */,
 				CEE63D961FA34FF700ED882F /* WalleatotherCell.m in Sources */,
 				86948BCB1EE6E7B400316F81 /* UIImage+MSSScale.m in Sources */,
@@ -4315,6 +4526,7 @@
 				CE46836B1ED7FCDD00206558 /* UINavigationBar+Status.m in Sources */,
 				869036891EE8099E0045735F /* DLTUserProfile.m in Sources */,
 				CE4D6E701ED3E6D300CE82E4 /* GBAlertView.m in Sources */,
+				32244837200C7AD7001B5BB8 /* MapViewController.m in Sources */,
 				CE8723EF1EC48905006CAD85 /* MainTabbarViewController.m in Sources */,
 				50471B671EE7E2FA00E85603 /* DLGroupRedpacketViewController.m in Sources */,
 				50F570CA1EF2CC9100FCEFC9 /* DLMyFriendsListViewController.m in Sources */,
@@ -4328,6 +4540,7 @@
 				50F6483E1EEFB0CB0090AFA7 /* DLMyNewFriendsCell.m in Sources */,
 				505F5B251EE2965C00714954 /* DLGroupDetailViewController.m in Sources */,
 				CE0E91921ED7085200043138 /* CLAddressTableViewCell.m in Sources */,
+				32FEA311200F276E000BD118 /* MYWebViewController.m in Sources */,
 				860A0E611EDC8780008CB4E1 /* MyqrcodeViewController.m in Sources */,
 				CE13B5D11EF3C89F0054B9F0 /* SingelCell.m in Sources */,
 				50EB42A41EDBCC21001C4965 /* DLCreatGroupViewController.m in Sources */,
@@ -4345,6 +4558,7 @@
 				CE8C6F6C1EC9B172005D9964 /* MLLabel.m in Sources */,
 				CE4D6E061ED279E800CE82E4 /* WalleatViewController.m in Sources */,
 				CE372EE41FE8AF3E00867BCA /* DLBillViewController.m in Sources */,
+				32244853200C872D001B5BB8 /* MaYiPersonalCardView.m in Sources */,
 				CE372ED71FE8AF0800867BCA /* DLVulgarTycoonTableViewCell.m in Sources */,
 				506DE30B1EFC1B60002DBC1F /* DLPhotosCollectionViewController.m in Sources */,
 				50F0C5221EF3838600023418 /* DLFriendPacketModel.m in Sources */,
@@ -4386,6 +4600,7 @@
 				CE4F23811F6F769B000C8E9E /* UIView+SuAnimation.m in Sources */,
 				50532FB21EEC2EF700BA0C5C /* DLUploadImage.m in Sources */,
 				CEB272BE1EF3938C0001625D /* ZYCacheHelper.m in Sources */,
+				32CF5FF0200DE75C009A6940 /* MaYiRedPacketDetailController.m in Sources */,
 				50AD42BE1EFACF0100480785 /* DLWebViewViewController.m in Sources */,
 				CE8C6E151EC59840005D9964 /* STQRCodeReaderView.m in Sources */,
 				50F61DCA1ED924E500C5EFF5 /* DLFriendsModel.m in Sources */,
@@ -4423,6 +4638,7 @@
 				50F108121EE5822C008CD536 /* UINavigationBar+Awesome.m in Sources */,
 				CE372ED21FE8AF0700867BCA /* DLListViewController.m in Sources */,
 				50FD05F61ED9BC0100E0CC2D /* DLSeachGroupsCell.m in Sources */,
+				32244855200C872D001B5BB8 /* MaYiRedPacketView.m in Sources */,
 				CE8C6EEF1EC9A79E005D9964 /* SDPhotoBrowser.m in Sources */,
 				50F1E98D1EE9877C002BDDB9 /* DLPasswordInputView.m in Sources */,
 				CE4683651ED7D71700206558 /* UINavigationBar+LXAlphaChange.m in Sources */,
@@ -4437,12 +4653,15 @@
 				CEE63D8B1FA34FF700ED882F /* SDTimeLineRefreshFooter.m in Sources */,
 				8677DE001ED816A2003908E6 /* NSString+Extension.m in Sources */,
 				867BAE511EDFBFB600B196D0 /* UIViewController+DltUI.m in Sources */,
+				32244856200C872D001B5BB8 /* MaYiRedPacketDetailCell.m in Sources */,
 				CE789AE11EDAD38200160F99 /* ClassinfomationCell.m in Sources */,
 				CE8C6F6B1EC9B172005D9964 /* MLLabelLayoutManager.m in Sources */,
 				86792F481EE39BEE0051C13A /* DLTGreatgodModel.m in Sources */,
+				32CF5FDE200D976E009A6940 /* ZCAFNHelp.m in Sources */,
 				CEE63D8A1FA34FF700ED882F /* SDTimeLineCellCommentView.m in Sources */,
 				CE789AB91ED9C23C00160F99 /* MySetupViewController.m in Sources */,
 				50053A771EDD2F09009F95DB /* DLGroupMemberCell.m in Sources */,
+				32CF5FE4200DD1AF009A6940 /* RedPacket.m in Sources */,
 				86948BC31EE6E7B400316F81 /* MSSBrowseBaseViewController.m in Sources */,
 				CE4D6E0C1ED27CB300CE82E4 /* KxMenu.m in Sources */,
 				CE0E91731ED7040B00043138 /* MPTitleAndPromptCell.m in Sources */,
@@ -4487,13 +4706,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -4501,7 +4723,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -4538,13 +4764,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -4552,7 +4781,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -4583,7 +4816,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E0562DCB066972A2596989D /* Pods-Dlt.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
@@ -4654,7 +4886,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98AA55B380B6CCE1359C3544 /* Pods-Dlt.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;

@@ -14,5 +14,7 @@
 + (void)alertShowLoadWithTime:(NSInteger)delayTime;
 + (void)alertShowLoad;
 + (void)alertHideLoad;
-
+//一直显示警告
++ (void)alertShowLoadStr:(NSString *)msg;
++ (void)alertHideLoadStrWithTime:(NSInteger)time;
 @end

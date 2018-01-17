@@ -24,9 +24,12 @@
 #import "MyUncaughtExceptionHandler.h"
 static NSString * const kWeChatAppKey = @"wx33af1f1e0e029d19";
 
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
+#define GDKEY @"09743428909b1f7e88bfe1db55ae328b"
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,WXApiDelegate>
-
+//@property(nonatomic,strong)AMapLocationManager *locationManager;
 @end
 
 @implementation AppDelegate
@@ -99,6 +102,8 @@ didRegisterUserNotificationSettings:
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self isMyUncaughtExceptionHandler];
+    [AMapServices sharedServices].apiKey = GDKEY;//配置高德key
+    [self getCityCodeAtFirst];
     // Override point for customization after application launch.
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _window.backgroundColor = [UIColor whiteColor];
@@ -154,6 +159,20 @@ didRegisterUserNotificationSettings:
 
       return YES;
 }
+//获取定位  城市编码
+- (void)getCityCodeAtFirst{
+//    self.locationManager = [[AMapLocationManager alloc] init];
+//    //设置最新距离过滤
+//    _locationManager.distanceFilter = 200;
+//    //是否开启返回逆地理信息  默认为NO
+//    [_locationManager setLocatingWithReGeocode:YES] ;
+////    locationManager.delegate = self;
+//    [_locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+//        [DLTUserCenter userCenter].cityCode = regeocode.adcode;
+//    }];
+//    [_locationManager startUpdatingLocation];
+}
+
 -(void)setUPkeyboardManager {
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager]; // 获取类库的单例变量
     

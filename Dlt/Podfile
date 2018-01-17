@@ -31,4 +31,8 @@ pod'ActionSheetPicker-3.0'
  pod 'Objective-LevelDB'
  pod 'SAMKeychain'
  pod 'WechatOpenSDK'
+ 
+ pod 'AMapLocation-NO-IDFA'
+ pod 'AMap2DMap-NO-IDFA'
+ pod 'AMapSearch-NO-IDFA'
 end

@@ -12,6 +12,7 @@
 #import "FriendsViewController.h"
 #import "GreatgodViewController.h"
 #import "MessageChateViewController.h"
+#import "MapViewController.h"//添加map 红包
 #import "BaseNC.h"
 #import <RongIMKit/RongIMKit.h>
 
@@ -115,8 +116,11 @@
     FoundViewController * found = [[FoundViewController alloc]init];
      [self setupChildViewController:found title:@"发现" imageName:@"Okami_09" selectedImageName:@"friends_10"];
 
-            GreatgodViewController * great = [[GreatgodViewController alloc]init];
-              [self setupChildViewController:great title:@"大神" imageName:@"news_19" selectedImageName:@"Okami_10"];
+//            GreatgodViewController * great = [[GreatgodViewController alloc]init];
+//              [self setupChildViewController:great title:@"大神" imageName:@"news_19" selectedImageName:@"Okami_10"];
+    //替换地图红包
+    MapViewController *mapVc = [[MapViewController alloc] init];
+    [self setupChildViewController:mapVc title:@"蚂蚁" imageName:@"mayi_151" selectedImageName:@"mayi_10"];
 
     FriendsViewController * friends = [[FriendsViewController alloc]init];
     

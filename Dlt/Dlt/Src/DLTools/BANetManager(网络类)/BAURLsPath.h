@@ -19,15 +19,21 @@
 /*! 示例3：DemoVC11中的网络获取示例    117.34.109.146：3344      */
 #define DemoVC11URLPath2 @"http://chanyouji.com/api/users/likes/268717.json"
 
-
+#ifdef DEBUG
 #define BASE_URL @"http://117.34.109.146:63425/api/"
 #define BASE_IMGURL  @"http://117.34.109.146:63425"
 
+#else
 //正式
+#define BASE_URL @"http://www.mayiton.com/api/"
+#define BASE_IMGURL  @"http://www.mayiton.com"
+#endif
 
-//#define BASE_URL @"http://www.mayiton.com/api/"
-//#define BASE_IMGURL  @"http://www.mayiton.com"
+#import "NSDictionary+Parser.h"
 
-
+//宏定义
+#define userInfoMapKey    @"userInfoMapKey"
+#define userInfoMapShow   @"userInfoMapShow"
+#define userInfoMapHidden @"userInfoMapHidden"
 
 #endif /* BAURLsPath_h */
