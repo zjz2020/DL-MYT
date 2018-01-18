@@ -60,7 +60,7 @@
         [self.cardView addSubview:self.sexImageView];
         [self.sexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.nameLabel.mas_centerY);
-            make.left.equalTo(self.nameLabel.mas_right).offset(15);
+            make.left.equalTo(self.nameLabel.mas_right).offset(5);
             make.width.equalTo(@(21));
             make.height.equalTo(@(13));
         }];
@@ -128,8 +128,8 @@
     _nameLabel.text = _model.userName;
     CGRect nameSize =[_model.userName boundingRectWithSize:CGSizeMake(250,30)
                                       options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
-                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil];
-    
+                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:xyzW(18)]} context:nil];
+    _nameLabel.height = xyzW(18);
     [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@(nameSize.size.width));
     }];

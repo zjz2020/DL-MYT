@@ -47,6 +47,7 @@
 //@property(nonatomic,strong)NSMutableArray   *dataArray;
 //@property(nonatomic,strong)NSMutableArray  *dataArray2;
 @property(nonatomic,strong)NSArray<MAPointAnnotation *> *AnnotationArray;
+@property(nonatomic,strong)NSArray<MAPointAnnotation *> *AnnotationRedArray;
 //是否显示展示信息
 @property(nonatomic,assign,getter=showInfo) BOOL orShowInfo;
 @property(nonatomic,assign)BOOL orShowData2;
@@ -100,6 +101,7 @@
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
+    [_mapView setZoomLevel:14];
     [self.view addSubview:_mapView];
     MYSearchView *seachV = [MYSearchView searchViewWithFram:CGRectMake(10, 20, kScreenWidth - 20, kNewScreenHScale *47)];
     CGFloat SPace = 10;
@@ -123,7 +125,17 @@
     [_mapView setShowsScale:NO];
 }
 
-#pragma mark   展示地图上的点--------点点
+#pragma mark   展示地图上的点--------点点   MAMapViewDelegate
+
+- (void)mapView:(MAMapView *)mapView mapDidZoomByUser:(BOOL)wasUserAction{
+    NSLog(@"%f",mapView.zoomLevel);
+    if (mapView.zoomLevel < 12) {//隐藏红包
+        [self.mapView removeAnnotations:self.AnnotationRedArray];
+    } else {//展示红包
+        [self.mapView addAnnotations:self.AnnotationRedArray];
+    }
+}
+
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation{
     // 自定义userLocation对应的annotationView
     NSLog(@"viewForAnnotation  %@",[annotation class]);
@@ -211,6 +223,7 @@
 //进行附近的人添加到地图
 - (void)addNearSourceToMap{
     [self.mapView removeAnnotations:_AnnotationArray];
+    [self.mapView removeAnnotations:_AnnotationRedArray];
     NSMutableArray *testArray = [NSMutableArray new];
     for (int i = 0; i < self.nearRedPacket.count; i ++){
         RedPacket *mode = self.nearRedPacket[i];
@@ -220,6 +233,8 @@
         pointAnnotation.coordinate = CLLocationCoordinate2DMake([mode.lat floatValue], [mode.lon floatValue]);
         [testArray addObject:pointAnnotation];
     }
+    self.AnnotationRedArray = [testArray mutableCopy];
+    [testArray removeAllObjects];
     for (int i = 0; i < self.nearPeople.count; i ++){
         RedPacket *mode = self.nearPeople[i];
         MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
@@ -228,8 +243,9 @@
         pointAnnotation.coordinate = CLLocationCoordinate2DMake([mode.lat floatValue], [mode.lon floatValue]);
         [testArray addObject:pointAnnotation];
     }
-    self.AnnotationArray = testArray;
+    self.AnnotationArray = [testArray mutableCopy];
     [self.mapView addAnnotations:_AnnotationArray];
+    [self.mapView addAnnotations:_AnnotationRedArray];
 }
 //点击关闭弹出
 - (void)clickeCloseShowViewAction:(UIButton *)btn{
