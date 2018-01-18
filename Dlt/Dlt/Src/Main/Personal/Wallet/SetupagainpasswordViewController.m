@@ -84,41 +84,53 @@
     {
 //        NSString * token = [DEFAULTS objectForKey:@"token"];
 //        NSString * uid = [DEFAULTS objectForKey:@"uid"];
-        DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
-
-        NSDictionary * dic = @{@"token":[DLTUserCenter userCenter].token,
-                               @"uid":user.uid,
-                               @"payPwd":Password,
-                               @"oldPaypwd":_oldPassword};
-        
-        NSString * url = [NSString stringWithFormat:@"%@wallet/modifyPayPwd",BASE_URL];
-        [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
+//        DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+//
+//        NSDictionary * dic = @{@"token":[DLTUserCenter userCenter].token,
+//                               @"uid":user.uid,
+//                               @"payPwd":Password,
+//                               @"oldPaypwd":_oldPassword};
+//        
+//        NSString * url = [NSString stringWithFormat:@"%@wallet/modifyPayPwd",BASE_URL];
+//        [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
+//            
+//            if ([response[@"code"]integerValue]==1) {
+////                SetupagainpasswordViewController * again = [[SetupagainpasswordViewController alloc]init];
+////                again.resultcode = seletype;
+////                again.againPassword = Password;
+////                [self.navigationController pushViewController:again animated:YES];
+//
+        if ([Password isEqualToString:self.oldPassword]) {
+            [DLAlert alertWithText:@"与原密码相同 请重新输入" afterDelay:3];
             
-            if ([response[@"code"]integerValue]==1) {
-//                SetupagainpasswordViewController * again = [[SetupagainpasswordViewController alloc]init];
-//                again.resultcode = seletype;
-//                again.againPassword = Password;
-//                [self.navigationController pushViewController:again animated:YES];
-                
-                NewsetupViewController * news = [[NewsetupViewController alloc]init];
-                news.againPassword = Password;
-                [self.navigationController pushViewController:news animated:YES];
-                
-                
-                
-                
-            }else
-            {
-//                [BAAlertView showTitle:nil message:@"密码出错"];
-                [DLAlert alertWithText:@"支付密码出错"];
-            }
-            
-        } failureBlock:^(NSError *error) {
-           // [BAAlertView showTitle:nil message:@"出现错误"];
-        } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-            
-        }];
-    
+            SetupagainpasswordViewController *pagV = [[SetupagainpasswordViewController alloc] init];
+            pagV.oldPassword = self.oldPassword;
+            pagV.seleType = YES;
+            [self.navigationController pushViewController:pagV animated:YES];
+//            [TXView.TF becomeFirstResponder];
+//            [self viewWillAppear:YES];
+            return;
+        }
+        NewsetupViewController * news = [[NewsetupViewController alloc]init];
+        news.againPassword = Password;
+        news.oldPassword = _oldPassword;
+        [self.navigationController pushViewController:news animated:YES];
+//
+//                
+//                
+//                
+//            }else
+//            {
+////                [BAAlertView showTitle:nil message:@"密码出错"];
+//                [DLAlert alertWithText:@"支付密码出错"];
+//            }
+//            
+//        } failureBlock:^(NSError *error) {
+//           // [BAAlertView showTitle:nil message:@"出现错误"];
+//        } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+//            
+//        }];
+//    
 
     
 }
