@@ -75,7 +75,7 @@
    
     @weakify(self)
     [BANetManager ba_request_POSTWithUrlString:url parameters:param successBlock:^(id response) {
-        NSLog(@"%@",response);
+        
         @strongify(self)
         NSArray *array =[DLBillStatus mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         if (_index == 0) {
