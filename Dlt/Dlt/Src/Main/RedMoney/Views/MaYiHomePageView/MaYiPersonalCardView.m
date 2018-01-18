@@ -85,7 +85,7 @@
         [self.imageScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lineView.mas_bottom).offset(15);
             make.centerX.equalTo(self.headImageView.mas_centerX);
-            make.width.equalTo(@(xyzW(self.cardView.width - 30)));
+            make.width.equalTo(@(self.cardView.width - 20));
             make.height.equalTo(@(xyzW(105)));
         }];
         
@@ -108,7 +108,7 @@
     [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.55 initialSpringVelocity:1 / 0.55 options:0 animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
-        
+        [self removeFromSuperview];
     }];
 }
 
@@ -143,11 +143,11 @@
 
     if(_model.photosArr.count > 0){
         for(int i = 0 ; i < _model.photosArr.count ; i++){
-            UIImageView   * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(10+105) , 0, 105, 105)];
+            UIImageView   * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(xyzW(105) +10) , 0, xyzW(105), xyzW(105))];
             [imageView sd_setImageWithURL:[NSURL URLWithString:_model.photosArr[i]]];
             [_imageScrollView addSubview:imageView];
         }
-        [_imageScrollView setContentSize:CGSizeMake((10+105)*_model.photosArr.count - 10, 105)];
+        [_imageScrollView setContentSize:CGSizeMake((xyzW(105) + 10)*_model.photosArr.count - 10, xyzW(105))];
         _imageScrollView.alpha = 1;
         _noneLabel.alpha = 0;
     }else{
@@ -209,7 +209,7 @@
     if(!_nameLabel){
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = SDColor(44, 44, 44, 1);
-        _nameLabel.font = [UIFont systemFontOfSize:17];
+        _nameLabel.font = [UIFont systemFontOfSize:xyzW(17)];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _nameLabel;
@@ -246,6 +246,8 @@
         _imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _imageScrollView.showsVerticalScrollIndicator = NO;
         _imageScrollView.showsHorizontalScrollIndicator = NO;
+        [_imageScrollView setShowsVerticalScrollIndicator:NO];
+//        _imageScrollView.backgroundColor = [UIColor redColor];
     }
     return _imageScrollView;
 }

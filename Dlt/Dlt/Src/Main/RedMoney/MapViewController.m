@@ -103,13 +103,21 @@
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
     [_mapView setZoomLevel:14];
     [self.view addSubview:_mapView];
-    MYSearchView *seachV = [MYSearchView searchViewWithFram:CGRectMake(10, 20, kScreenWidth - 20, kNewScreenHScale *47)];
+    CGFloat seachY = 20;
+    if ([self isIphoneX]) {
+        seachY = 40;
+    }
+    MYSearchView *seachV = [MYSearchView searchViewWithFram:CGRectMake(10, seachY, kScreenWidth - 20, kNewScreenHScale *47)];
     CGFloat SPace = 10;
     seachV.delegate = self;
     [self.mapView addSubview:seachV];
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeBtn.frame = CGRectMake(SPace, [UIScreen mainScreen].bounds.size.height - 2 *SPace - 40- 44, 80, 40);
+    CGFloat closeY = [UIScreen mainScreen].bounds.size.height - 2 *SPace - 40- 44;
+    if ([self isIphoneX]) {
+        closeY = [UIScreen mainScreen].bounds.size.height - 2 *SPace - 40- 44 - 30;
+    }
+    closeBtn.frame = CGRectMake(SPace, closeY, 80, 40);
     closeBtn.selected = [self userInfoOrOpen];//yes 关闭
     [closeBtn addTarget:self action:@selector(clickeCloseShowViewAction:) forControlEvents:UIControlEventTouchUpInside];
     [closeBtn setImage:[UIImage imageNamed:@"mayi_14"] forState:UIControlStateNormal];//开启
@@ -174,7 +182,7 @@
         }
         switch (pointA.annotType) {
                 case AntTypeSelf:{
-                    annotationView.image = [UIImage imageNamed:@"mayi_10"];
+//                    annotationView.image = [UIImage imageNamed:@"mayi_15"];
                 }
                 break;
                 case AntTypeOther:{
@@ -360,6 +368,9 @@
 - (void)antGetRedMoneyWithMoneyid:(NSString *)moneyid{
     NSString *antGetRedMoney = [NSString stringWithFormat:@"%@%@",BASE_URL,ReceiveAntMoney];
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    if (![self judeCityCode]) {
+        return;
+    }
     NSDictionary *parameter = @{
                                 @"cityCode":[DLTUserCenter userCenter].cityCode,
                                 @"rpid":moneyid,
@@ -416,6 +427,10 @@
 - (void)antInfoSet{
     self.showInfoBtn.userInteractionEnabled = NO;
     [DLAlert alertShowLoadStr:@"正在切换状态"];
+    if (![self judeCityCode]) {
+        [MBProgressHUD hideHUD];
+        return;
+    }
     NSString *antInfoSet = [NSString stringWithFormat:@"%@%@",BASE_URL,SetAntInfoIsOpen];
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSDictionary *parameter = @{
@@ -531,6 +546,9 @@
 }
 //
 - (void)beginOpenMayiControllWithPassWord:(NSString *)passWord type:(NSString *)type{
+    if (![self judeCityCode]) {
+        return;
+    }
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSString *longitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.longitude];
     NSString *latitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.latitude];
@@ -617,6 +635,9 @@
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSString *longitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.longitude];
     NSString *latitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.latitude];
+    if (![self judeCityCode]) {
+        return;
+    }
     NSDictionary *dic = @{@"cityCode":[DLTUserCenter userCenter].cityCode,
                           @"lon":longitude,
                           @"lat":latitude,
@@ -656,9 +677,21 @@
     } failureBlock:^(NSError *error) {
         [DLAlert alertWithText:@"操作失败" afterDelay:3];
     } progress:nil];
-    
-    
-    
+}
+//判断是否有cityCode
+- (BOOL)judeCityCode{
+    if (![DLTUserCenter userCenter].cityCode || [DLTUserCenter userCenter].cityCode.length < 4) {
+        [DLAlert alertWithText:@"蚂蚁未获取到你的定位,请重试" afterDelay:3];
+        return NO;
+    }
+    return YES;
+}
+//判断是否是iphonX
+- (BOOL)isIphoneX{
+    if (kScreenHeight == 812) {
+        return YES;
+    }
+    return NO;
 }
 #pragma mark 数据初始化
 

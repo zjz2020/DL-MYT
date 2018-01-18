@@ -119,7 +119,7 @@
     if ([self orShowRedPage]) {
         //替换地图红包
         MapViewController *mapVc = [[MapViewController alloc] init];
-        [self setupChildViewController:mapVc title:@"蚂蚁" imageName:@"mayi_151" selectedImageName:@"mayi_10"];
+        [self setupChildViewController:mapVc title:@"蚂蚁" imageName:@"mayi_151" selectedImageName:@"mayi_15"];
         
     } else {
         GreatgodViewController * great = [[GreatgodViewController alloc]init];

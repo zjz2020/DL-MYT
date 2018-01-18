@@ -27,7 +27,7 @@
 
 -(void)setLineWidth:(NSInteger)lineWidth{
     _lineWidth = lineWidth;
-    [bottem setFrame:CGRectMake(10, 69, lineWidth, 0.5)];
+    [bottem setFrame:CGRectMake(10, xyzW(70) - 0.5, lineWidth, 0.5)];
 }
 
 -(void)ba_setupCell {

@@ -18,7 +18,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGFloat borderWidth = 1;
     // borderColor表示边框的颜色
-    [[UIColor redColor] set];
+    [[UIColor clearColor] set];
     CGFloat bigRadius = newsize.width * 0.5;
     CGFloat centerX = bigRadius;
     CGFloat centerY = bigRadius;

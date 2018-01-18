@@ -14,8 +14,8 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "IQUIWindow+Hierarchy.h"
 
-#define PayViewWidth           (kScreenWidth * 0.853)
-#define PayViewHeight          (kScreenWidth * 0.853 * 1.24)
+#define PayViewWidth           (320 * kNewScreenWScale)
+#define PayViewHeight          (400 * kNewScreenWScale)
 #define PayCellInderifer       @"PayCellInderifer"
 
 @interface MaYiOpenPayView()<UITableViewDelegate , UITableViewDataSource ,DLPasswordInputViewDelegate>{
@@ -87,7 +87,7 @@
 
         [self.payBackView addSubview:self.payLabel];
         [self.payLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@(PayViewWidth * 0.28+10));
+            make.top.equalTo(@(90 *kNewScreenWScale+10));
             make.left.equalTo(@(15));
             make.width.equalTo(@(100));
             make.height.equalTo(@(30));
@@ -106,15 +106,15 @@
             make.top.equalTo(self.payLabel.mas_bottom).offset(10);
             make.left.equalTo(@(0));
             make.right.equalTo(@(0));
-            make.height.equalTo(@(70*(kScreenWidth/375)*2));
+            make.height.equalTo(@(70*kNewScreenWScale*2));
         }];
 
         [self.payBackView addSubview:self.agreeBtn];
         [self.agreeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.payTableView.mas_bottom).offset(10);
+            make.top.equalTo(self.payTableView.mas_bottom).offset(xyzH(10));
             make.left.equalTo(self.payLabel.mas_left);
             make.width.equalTo(@(150));
-            make.height.equalTo(@(35));
+            make.height.equalTo(@(xyzH(35)));
         }];
 
         [self.payBackView addSubview:self.nextBtn];
@@ -122,7 +122,7 @@
             make.top.equalTo(self.agreeBtn.mas_bottom).offset(10);
             make.left.equalTo(self.payLabel.mas_left);
             make.right.equalTo(@(-15));
-            make.height.equalTo(@(45));
+            make.height.equalTo(@(xyzW(45)));
         }];
         
     }
@@ -226,12 +226,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PayCell * cell = [tableView dequeueReusableCellWithIdentifier:PayCellInderifer];
     [cell file:self.dataArr[indexPath.row]];
-    cell.lineWidth = kScreenWidth * 0.853 - 20;
+    cell.lineWidth = PayViewWidth - 20;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70*(kScreenWidth/375);
+    return 70*kNewScreenWScale;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
