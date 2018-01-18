@@ -13,6 +13,7 @@
 @interface DLFirstBillViewController ()
 @property (nonatomic , strong)UITableView *tableView;
 @property (nonatomic , strong)NSMutableArray *status;
+
 @end
 
 @implementation DLFirstBillViewController
@@ -37,6 +38,7 @@
     .leftSpaceToView(self.view, 0)
     .rightSpaceToView(self.view, 0)
     .bottomSpaceToView(self.view, 0);
+   
     // Do any additional setup after loading the view.
 }
 -(void)HttpTabelViewData{
@@ -49,7 +51,11 @@
  @weakify(self)
     [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
          @strongify(self)
-        NSLog(@"%@",response);
+        
+        if (![response[@"data"] objectForKey:@"months"]) {
+
+            [DLAlert alertWithText:@"暂时没有账单信息"];
+        }
         self.status = (NSMutableArray *)response[@"data"][@"months"];
         [self.tableView reloadData];
     } failureBlock:^(NSError *error) {
