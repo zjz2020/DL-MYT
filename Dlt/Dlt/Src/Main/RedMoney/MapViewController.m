@@ -186,7 +186,7 @@
                 }
                 break;
                 case AntTypeOther:{
-                    annotationView.image = [UIImage imageNamed:@"mayi_15"];
+                    annotationView.image = [UIImage imageNamed:@"mayi_10"];
                 }
                 break;
                 case AntTypeMoney:{

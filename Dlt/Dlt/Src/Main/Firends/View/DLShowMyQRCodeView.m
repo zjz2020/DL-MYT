@@ -83,14 +83,31 @@
     }];
 }
 -(UIImage *)creatQRCode{
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     MKQRCode *code = [[MKQRCode alloc] init];
-    [code setInfo:[user objectForKey:@"uid"] withSize:300];
+    NSDictionary *dic = @{
+                          @"action" : @"addFriend",
+                          @"uid" : [DLTUserCenter userCenter].curUser.uid
+                          };
+    NSString *content = [self convertToJSON:dic];
+    [code setInfo:content withSize:300];
+//    [code setInfo:[user objectForKey:@"uid"] withSize:300];
     code.centerImg = [UIImage imageNamed:@"Login_00"];
     code.style = MKQRCodeStyleCenterImage;
     return [code generateImage];
 }
-
+- (NSString *)convertToJSON:(NSDictionary *)dict {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString;
+    if (!jsonData) {
+        [DLAlert alertWithText:@"出错了"];
+        return nil;
+    }else {
+        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString.copy;
+}
 
 
 @end
