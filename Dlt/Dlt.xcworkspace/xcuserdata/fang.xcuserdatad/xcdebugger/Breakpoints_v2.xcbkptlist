@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Dlt/Src/Main/RedMoney/MapViewController.m"
-            timestampString = "537875500.6356471"
+            filePath = "Dlt/Src/DLKit/others/Cusomview/MKQRCode.m"
+            timestampString = "537956297.701499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
-            landmarkName = "-antInfoSet"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-generateImage"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,45 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Dlt/Src/Main/RedMoney/MapViewController.m"
-            timestampString = "537875500.635941"
+            filePath = "Dlt/Src/Main/Personal/setUp/MyqrcodeViewController.m"
+            timestampString = "537956646.134341"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
-            landmarkName = "-antInfoSet"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Dlt/Src/Main/RedMoney/MapViewController.m"
-            timestampString = "537875500.636095"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
-            landmarkName = "-antInfoSet"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Dlt/Src/DLCode/Login/LoginViewController.m"
-            timestampString = "537873166.898973"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
-            landmarkName = "-login:"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "-generateImage"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

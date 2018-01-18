@@ -43,10 +43,10 @@
         
         [self.cardView addSubview:self.headImageView];
         [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@(45));
+            make.top.equalTo(@(xyzH(45)));
             make.centerX.equalTo(self.cardView.mas_centerX);
-            make.width.equalTo(@(80));
-            make.height.equalTo(@(80));
+            make.width.equalTo(@(xyzW(80)));
+            make.height.equalTo(@(xyzW(80)));
         }];
         
         [self.cardView addSubview:self.nameLabel];
@@ -60,7 +60,7 @@
         [self.cardView addSubview:self.sexImageView];
         [self.sexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.nameLabel.mas_centerY);
-            make.left.equalTo(self.nameLabel.mas_right).offset(15);
+            make.left.equalTo(self.nameLabel.mas_right).offset(5);
             make.width.equalTo(@(21));
             make.height.equalTo(@(13));
         }];
@@ -69,15 +69,15 @@
         [self.introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
             make.centerX.equalTo(self.headImageView.mas_centerX);
-            make.width.equalTo(@(kScreenWidth * 0.853 * 0.9));
-            make.height.equalTo(@(30));
+            make.width.equalTo(@(self.cardView.width));
+            make.height.equalTo(@(xyzH(14)));
         }];
         
         [self.cardView addSubview:self.lineView];
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.introduceLabel.mas_bottom).offset(15);
             make.centerX.equalTo(self.headImageView.mas_centerX);
-            make.width.equalTo(@(kScreenWidth * 0.853 * 0.9));
+            make.width.equalTo(@(self.cardView.width - 30));
             make.height.equalTo(@(1));
         }];
         
@@ -85,15 +85,15 @@
         [self.imageScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lineView.mas_bottom).offset(15);
             make.centerX.equalTo(self.headImageView.mas_centerX);
-            make.width.equalTo(@(kScreenWidth * 0.853 * 0.9));
-            make.height.equalTo(@(105));
+            make.width.equalTo(@(self.cardView.width - 20));
+            make.height.equalTo(@(xyzW(105)));
         }];
         
         [self.cardView addSubview:self.noneLabel];
         [self.noneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lineView.mas_bottom).offset(15);
             make.centerX.equalTo(self.headImageView.mas_centerX);
-            make.width.equalTo(@(kScreenWidth * 0.853 * 0.9));
+            make.width.equalTo(@(self.cardView.width - 30));
             make.bottom.equalTo(@(-10));
         }];
         
@@ -108,7 +108,7 @@
     [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.55 initialSpringVelocity:1 / 0.55 options:0 animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
-        
+        [self removeFromSuperview];
     }];
 }
 
@@ -119,7 +119,7 @@
 
     _model = model;
     if(_model.userHeadImage && _model.userHeadImage.length > 0){
-        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_model.userHeadImage]];
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_model.userHeadImage] placeholderImage:[UIImage imageNamed:@"news_26"]];
     }
     else{
         _headImageView.image = [UIImage imageNamed:@"news_26"];
@@ -128,13 +128,13 @@
     _nameLabel.text = _model.userName;
     CGRect nameSize =[_model.userName boundingRectWithSize:CGSizeMake(250,30)
                                       options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
-                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil];
-    
+                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:xyzW(18)]} context:nil];
+    _nameLabel.height = xyzW(18);
     [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@(nameSize.size.width));
     }];
 
-    UIImage  * sexImage = [UIImage imageNamed:[_model.sex isEqualToString:@"1"]?@"mayi_personalMale":@"mayi_personalFemale"];
+    UIImage  * sexImage = [UIImage imageNamed:[_model.sex isEqualToString:@"1"]?@"mayi_19":@"mayi_18"];
     _sexImageView.image = sexImage;
 
     _introduceLabel.text = _model.note;
@@ -143,11 +143,11 @@
 
     if(_model.photosArr.count > 0){
         for(int i = 0 ; i < _model.photosArr.count ; i++){
-            UIImageView   * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(10+105) , 0, 105, 105)];
+            UIImageView   * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(xyzW(105) +10) , 0, xyzW(105), xyzW(105))];
             [imageView sd_setImageWithURL:[NSURL URLWithString:_model.photosArr[i]]];
             [_imageScrollView addSubview:imageView];
         }
-        [_imageScrollView setContentSize:CGSizeMake((10+105)*_model.photosArr.count - 10, 105)];
+        [_imageScrollView setContentSize:CGSizeMake((xyzW(105) + 10)*_model.photosArr.count - 10, xyzW(105))];
         _imageScrollView.alpha = 1;
         _noneLabel.alpha = 0;
     }else{
@@ -178,7 +178,7 @@
 
 -(UIView *)cardView{
     if(!_cardView){
-        _cardView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth * 0.853, kScreenWidth * 0.853 * 1.14)];
+        _cardView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320 * kNewScreenWScale,  365* kNewScreenHScale)];
         _cardView.center = CGPointMake(kScreenWidth / 2, kScreenHeight / 2);
         _cardView.backgroundColor = [UIColor whiteColor];
         _cardView.layer.cornerRadius = 10.0;
@@ -199,7 +199,7 @@
     if(!_headImageView){
         _headImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _headImageView.layer.cornerRadius = 40;
+        _headImageView.layer.cornerRadius = xyzW(40);
         _headImageView.clipsToBounds = YES;
     }
     return _headImageView;
@@ -209,7 +209,7 @@
     if(!_nameLabel){
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = SDColor(44, 44, 44, 1);
-        _nameLabel.font = [UIFont systemFontOfSize:17];
+        _nameLabel.font = [UIFont systemFontOfSize:xyzW(17)];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _nameLabel;
@@ -227,7 +227,7 @@
     if(!_introduceLabel){
         _introduceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _introduceLabel.textColor = SDColor(153, 153, 153, 1);
-        _introduceLabel.font = [UIFont systemFontOfSize:14];
+        _introduceLabel.font = [UIFont systemFontOfSize:xyzH(14)];
         _introduceLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _introduceLabel;
@@ -246,6 +246,8 @@
         _imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _imageScrollView.showsVerticalScrollIndicator = NO;
         _imageScrollView.showsHorizontalScrollIndicator = NO;
+        [_imageScrollView setShowsVerticalScrollIndicator:NO];
+//        _imageScrollView.backgroundColor = [UIColor redColor];
     }
     return _imageScrollView;
 }

@@ -26,6 +26,7 @@
 #import "MaYiOpenPayView.h"
 #import "MYSearchView.h"
 #import "MYWebViewController.h"
+#import "UIImage+Scale.h"
 #define OpenAntUrl                  @"mayi/start_mayi"//开启蚂蚁
 #define GetNearbyAnt                @"mayi/georadius_user"//获取周边的蚂蚁
 #define SeachIsAnt                  @"mayi/is_mayi_user"//查询是否是蚂蚁用户
@@ -43,9 +44,10 @@
 @property(nonatomic,strong)AMapLocationManager *locationManager;
 @property(nonatomic,strong)MAMapView *mapView;
 @property(nonatomic,strong)MaYiOpenView *openView;
-@property(nonatomic,strong)NSMutableArray   *dataArray;
-@property(nonatomic,strong)NSMutableArray  *dataArray2;
+//@property(nonatomic,strong)NSMutableArray   *dataArray;
+//@property(nonatomic,strong)NSMutableArray  *dataArray2;
 @property(nonatomic,strong)NSArray<MAPointAnnotation *> *AnnotationArray;
+@property(nonatomic,strong)NSArray<MAPointAnnotation *> *AnnotationRedArray;
 //是否显示展示信息
 @property(nonatomic,assign,getter=showInfo) BOOL orShowInfo;
 @property(nonatomic,assign)BOOL orShowData2;
@@ -99,14 +101,23 @@
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
+    [_mapView setZoomLevel:14];
     [self.view addSubview:_mapView];
-    MYSearchView *seachV = [MYSearchView searchViewWithFram:CGRectMake(10, 20, kScreenWidth - 20, kNewScreenHScale *47)];
+    CGFloat seachY = 20;
+    if ([self isIphoneX]) {
+        seachY = 40;
+    }
+    MYSearchView *seachV = [MYSearchView searchViewWithFram:CGRectMake(10, seachY, kScreenWidth - 20, kNewScreenHScale *47)];
     CGFloat SPace = 10;
     seachV.delegate = self;
     [self.mapView addSubview:seachV];
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeBtn.frame = CGRectMake(SPace, [UIScreen mainScreen].bounds.size.height - 2 *SPace - 40- 44, 80, 40);
+    CGFloat closeY = [UIScreen mainScreen].bounds.size.height - 2 *SPace - 40- 44;
+    if ([self isIphoneX]) {
+        closeY = [UIScreen mainScreen].bounds.size.height - 2 *SPace - 40- 44 - 30;
+    }
+    closeBtn.frame = CGRectMake(SPace, closeY, 80, 40);
     closeBtn.selected = [self userInfoOrOpen];//yes 关闭
     [closeBtn addTarget:self action:@selector(clickeCloseShowViewAction:) forControlEvents:UIControlEventTouchUpInside];
     [closeBtn setImage:[UIImage imageNamed:@"mayi_14"] forState:UIControlStateNormal];//开启
@@ -122,7 +133,17 @@
     [_mapView setShowsScale:NO];
 }
 
-#pragma mark   展示地图上的点--------点点
+#pragma mark   展示地图上的点--------点点   MAMapViewDelegate
+
+- (void)mapView:(MAMapView *)mapView mapDidZoomByUser:(BOOL)wasUserAction{
+    NSLog(@"%f",mapView.zoomLevel);
+    if (mapView.zoomLevel < 12) {//隐藏红包
+        [self.mapView removeAnnotations:self.AnnotationRedArray];
+    } else {//展示红包
+        [self.mapView addAnnotations:self.AnnotationRedArray];
+    }
+}
+
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation{
     // 自定义userLocation对应的annotationView
     NSLog(@"viewForAnnotation  %@",[annotation class]);
@@ -136,9 +157,14 @@
                                                              reuseIdentifier:userLocationStyleReuseIndetifier];
             NSLog(@"%@",NSStringFromCGRect(annotationView.frame));
         }
-        
-        annotationView.image = [UIImage imageNamed:@"mayi_10"];
-        UIView *aView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        DLTUserProfile * user = DLT_USER_CENTER.curUser;
+        NSString *imagestr = [NSString stringWithFormat:@"%@%@",BASE_IMGURL,user.userHeadImg];
+        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imagestr] options:SDWebImageDownloaderHighPriority progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                annotationView.image = [image scaleToSize:image size:CGSizeMake(30, 30)];
+            });
+        }];
+        UIView *aView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         aView.backgroundColor = [UIColor redColor];
         annotationView.leftCalloutAccessoryView = aView;
         //        self.userLocationAnnotationView = annotationView;
@@ -156,11 +182,11 @@
         }
         switch (pointA.annotType) {
                 case AntTypeSelf:{
-                    annotationView.image = [UIImage imageNamed:@"mayi_10"];
+//                    annotationView.image = [UIImage imageNamed:@"mayi_15"];
                 }
                 break;
                 case AntTypeOther:{
-                    annotationView.image = [UIImage imageNamed:@"mayi_15"];
+                    annotationView.image = [UIImage imageNamed:@"mayi_10"];
                 }
                 break;
                 case AntTypeMoney:{
@@ -205,6 +231,7 @@
 //进行附近的人添加到地图
 - (void)addNearSourceToMap{
     [self.mapView removeAnnotations:_AnnotationArray];
+    [self.mapView removeAnnotations:_AnnotationRedArray];
     NSMutableArray *testArray = [NSMutableArray new];
     for (int i = 0; i < self.nearRedPacket.count; i ++){
         RedPacket *mode = self.nearRedPacket[i];
@@ -214,6 +241,8 @@
         pointAnnotation.coordinate = CLLocationCoordinate2DMake([mode.lat floatValue], [mode.lon floatValue]);
         [testArray addObject:pointAnnotation];
     }
+    self.AnnotationRedArray = [testArray mutableCopy];
+    [testArray removeAllObjects];
     for (int i = 0; i < self.nearPeople.count; i ++){
         RedPacket *mode = self.nearPeople[i];
         MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
@@ -222,8 +251,9 @@
         pointAnnotation.coordinate = CLLocationCoordinate2DMake([mode.lat floatValue], [mode.lon floatValue]);
         [testArray addObject:pointAnnotation];
     }
-    self.AnnotationArray = testArray;
+    self.AnnotationArray = [testArray mutableCopy];
     [self.mapView addAnnotations:_AnnotationArray];
+    [self.mapView addAnnotations:_AnnotationRedArray];
 }
 //点击关闭弹出
 - (void)clickeCloseShowViewAction:(UIButton *)btn{
@@ -304,8 +334,12 @@
     [self.navigationController pushViewController:protocolCtr animated:YES];
 }
 - (void)openPaySelectPayMethod:(MaYiOpenPayType)payType andPassWord:(NSString *)passWord{//支付
-    NSString *type = [NSString stringWithFormat:@"%zd",payType +1];
-    [self beginOpenMayiControllWithPassWord:passWord type:type];
+    if (payType == MaYiOpenPayALiPay) {
+        [self alipayTransfer];
+    } else if (payType == MaYiOpenPayBalance) {
+        NSString *type = [NSString stringWithFormat:@"%zd",payType +1];
+        [self beginOpenMayiControllWithPassWord:passWord type:type];
+    }
 }
 #pragma mark MaYiOpenViewDelegate
 - (void)openViewBtnClick{
@@ -328,16 +362,15 @@
     [self.navigationController pushViewController:web animated:YES];
 }
 
-//#pragma mark DLPasswordInputViewDelegate
-//- (void)passwordInputView:(DLPasswordInputView *)passwordInputView inputPasswordText:(NSString *)password{
-//    [self beginOpenMayiControllWithPassWord:password type:<#(NSString *)#>]
-//}
 #pragma mark  数据请求
 
 //蚂蚁领红包
 - (void)antGetRedMoneyWithMoneyid:(NSString *)moneyid{
     NSString *antGetRedMoney = [NSString stringWithFormat:@"%@%@",BASE_URL,ReceiveAntMoney];
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    if (![self judeCityCode]) {
+        return;
+    }
     NSDictionary *parameter = @{
                                 @"cityCode":[DLTUserCenter userCenter].cityCode,
                                 @"rpid":moneyid,
@@ -394,6 +427,10 @@
 - (void)antInfoSet{
     self.showInfoBtn.userInteractionEnabled = NO;
     [DLAlert alertShowLoadStr:@"正在切换状态"];
+    if (![self judeCityCode]) {
+        [MBProgressHUD hideHUD];
+        return;
+    }
     NSString *antInfoSet = [NSString stringWithFormat:@"%@%@",BASE_URL,SetAntInfoIsOpen];
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSDictionary *parameter = @{
@@ -509,6 +546,9 @@
 }
 //
 - (void)beginOpenMayiControllWithPassWord:(NSString *)passWord type:(NSString *)type{
+    if (![self judeCityCode]) {
+        return;
+    }
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSString *longitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.longitude];
     NSString *latitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.latitude];
@@ -516,19 +556,22 @@
                           @"lon":longitude,
                           @"lat":latitude,
                           @"amount":@"100",
-                          @"payType":type,
                           @"payPwd":passWord,
+                          @"payType":type,
                           @"uid":user.uid,
                           @"token":user.token
                           };
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,OpenAntUrl];
+    @weakify(self);
     [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
         NSNumber *code = response[@"code"];
         if ([code isEqual:@0]) {//失败
             [DLAlert alertWithText:response[@"msg"] afterDelay:2];
         } else if ([code isEqual:@1]){
+            @strongify(self);
             [self.payView removeFromSuperview];
             [self.openView removeFromSuperview];
+            [self judementNearbyAnt];
         }
         //        @strongify(self)
         
@@ -586,6 +629,69 @@
     } failure:^(NSError *error) {
         NSLog(@"getADCodeWithLoction: %@",error);
     }];
+}
+#pragma mark 阿里支付
+-(void)alipayTransfer{
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSString *longitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.longitude];
+    NSString *latitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.latitude];
+    if (![self judeCityCode]) {
+        return;
+    }
+    NSDictionary *dic = @{@"cityCode":[DLTUserCenter userCenter].cityCode,
+                          @"lon":longitude,
+                          @"lat":latitude,
+                          @"amount":@"100",
+                          @"payType":@"2",
+                          @"uid":user.uid,
+                          @"token":user.token
+                          };
+    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,OpenAntUrl];
+    @weakify(self);
+    [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
+        NSNumber *code = response[@"code"];
+        if ([code isEqual:@0]) {//失败
+            [DLAlert alertWithText:response[@"msg"] afterDelay:2];
+        } else if ([code isEqual:@1]){
+            if ([response[@"code"] integerValue] == 1) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString *body = response[@"data"];
+                    [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
+                        NSLog(@"reslut = %@",resultDic);
+                        NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
+                        if (orderState==9000) {
+                            @strongify(self);
+                            [_payView removeFromSuperview];
+                            [_openView removeFromSuperview];
+                            [DLAlert alertWithText:@"支付成功"];
+                            [self judementNearbyAnt];
+
+                        } else {
+                            [DLAlert alertWithText:resultDic[@"memo"]];
+                        }
+                    }];
+                });
+            }
+        
+        }
+    } failureBlock:^(NSError *error) {
+        [DLAlert alertWithText:@"操作失败" afterDelay:3];
+    } progress:nil];
+}
+//判断是否有cityCode
+- (BOOL)judeCityCode{
+    if (![DLTUserCenter userCenter].cityCode || [DLTUserCenter userCenter].cityCode.length < 4) {
+        [DLAlert alertWithText:@"蚂蚁未获取到你的定位,请重试" afterDelay:3];
+        return NO;
+    }
+    return YES;
+}
+//判断是否是iphonX
+- (BOOL)isIphoneX{
+    if (kScreenHeight == 812) {
+        return YES;
+    }
+    return NO;
 }
 #pragma mark 数据初始化
 

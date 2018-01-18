@@ -26,6 +26,7 @@
 		32FEA30B200EDA35000BD118 /* MapDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA30A200EDA35000BD118 /* MapDataModel.m */; };
 		32FEA30E200EFC7A000BD118 /* MYSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA30D200EFC7A000BD118 /* MYSearchView.m */; };
 		32FEA311200F276E000BD118 /* MYWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA310200F276E000BD118 /* MYWebViewController.m */; };
+		32FEA314200F5FDF000BD118 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA313200F5FDC000BD118 /* UIImage+Scale.m */; };
 		50025C971EF227530031A48B /* DLTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50025C951EF227530031A48B /* DLTitleTableViewCell.m */; };
 		50025C981EF227530031A48B /* DLTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50025C961EF227530031A48B /* DLTitleTableViewCell.xib */; };
 		50053A731EDD192B009F95DB /* DLGroupMemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50053A721EDD192B009F95DB /* DLGroupMemberTableViewController.m */; };
@@ -677,6 +678,8 @@
 		32FEA30D200EFC7A000BD118 /* MYSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYSearchView.m; sourceTree = "<group>"; };
 		32FEA30F200F276E000BD118 /* MYWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYWebViewController.h; sourceTree = "<group>"; };
 		32FEA310200F276E000BD118 /* MYWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYWebViewController.m; sourceTree = "<group>"; };
+		32FEA312200F5FDC000BD118 /* UIImage+Scale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
+		32FEA313200F5FDC000BD118 /* UIImage+Scale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		50025C941EF227530031A48B /* DLTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLTitleTableViewCell.h; sourceTree = "<group>"; };
 		50025C951EF227530031A48B /* DLTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLTitleTableViewCell.m; sourceTree = "<group>"; };
 		50025C961EF227530031A48B /* DLTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DLTitleTableViewCell.xib; sourceTree = "<group>"; };
@@ -1750,6 +1753,8 @@
 				32CF5FE3200DD1AF009A6940 /* RedPacket.m */,
 				32C1BDC4200E156E0012BD9F /* MYRedListModel.h */,
 				32C1BDC5200E156E0012BD9F /* MYRedListModel.m */,
+				32FEA312200F5FDC000BD118 /* UIImage+Scale.h */,
+				32FEA313200F5FDC000BD118 /* UIImage+Scale.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4550,6 +4555,7 @@
 				50F570C51EF2C25D00FCEFC9 /* DLContactCardView.m in Sources */,
 				50F2136F1EF15C9800114919 /* DLUserInfoSectionView.m in Sources */,
 				861BEA331ED94F5C00EF96E6 /* YZEmotionPageCell.m in Sources */,
+				32FEA314200F5FDF000BD118 /* UIImage+Scale.m in Sources */,
 				CE0E91891ED704C900043138 /* TDSemiModalViewController.m in Sources */,
 				CE4F23801F6F769B000C8E9E /* UIView+SU.m in Sources */,
 				CEE63D521FA34EDC00ED882F /* CircleoffriendsViewController.m in Sources */,
