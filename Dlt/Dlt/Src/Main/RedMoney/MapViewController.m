@@ -26,6 +26,7 @@
 #import "MaYiOpenPayView.h"
 #import "MYSearchView.h"
 #import "MYWebViewController.h"
+#import "UIImage+Scale.h"
 #define OpenAntUrl                  @"mayi/start_mayi"//开启蚂蚁
 #define GetNearbyAnt                @"mayi/georadius_user"//获取周边的蚂蚁
 #define SeachIsAnt                  @"mayi/is_mayi_user"//查询是否是蚂蚁用户
@@ -43,8 +44,8 @@
 @property(nonatomic,strong)AMapLocationManager *locationManager;
 @property(nonatomic,strong)MAMapView *mapView;
 @property(nonatomic,strong)MaYiOpenView *openView;
-@property(nonatomic,strong)NSMutableArray   *dataArray;
-@property(nonatomic,strong)NSMutableArray  *dataArray2;
+//@property(nonatomic,strong)NSMutableArray   *dataArray;
+//@property(nonatomic,strong)NSMutableArray  *dataArray2;
 @property(nonatomic,strong)NSArray<MAPointAnnotation *> *AnnotationArray;
 //是否显示展示信息
 @property(nonatomic,assign,getter=showInfo) BOOL orShowInfo;
@@ -136,9 +137,14 @@
                                                              reuseIdentifier:userLocationStyleReuseIndetifier];
             NSLog(@"%@",NSStringFromCGRect(annotationView.frame));
         }
-        
-        annotationView.image = [UIImage imageNamed:@"mayi_10"];
-        UIView *aView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        DLTUserProfile * user = DLT_USER_CENTER.curUser;
+        NSString *imagestr = [NSString stringWithFormat:@"%@%@",BASE_IMGURL,user.userHeadImg];
+        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imagestr] options:SDWebImageDownloaderHighPriority progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                annotationView.image = [image scaleToSize:image size:CGSizeMake(30, 30)];
+            });
+        }];
+        UIView *aView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         aView.backgroundColor = [UIColor redColor];
         annotationView.leftCalloutAccessoryView = aView;
         //        self.userLocationAnnotationView = annotationView;
@@ -304,8 +310,12 @@
     [self.navigationController pushViewController:protocolCtr animated:YES];
 }
 - (void)openPaySelectPayMethod:(MaYiOpenPayType)payType andPassWord:(NSString *)passWord{//支付
-    NSString *type = [NSString stringWithFormat:@"%zd",payType +1];
-    [self beginOpenMayiControllWithPassWord:passWord type:type];
+    if (payType == MaYiOpenPayALiPay) {
+        [self alipayTransfer];
+    } else if (payType == MaYiOpenPayBalance) {
+        NSString *type = [NSString stringWithFormat:@"%zd",payType +1];
+        [self beginOpenMayiControllWithPassWord:passWord type:type];
+    }
 }
 #pragma mark MaYiOpenViewDelegate
 - (void)openViewBtnClick{
@@ -328,10 +338,6 @@
     [self.navigationController pushViewController:web animated:YES];
 }
 
-//#pragma mark DLPasswordInputViewDelegate
-//- (void)passwordInputView:(DLPasswordInputView *)passwordInputView inputPasswordText:(NSString *)password{
-//    [self beginOpenMayiControllWithPassWord:password type:<#(NSString *)#>]
-//}
 #pragma mark  数据请求
 
 //蚂蚁领红包
@@ -516,19 +522,22 @@
                           @"lon":longitude,
                           @"lat":latitude,
                           @"amount":@"100",
-                          @"payType":type,
                           @"payPwd":passWord,
+                          @"payType":type,
                           @"uid":user.uid,
                           @"token":user.token
                           };
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,OpenAntUrl];
+    @weakify(self);
     [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
         NSNumber *code = response[@"code"];
         if ([code isEqual:@0]) {//失败
             [DLAlert alertWithText:response[@"msg"] afterDelay:2];
         } else if ([code isEqual:@1]){
+            @strongify(self);
             [self.payView removeFromSuperview];
             [self.openView removeFromSuperview];
+            [self judementNearbyAnt];
         }
         //        @strongify(self)
         
@@ -586,6 +595,54 @@
     } failure:^(NSError *error) {
         NSLog(@"getADCodeWithLoction: %@",error);
     }];
+}
+#pragma mark 阿里支付
+-(void)alipayTransfer{
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSString *longitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.longitude];
+    NSString *latitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.latitude];
+    NSDictionary *dic = @{@"cityCode":[DLTUserCenter userCenter].cityCode,
+                          @"lon":longitude,
+                          @"lat":latitude,
+                          @"amount":@"100",
+                          @"payType":@"2",
+                          @"uid":user.uid,
+                          @"token":user.token
+                          };
+    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,OpenAntUrl];
+    @weakify(self);
+    [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
+        NSNumber *code = response[@"code"];
+        if ([code isEqual:@0]) {//失败
+            [DLAlert alertWithText:response[@"msg"] afterDelay:2];
+        } else if ([code isEqual:@1]){
+            if ([response[@"code"] integerValue] == 1) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString *body = response[@"data"];
+                    [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
+                        NSLog(@"reslut = %@",resultDic);
+                        NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
+                        if (orderState==9000) {
+                            @strongify(self);
+                            [_payView removeFromSuperview];
+                            [_openView removeFromSuperview];
+                            [DLAlert alertWithText:@"支付成功"];
+                            [self judementNearbyAnt];
+
+                        } else {
+                            [DLAlert alertWithText:resultDic[@"memo"]];
+                        }
+                    }];
+                });
+            }
+        
+        }
+    } failureBlock:^(NSError *error) {
+        [DLAlert alertWithText:@"操作失败" afterDelay:3];
+    } progress:nil];
+    
+    
+    
 }
 #pragma mark 数据初始化
 
