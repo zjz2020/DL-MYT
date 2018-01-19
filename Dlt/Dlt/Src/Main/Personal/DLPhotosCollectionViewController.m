@@ -24,6 +24,7 @@ static NSString * const kPhotosItemId = @"PhotosItemId";
 
 @interface DLPhotosItem ()
 
+
 @end
 
 @implementation DLPhotosItem
@@ -61,11 +62,14 @@ static NSString * const kPhotosItemId = @"PhotosItemId";
   UIActionSheetDelegate,
   TZImagePickerControllerDelegate,
   DLPhotosItemDelegate,
-  UIAlertViewDelegate
+  UIAlertViewDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate
 >
 @property (nonatomic, strong) NSMutableArray *selectedArray;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, assign) NSInteger imageIndex;
+@property (nonatomic , strong)UIImagePickerController *imagePicker;
 @end
 
 @implementation DLPhotosCollectionViewController
@@ -130,7 +134,12 @@ static NSString * const kPhotosItemId = @"PhotosItemId";
 
 // 拍照
 - (void)takePhotos {
-    
+
+    self.imagePicker = [[UIImagePickerController alloc] init];
+    self.imagePicker.delegate = self;
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePicker.allowsEditing = YES;
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 // 从相册选取图片
@@ -148,7 +157,26 @@ static NSString * const kPhotosItemId = @"PhotosItemId";
     [self.selectedArray addObjectsFromArray:photos];
     [self uploadGroupImage];
 }
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (image) {
+        @weakify(self)
+        [[[NSOperationQueue alloc]init] addOperationWithBlock:^{
+            @strongify(self)
+            [self.selectedArray removeAllObjects];
+            [self.selectedArray addObject:image];
+            [self uploadGroupImage];
+        }];
+    }
+}
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - 上传图片
 static bool isFailur;
