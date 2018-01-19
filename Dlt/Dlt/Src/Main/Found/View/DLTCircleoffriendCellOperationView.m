@@ -50,14 +50,14 @@
     
     
     [_moreButton mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.width.and.height.mas_equalTo(50);
-      make.right.equalTo(self.mas_right).offset(-15);
+      make.width.and.height.mas_equalTo(30);
+      make.right.equalTo(self.mas_right);
       make.centerY.equalTo(self);
     }];
     
     [_thumbButton mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.width.and.height.mas_equalTo(50);
-      make.leftMargin.mas_equalTo(5);
+      make.width.and.height.mas_equalTo(30);
+      make.leftMargin.mas_equalTo(0);
       make.centerY.equalTo(self);
     }];
     
@@ -69,7 +69,7 @@
     }];
     
     [_commentButton mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.width.and.height.mas_equalTo(50);
+      make.width.and.height.mas_equalTo(30);
       make.centerY.equalTo(self);
       make.left.equalTo(_thumbLabel.mas_right).offset(20);
     }];
