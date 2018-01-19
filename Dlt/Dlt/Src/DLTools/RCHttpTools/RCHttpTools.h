@@ -138,7 +138,7 @@
                                   handle:(void(^)(NSString *responseObject, BOOL isSuccess))compeletion;
 
 /// 获取红包详情
-- (void)getRedpacketDetailWithRedpackerId:(NSString *)redpackerId
+- (void)getRedpacketDetailWithRedpackerId:(NSString *)redpackerId sendUid:(NSString*)sendUid
                                    handle:(void(^)(DLRedpackerInfo *redpackerInfo))compeletion;
 
 /// 抢红包

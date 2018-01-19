@@ -63,14 +63,14 @@
     self.msgModel = model;
     if ([model.content isMemberOfClass:[DLRedpacketMessage class]]) {
         DLRedpacketMessage *msgModel = (DLRedpacketMessage *)model.content;
-        NSString *url = [NSString stringWithFormat:@"%@Wallet/friendRedpacketInfo",BASE_URL];
+        NSString *url = [NSString stringWithFormat:@"%@Wallet/redpacketInfo",BASE_URL];
         NSDictionary *params = @{
                                  @"token" : [DLTUserCenter userCenter].token,
                                  @"uid" : [DLTUserCenter userCenter].curUser.uid,
                                  @"rpId" : msgModel.packetId
                                  };
         [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
-            NSLog(@"%@",response);
+            NSLog(@"%@",[response valueForKey:@"msg"]);
             if ([response[@"code"] integerValue] == 1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -86,8 +86,27 @@
             }
         }failureBlock:^(NSError *error) {
         } progress:nil];
+        NSString *friendRedurl = [NSString stringWithFormat:@"%@Wallet/friendRedpacketInfo",BASE_URL];
+        [BANetManager ba_request_POSTWithUrlString:friendRedurl parameters:params successBlock:^(id response) {
+            NSLog(@"%@",[response valueForKey:@"msg"]);
+            if ([response[@"code"] integerValue] == 1) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    if ([response[@"data"][@"isGet"] integerValue] == 1) {
+                        self.redpacketState.text = @"红包已被领取";
+                    }
+                    if ([response[@"data"][@"expired"] integerValue] == 1) {
+                        self.redpacketState.text = @"红包已过期";
+                    }
+                });
+            } else {
+                
+            }
+        }failureBlock:^(NSError *error) {
+        } progress:nil];
         self.remarksLabel.text = msgModel.content;
     }
+    
     [self setAutoLayout];
 }
 
