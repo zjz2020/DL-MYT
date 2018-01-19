@@ -258,21 +258,22 @@ DLCustomExpressionTabDelegte
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
+    [DLAlert alertShowLoad];
     [[RCHttpTools shareInstance] robRedpackerWithRedpackerId:[NSString stringWithFormat:@"%ld",(long)redpackerInfo.rpId] handle:^(NSString *responseObject, BOOL isSuccess) {
         if (isSuccess) {
-            
+            [DLAlert alertHideLoad];
             //Wallet/redpacketInfo
                 
-//               DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
-//                NSString *msgStr = [NSString stringWithFormat:@"%@领取了%@的红包",user.userName,redpackerInfo.userName];
-//                RCInformationNotificationMessage *content = [RCInformationNotificationMessage notificationWithMessage:msgStr extra:nil];
-//                [[RCIM sharedRCIM] sendDirectionalMessage:ConversationType_GROUP targetId:self.targetId toUserIdList:@[@"1271",user.uid] content:content pushContent:msgStr pushData:msgStr success:^(long messageId) {
-//                    
-//                } error:^(RCErrorCode nErrorCode, long messageId) {
-//                    
-//                }];
-//                
-                
+               DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+                NSString *msgStr = [NSString stringWithFormat:@"%@领取了%@的红包",user.userName,redpackerInfo.userName];
+                RCInformationNotificationMessage *content = [RCInformationNotificationMessage notificationWithMessage:msgStr extra:nil];
+                [[RCIM sharedRCIM] sendDirectionalMessage:ConversationType_GROUP targetId:self.targetId toUserIdList:@[redpackerInfo.uid,user.uid] content:content pushContent:msgStr pushData:msgStr success:^(long messageId) {
+                    
+                } error:^(RCErrorCode nErrorCode, long messageId) {
+                    
+                }];
+            
+            
             
     
             
@@ -377,7 +378,8 @@ DLCustomExpressionTabDelegte
             }];
         } else {
             @weakify(self)
-            [[RCHttpTools shareInstance] getRedpacketDetailWithRedpackerId:msgModel.packetId handle:^(DLRedpackerInfo *redpackerInfo) {
+           
+            [[RCHttpTools shareInstance] getRedpacketDetailWithRedpackerId:msgModel.packetId sendUid:model.senderUserId handle:^(DLRedpackerInfo *redpackerInfo) {
                 @strongify(self)
                 /// 如果自己抢了直接去红包详情
                 if (redpackerInfo.isGet) {

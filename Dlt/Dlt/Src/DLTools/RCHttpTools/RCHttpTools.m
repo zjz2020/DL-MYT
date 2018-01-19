@@ -711,7 +711,7 @@
     } progress:nil];
 }
 
-- (void)getRedpacketDetailWithRedpackerId:(NSString *)redpackerId
+- (void)getRedpacketDetailWithRedpackerId:(NSString *)redpackerId sendUid:(NSString*)sendUid
                                    handle:(void(^)(DLRedpackerInfo *redpackerInfo))compeletion {
     NSString *url = [NSString stringWithFormat:@"%@Wallet/redpacketInfo",BASE_URL];
     NSDictionary *params = @{
@@ -720,8 +720,9 @@
                              @"rpId" : redpackerId
                              };
     [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
-        NSLog(@"领取了%@",response);
+       
         DLRedpackerInfoModel *model = [DLRedpackerInfoModel modelWithJSON:response];
+        model.data.uid = sendUid;
         if (model.code == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 compeletion(model.data);

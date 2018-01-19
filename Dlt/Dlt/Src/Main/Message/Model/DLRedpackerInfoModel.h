@@ -29,5 +29,5 @@
 @property (nonatomic, assign) NSInteger totalAmount;
 @property (nonatomic, assign) NSInteger totalCount;
 @property (nonatomic ,assign) NSInteger expired;
-
+@property (nonatomic ,strong) NSString * uid;
 @end
