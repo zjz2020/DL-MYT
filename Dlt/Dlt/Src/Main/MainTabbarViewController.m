@@ -52,6 +52,10 @@
   self.tabBar.opaque = YES;
   self.selectedIndex  =2;
     self.tabBar.tintColor = [UIColor colorWithHexString:@"54bdfe"];
+    RCUserInfo *info = [[RCUserInfo alloc]initWithUserId:@"99999999" name:@"蚂蚁通" portrait:nil];
+    [[RCIM sharedRCIM] refreshUserInfoCache:info withUserId:@"99999999"];
+    [self isHaveNew];
+    [self httpExpressGifImage];
 //    CGSize imagesize = CGSizeMake(self.tabBar.bounds.size.width/self.tabBar.items.count, self.tabBar.bounds.size.height);
 //    self.tabBar.selectionIndicatorImage = [self drawTabBaritemBackgroundWitnSize:imagesize];
   
@@ -297,9 +301,9 @@
                              @"token" : [DLTUserCenter userCenter].token,
                              @"uid" : user.uid
                              };
-    @weakify(self)
+    
     [BANetManager ba_request_POSTWithUrlString:promoteurl parameters:promoteparams successBlock:^(id response) {
-        @strongify(self)
+       
         dispatch_async(dispatch_get_main_queue(), ^{
             NSString *str = [NSString stringWithFormat:@"%@",response[@"data"][@"status"]];
             if ([str isEqualToString:@"0"]) {
@@ -319,5 +323,74 @@
         return YES;
     }
     return NO;
+}
+-(void)httpExpressGifImage{
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSString *url = [NSString stringWithFormat:@"%@temp/customimgs",BASE_URL];
+    NSDictionary *params = @{
+                             @"token" : [DLTUserCenter userCenter].token,
+                             @"uid" : user.uid
+                             };
+    NSLog(@"%@",user.uid);
+    [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
+        
+        NSArray *imgArray = [[response valueForKey:@"data"]valueForKey:@"imgs"];
+        NSData *data =  [NSKeyedArchiver archivedDataWithRootObject:imgArray];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"ExpressGif"];
+    } failureBlock:^(NSError *error) {
+        
+    } progress:nil];
+    
+    
+    NSDictionary *paramImage = @{
+                                 @"token" : [DLTUserCenter userCenter].token,
+                                 @"uid" : user.uid
+                                 };
+    NSString *urlImage = [NSString stringWithFormat:@"%@UserCenter/userInfo",BASE_URL];
+    [BANetManager ba_request_POSTWithUrlString:urlImage parameters:paramImage successBlock:^(id response) {
+        
+        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:user.uid name:response[@"data"][@"userName"] portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,[response valueForKey:@"data"][@"userHeadImg"]]];
+        
+        [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:user.uid];
+        [RCIM sharedRCIM].currentUserInfo = userInfo;
+        
+    } failureBlock:^(NSError *error) {
+        
+    } progress:nil];
+    
+    
+}
+-(void)isHaveNew{
+    NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"isHaveNewCurVersion"];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    if (!str) {
+        
+        [self ScavengingCaching:appCurVersion];
+    }else{
+        if (![str isEqualToString:appCurVersion]) {
+            [self ScavengingCaching:appCurVersion];
+        }
+    }
+    
+}
+-(void)ScavengingCaching:(NSString *)appCurVersion{
+    [[NSUserDefaults standardUserDefaults]setObject:appCurVersion forKey:@"isHaveNewCurVersion"];
+    dispatch_async(
+                   dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                       NSString *cachPath = [NSSearchPathForDirectoriesInDomains(
+                                                                                 NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                       NSArray *files =
+                       [[NSFileManager defaultManager] subpathsAtPath:cachPath];
+                       
+                       for (NSString *p in files) {
+                           NSError *error;
+                           NSString *path = [cachPath stringByAppendingPathComponent:p];
+                           if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                               [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+                           }
+                       }
+                       
+                   });
 }
 @end
