@@ -57,7 +57,7 @@ static NSString * kDLRedpacketCellId = @"DLRedpacketCellId";
 DLCustomExpressionTabDelegte
 >
 @property (nonatomic, assign) NSInteger membersCount;
-
+@property (nonatomic, assign) BOOL      isClick; //避免多次点击
 @end
 
 @implementation ConversationViewController
@@ -352,6 +352,13 @@ DLCustomExpressionTabDelegte
       二、1.若自己抢了，但是总红包还没抢完直接去红包详情 2.总红包完了，红包view显示“完” 点击“完”进入红包详情
  */
 - (void)didTapMessageCell:(RCMessageModel *)model {
+    if(_isClick){
+        return;
+    }
+    _isClick = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _isClick = NO;
+    });
     [super didTapMessageCell:model];
     if ([model.content isMemberOfClass:[DLRedpacketMessage class]]) {
         DLRedpacketMessage *msgModel = (DLRedpacketMessage *)model.content;

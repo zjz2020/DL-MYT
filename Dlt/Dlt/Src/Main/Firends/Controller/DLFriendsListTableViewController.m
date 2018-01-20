@@ -18,7 +18,7 @@
 #import "DLMyNewFriendsTableViewController.h"
 #import "DLFriendsSetTableViewController.h"
 #import "DLUserInfDetailViewController.h"
-
+#import <MJRefresh/MJRefresh.h>
 #define kHeaderViewH   119
 
 @interface DLFriendsListTableViewController ()<DLFriendsHeadViewDelegate>
@@ -51,8 +51,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dl_networkForGetFriendsList) name:kRefreshFriendsListNoticationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dl_networkForGetFriendsList) name:kHandleRequestNotificationName object:nil];
+    
+    //mj刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(mjDownRefresh)];
 }
-
+//下拉刷新
+- (void)mjDownRefresh{
+    self.isSeach = NO;
+    self.headView.textField.text = nil;
+    [self dl_networkForGetFriendsList];
+}
 #pragma mark - tableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -100,6 +108,9 @@
             [self.seachArr addObject:info];
         }
     }
+    if (self.seachArr.count == 0) {
+        [DLAlert alertWithText:@"没有搜索到好友"];
+    }
     [self.tableView reloadData];
 }
 
@@ -123,6 +134,7 @@
     @weakify(self)
     [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
         @strongify(self)
+        [self.tableView.mj_header endRefreshing];
         DLFriendsModel *friendsModel = [DLFriendsModel modelWithJSON:response];
         if ([friendsModel.code integerValue] == 1) {
             [self.dataArr removeAllObjects];
@@ -138,7 +150,8 @@
         }
         [self.tableView reloadData];
     } failureBlock:^(NSError *error) {
-        
+        @strongify(self);
+        [self.tableView.mj_header endRefreshing];
     } progress:nil];
 }
 

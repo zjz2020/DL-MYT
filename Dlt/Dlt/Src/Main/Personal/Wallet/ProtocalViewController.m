@@ -22,6 +22,10 @@
     // 1.创建webview，并设置大小，"20"为状态栏高度
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     NSString *urlStr = [NSString stringWithFormat:@"%@/Content/html/dlt_wallet_legal.html", BASE_IMGURL];
+    if (self.protol) {
+        urlStr = [NSString stringWithFormat:@"%@%@",BASE_URL,self.protol];
+        self.title = @"蚂蚁条款";
+    }
     // 2.创建请求
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
     // 3.加载网页

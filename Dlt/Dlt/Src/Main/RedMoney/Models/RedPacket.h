@@ -21,5 +21,10 @@
 @property(nonatomic, assign)NSInteger uid;
 //是否是红包
 @property(nonatomic, assign,getter=redPacket)BOOL isRedPacket;
+//图像
+@property(nonatomic, copy)NSString *rpUserIcon;
+///发红包的人名
+@property(nonatomic, copy)NSString *rpUserName;
+
 + (RedPacket *)showRedPacket;
 @end

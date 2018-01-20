@@ -70,7 +70,7 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
   @weakify(self);
   NSArray *models = [self resultMapForJson:ZWBucket.userDefault.get(kDltCircleofFriendModels)];
   if (models) {
-    [self.dataArray addObjectsFromArray:models];
+    [self.dataArray addObjectsFromArray:models]; 
     [self loadLastDataRefresh:YES]; // 刷新数据
   }
   
@@ -151,6 +151,7 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CircleoffriendCell *cell = [tableView dequeueReusableCellWithIdentifier:kDLT_CircleoffriendCellIdenifer];
     cell.circleFriendsDelegate = self;
+    DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
     cell.indexPath = indexPath;
     cell.model = self.dataArray[indexPath.row];
     return cell;

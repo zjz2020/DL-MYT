@@ -21,4 +21,8 @@ typedef NS_ENUM(NSInteger,AnnotationType) {
 @property(nonatomic, copy)NSString *pid;
 //红包ID
 @property(nonatomic, copy)NSString *rid;
+///红包人头像
+@property(nonatomic, copy)NSString *rpUserIcon;
+///红包名字
+@property(nonatomic, copy)NSString *rpUserName;
 @end

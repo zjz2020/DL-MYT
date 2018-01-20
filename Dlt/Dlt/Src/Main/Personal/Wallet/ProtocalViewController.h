@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ProtocalViewController : UIViewController
-
+@property (nonatomic, copy)NSString *protol;
 @end

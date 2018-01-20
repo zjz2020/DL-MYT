@@ -30,7 +30,7 @@ static NSString * const kWeChatAppKey = @"wx33af1f1e0e029d19";
 #define GDKEY @"09743428909b1f7e88bfe1db55ae328b"
 #define iosSee @"temp/ios_display"
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,WXApiDelegate>
-//@property(nonatomic,strong)AMapLocationManager *locationManager;
+@property(nonatomic,assign)NSInteger afnCount;
 @end
 
 @implementation AppDelegate
@@ -38,7 +38,7 @@ static NSString * const kWeChatAppKey = @"wx33af1f1e0e029d19";
 - (void)configurationRCIM{
     //设置RCIMappkey
     [self cofonfig];
-    
+    _afnCount = 0;
     [[RCIM sharedRCIM] registerMessageType:[DLRedpacketMessage class]];
     [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
     [RCIM sharedRCIM].enableMessageMentioned = YES;
@@ -165,6 +165,7 @@ didRegisterUserNotificationSettings:
 
 - (void)judeIsAssessor{
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",BASE_URL,iosSee];
+    _afnCount ++;
     @weakify(self);
     [BANetManager ba_requestWithType:BAHttpRequestTypeGet urlString:urlStr parameters:nil successBlock:^(id response) {
 //        @strongify(self);
@@ -182,7 +183,9 @@ didRegisterUserNotificationSettings:
         @strongify(self);
         [DLAlert alertWithText:@"请求失败" afterDelay:1.5];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self judeIsAssessor];
+            if (_afnCount < 5) {
+                [self judeIsAssessor];
+            }
         });
     } progress:nil];
 }
@@ -411,11 +414,18 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 -(void)onResp:(BaseResp *)resp{
     SendAuthResp *aresp = (SendAuthResp *)resp;
     //aresp.errCode== 0 &&
-    if([aresp.state isEqualToString:@"mayitongAPP"])
-    {
-        NSString *code = aresp.code;
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center postNotificationName:@"WEIXINBINDING" object:code];
+    if([aresp isKindOfClass:[SendMessageToWXResp class]]){
+        return;
+    }
+    else if ([aresp isKindOfClass:[SendAuthResp class]]) {
+        if(aresp.errCode== 0){
+            if([aresp.state isEqualToString:@"mayitongAPP"])
+            {
+                NSString *code = aresp.code;
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:@"WEIXINBINDING" object:code];
+            }
+        }
     }
 }
 
