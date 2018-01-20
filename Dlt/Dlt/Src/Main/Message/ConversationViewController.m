@@ -57,7 +57,7 @@ static NSString * kDLRedpacketCellId = @"DLRedpacketCellId";
 DLCustomExpressionTabDelegte
 >
 @property (nonatomic, assign) NSInteger membersCount;
-
+@property (nonatomic, assign) BOOL      isClick;  //防止多次点击
 @end
 
 @implementation ConversationViewController
@@ -190,8 +190,46 @@ DLCustomExpressionTabDelegte
             vc.membersCount = self.membersCount;
             [self presentViewController:nc animated:YES completion:nil];
         }
+    }else{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIViewController  * ctr = [self topPresentedViewController];
+            NSLog(@"%@",[ctr className]);
+            UIBarButtonItem * leftItem = ctr.navigationItem.leftBarButtonItems[0];
+            [leftItem setTintColor:[UIColor blackColor]];
+            
+            UIBarButtonItem * rightItem = ctr.navigationItem.rightBarButtonItems[0];
+            [rightItem setTintColor:[UIColor blackColor]];
+        });
     }
 }
+
+- (UIViewController *)topPresentedViewController
+{
+    UIViewController *topController = ([[UIApplication sharedApplication] delegate].window).rootViewController;
+    
+    while ([topController presentedViewController] != nil) {
+        topController = [topController presentedViewController];
+    }
+    
+    UIViewController * currVC = nil;
+    UIViewController * Rootvc = topController ;
+    if ([Rootvc isKindOfClass:[UINavigationController class]]) {
+        UINavigationController * nav = (UINavigationController *)Rootvc;
+        UIViewController * v = [nav.viewControllers lastObject];
+        currVC = v;
+        Rootvc = v.presentedViewController;
+        
+    }else if([Rootvc isKindOfClass:[UITabBarController class]]){
+        UITabBarController * tabVC = (UITabBarController *)Rootvc;
+        currVC = tabVC;
+        Rootvc = [tabVC.viewControllers objectAtIndex:tabVC.selectedIndex];
+        
+    }else if([Rootvc isKindOfClass:[UIViewController class]]){
+        currVC = Rootvc;
+    }
+    return currVC;
+}
+
 #pragma mark - 自定义代理
 - (void)privateRedpacketViewController:(UIViewController *)controller sureSendRedpacker:(NSDictionary *)content {
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
@@ -353,6 +391,13 @@ DLCustomExpressionTabDelegte
       二、1.若自己抢了，但是总红包还没抢完直接去红包详情 2.总红包完了，红包view显示“完” 点击“完”进入红包详情
  */
 - (void)didTapMessageCell:(RCMessageModel *)model {
+    if(_isClick){
+        return;
+    }
+    _isClick = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _isClick = NO;
+    });
     [super didTapMessageCell:model];
     if ([model.content isMemberOfClass:[DLRedpacketMessage class]]) {
         DLRedpacketMessage *msgModel = (DLRedpacketMessage *)model.content;

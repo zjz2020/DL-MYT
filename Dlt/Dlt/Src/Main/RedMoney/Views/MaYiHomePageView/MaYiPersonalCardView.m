@@ -247,7 +247,6 @@
         _imageScrollView.showsVerticalScrollIndicator = NO;
         _imageScrollView.showsHorizontalScrollIndicator = NO;
         [_imageScrollView setShowsVerticalScrollIndicator:NO];
-//        _imageScrollView.backgroundColor = [UIColor redColor];
     }
     return _imageScrollView;
 }

@@ -120,7 +120,7 @@
     DLTCircleofFriendDynamicCommentModel *model = commentItemsArray[i];
   
     label.sd_layout
-    .leftSpaceToView(self, 8)
+    .leftSpaceToView(self, 0)
     .rightSpaceToView(self, 5)
     .topSpaceToView(lastTopView, topMargin)
     .heightIs(model.commentSize.CGSizeValue.height);

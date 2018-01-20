@@ -130,7 +130,7 @@
   .leftEqualToView(_contentLabel)
   .topSpaceToView(_picContainerView,margin)
   .rightEqualToView(_contentLabel)
-  .heightIs(50);
+  .heightIs(40);
   
 
 //  _commentView.sd_layout

@@ -409,13 +409,20 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     }];
 }
 -(void)onResp:(BaseResp *)resp{
+    
     SendAuthResp *aresp = (SendAuthResp *)resp;
-    //aresp.errCode== 0 &&
-    if([aresp.state isEqualToString:@"mayitongAPP"])
-    {
-        NSString *code = aresp.code;
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center postNotificationName:@"WEIXINBINDING" object:code];
+    if([aresp isKindOfClass:[SendMessageToWXResp class]]){
+        return;
+    }
+    else if ([aresp isKindOfClass:[SendAuthResp class]]) {
+        if(aresp.errCode== 0){
+            if([aresp.state isEqualToString:@"mayitongAPP"])
+            {
+                NSString *code = aresp.code;
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:@"WEIXINBINDING" object:code];
+            }
+        }
     }
 }
 
