@@ -66,7 +66,7 @@
     self.wageBtn.titleLabel.font = AdaptedFontSize(12);
     [self.wageBtn.titleLabel sizeToFit];
     [self.wageBtn setImageEdgeInsets:UIEdgeInsetsMake(20, 48, 40, 41)];
-    [self.wageBtn setTitleEdgeInsets:UIEdgeInsetsMake(41,-20, 0, 0)];
+    [self.wageBtn setTitleEdgeInsets:UIEdgeInsetsMake(41,-33, 0, 0)];
     self.wageBtn.backgroundColor =[UIColor whiteColor];
     [self addSubview:self.wageBtn];
      CGFloat CellH = WIDTH/3;

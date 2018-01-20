@@ -192,7 +192,14 @@
                 }
                 break;
                 case AntTypeOther:{
+                     NSString *imagestr = [NSString stringWithFormat:@"%@%@",BASE_IMGURL,pointA.rpUserIcon];
+                    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imagestr] options:SDWebImageDownloaderHighPriority progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            annotationView.image = [image scaleToSize:image size:CGSizeMake(30, 30)];
+                        });
+                    }];
                     annotationView.image = [UIImage imageNamed:@"mayi_10"];
+                    
                 }
                 break;
                 case AntTypeMoney:{
@@ -259,6 +266,7 @@
         MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
         pointAnnotation.annotType = AnnotationTypeOther;
         pointAnnotation.pid = [NSString stringWithFormat:@"%zd",mode.uid];
+        pointAnnotation.rpUserIcon = mode.userIcon;
         pointAnnotation.coordinate = CLLocationCoordinate2DMake([mode.lat floatValue], [mode.lon floatValue]);
         [testArray addObject:pointAnnotation];
     }

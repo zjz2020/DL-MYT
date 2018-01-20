@@ -76,6 +76,9 @@
 -(void)setStatus:(RCMessage *)status{
     _status = status;
     RCTextMessage *model = (RCTextMessage *) status.content;
+    if ([model isKindOfClass:[RCContactNotificationMessage class]]) {
+        return;
+    }
     NSArray *array = [model.content componentsSeparatedByString:@";"];
   
     if (array.count >2) {

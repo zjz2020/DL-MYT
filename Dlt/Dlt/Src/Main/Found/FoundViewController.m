@@ -56,6 +56,9 @@
         }else if ([str isEqualToString:@"2"]&&![[NSUserDefaults standardUserDefaults]boolForKey:@"UserIsPromoter"]){
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"UserIsPromoter"];
             [self.tableView reloadData];
+        } else if ([str isEqualToString:@"1"] || [str isEqualToString:@"3"] || [str isEqualToString:@"7"]){
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"UserIsPromoter"];
+            [self.tableView reloadData];
         }
          });
     } failureBlock:^(NSError *error) {

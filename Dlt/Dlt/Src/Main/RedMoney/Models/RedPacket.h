@@ -25,6 +25,8 @@
 @property(nonatomic, copy)NSString *rpUserIcon;
 ///发红包的人名
 @property(nonatomic, copy)NSString *rpUserName;
+///附近人头像
+@property (nonatomic, copy)NSString *userIcon;
 
 + (RedPacket *)showRedPacket;
 @end

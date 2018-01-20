@@ -236,6 +236,7 @@
     // 聚合类型
     if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_COLLECTION) {
         MessageChateViewController *chatVC = [[MessageChateViewController alloc] init];
+        NSLog(@"%@",model);
         NSArray *arr = [NSArray arrayWithObject:[NSNumber numberWithInt:model.conversationType]];
         [chatVC setDisplayConversationTypes:arr];
         [chatVC setCollectionConversationType:nil];
@@ -258,8 +259,18 @@
             for (int i = 0; i < news.count; i++) {
                 RCMessage *model = news[i];
                 RCTextMessage *groupMsg = (RCTextMessage *)model.content;
+                if ([groupMsg isKindOfClass:[RCContactNotificationMessage class]]) {
+                    [news removeObject:model];
+                }
                 if (![groupMsg.extra isEqualToString:@"DLT:PROMOTE"]) {
-                    [news removeObjectAtIndex:i];
+                    [news removeObject:model];
+                }
+            }
+            for (NSInteger i = 0; i < news.count; i ++) {
+                RCMessage *model = news[i];
+                RCTextMessage *groupMsg = (RCTextMessage *)model.content;
+                if ([groupMsg isKindOfClass:[RCContactNotificationMessage class]]) {
+                    [news removeObject:model];
                 }
             }
             sdView.statuses = news;
@@ -405,6 +416,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    RCConversationModel *model = self.conversationListDataSource.firstObject;
     return  self.conversationListDataSource.count;
 }
 // 自定义消息列表样式
