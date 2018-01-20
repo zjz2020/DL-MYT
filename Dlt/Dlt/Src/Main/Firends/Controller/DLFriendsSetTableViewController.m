@@ -303,6 +303,12 @@ static NSString * const kFriendSetTableViewCellId = @"FriendSetTableViewCellId";
                 cell.textLabel.text = @"取消拉黑";
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 [center postNotificationName:@"RELOASBLACKXELLCENTER" object:nil];
+                if (_isUpButton) {
+                    NSArray * ctrlArray = self.navigationController.viewControllers;
+                    [self.navigationController popToViewController:[ctrlArray objectAtIndex:1] animated:YES];
+                }
+               
+                
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{

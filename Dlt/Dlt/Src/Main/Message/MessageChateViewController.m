@@ -288,6 +288,7 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             DLMyNewFriendsTableViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"DLMyNewFriendsTableViewController"];
             [self.navigationController pushViewController:vc animated:YES];
+            return;
             
         } else if ([model.lastestMessage isKindOfClass:[DLAddGroupMessage class]]) {
             // 群通知
@@ -300,6 +301,7 @@
             vc.hidesBottomBarWhenPushed = YES;
             vc.groupName = groupMsg.groupName;
             [self.navigationController pushViewController:vc animated:YES];
+            return;
         }
         return;
     }
