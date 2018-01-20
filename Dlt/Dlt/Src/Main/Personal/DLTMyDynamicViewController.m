@@ -30,6 +30,8 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
 
 @property (nonatomic, assign) NSInteger curIndexs;
 //@property (nonatomic, strong) UIAlertController * alertController;
+@property (nonatomic, assign) BOOL      isClick;  //防止多次快速点击
+@property (nonatomic, assign) NSIndexPath   * selectPath; //选中的cell
 
 @end
 
@@ -55,7 +57,7 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
     [self.dataArray addObjectsFromArray:models];
     [self loadLastDataRefresh:YES]; // 刷新数据
   }
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSelectCell:) name:@"reloadComments" object:nil];
   self.tableView.tableHeaderView = [[UIView alloc]initWithFrame:RectMake_LFL(0, 0, 0, 10)];
   self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
   [self.tableView registerClass:[CircleoffriendCell class] forCellReuseIdentifier:kDLT_MyDynamicViewCellIdenifer];
@@ -77,18 +79,31 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
 }
 
 - (NSArray *)resultMapForJson:(NSArray *)result{
-  NSMutableArray *temp = [NSMutableArray new];
-  for (NSDictionary *modelDic in result){
-    DLTCircleofFriendDynamicModel *model = [DLTCircleofFriendDynamicModel modelWithJSON:modelDic];
-    model.hiddenOperationMoreButton = NO;
-    [temp addObject:model];
-  }
-  return [temp copy];
+    NSMutableArray *temp = [NSMutableArray new];
+    for (NSDictionary *modelDic in result){
+        DLTCircleofFriendDynamicModel *model = [DLTCircleofFriendDynamicModel modelWithJSON:modelDic];
+        if(model.likes && model.likes.count > 0){
+            for(DLTCircleofFriendDynamicLikeModel * likeModel in model.likes){
+                if([likeModel.uid isEqualToString:[DLTUserCenter userCenter].curUser.uid]){
+                    model.liked = YES;
+                    break;
+                }
+            }
+        }
+        [temp addObject:model];
+    }
+    return [temp copy];
 }
 
 
 - (void)backclick{
   [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)reloadSelectCell:(NSNotification *)notity{
+    DLTCircleofFriendDynamicModel * model = (DLTCircleofFriendDynamicModel *)[notity object];
+    [self.dataArray replaceObjectAtIndex:_selectPath.row withObject:model];
+    [self.tableView reloadRowsAtIndexPaths:@[_selectPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma makr - rightclick
@@ -137,6 +152,7 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
   DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
+    _selectPath = indexPath;
   [self pushCircleoffriendDetailViewController:model];
 }
 
@@ -180,10 +196,14 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
 - (void)circleoffriendCell:(CircleoffriendCell *)cell didClickIndex:(CGFloat)index{
   NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
   DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
-  
-  if (index == 10086) {
-    [self dl_networkForModel:model curIndex:indexPath];
-  }
+  _selectPath = indexPath;
+    if (index == 10086) {
+        if(_isClick){
+            return;
+        }
+        _isClick = YES;
+        [self dl_networkForModel:model curIndex:indexPath];
+    }
   
   if (index == 10087) {
 //    NSLog(@"请求评论 Event");
@@ -412,11 +432,15 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
                              DLTCircleofFriendDynamicModel *likeModel = [self userRequestThumbup:model];
                              [self.dataArray replaceObjectAtIndex:indexPath.row withObject:likeModel];
                              [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                             [MBProgressHUD showSuccess:@"操作成功"];
+                               _isClick = NO;
+                            // [MBProgressHUD showSuccess:@"操作成功"];
                            });
                          }
                          
-                         else{ [MBProgressHUD showError:@"操作失败"];}
+                         else{
+                             //[MBProgressHUD showError:@"操作失败"];
+                             
+                         }
                          
                        } failureBlock:^(NSError *error) {
                          [MBProgressHUD showError:@"操作失败"];

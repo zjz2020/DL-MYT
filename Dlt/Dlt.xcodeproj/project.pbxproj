@@ -4876,6 +4876,7 @@
 				CODE_SIGN_ENTITLEMENTS = Dlt/Dlt.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fujian province fire group network technology co., LTD (87B4WN8274)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GBQSM3XCKE;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4946,6 +4947,7 @@
 				CODE_SIGN_ENTITLEMENTS = Dlt/Dlt.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fujian province fire group network technology co., LTD (87B4WN8274)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GBQSM3XCKE;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
