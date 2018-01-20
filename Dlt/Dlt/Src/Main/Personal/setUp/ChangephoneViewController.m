@@ -50,6 +50,7 @@
         _currendPassword.width_sd = WIDTH-30;
         _currendPassword.font = AdaptedFontSize(17);
         _currendPassword.placeholder = @"请输入当前登录密码";
+        _currendPassword.secureTextEntry = YES;
         [_currendPassword addTarget:self action:@selector(currenpassword:) forControlEvents:UIControlEventEditingChanged];
     }
 
@@ -80,6 +81,7 @@
         _newpassword.width_sd = self.line.width_sd;
         _newpassword.font = AdaptedFontSize(17);
         _newpassword.placeholder = @"请输入新登录密码";
+        _newpassword.secureTextEntry = YES;
         [_newpassword addTarget:self action:@selector(newnpassword:) forControlEvents:UIControlEventEditingChanged];
     }
     
@@ -110,6 +112,7 @@
         _agianPassword.width_sd = self.line.width_sd;
         _agianPassword.font = AdaptedFontSize(17);
         _agianPassword.placeholder = @"请再次输入新登录密码";
+        _agianPassword.secureTextEntry = YES;
         [_agianPassword addTarget:self action:@selector(againpassword:) forControlEvents:UIControlEventEditingChanged];
     }
     

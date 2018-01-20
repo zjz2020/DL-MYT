@@ -38,6 +38,8 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 }
 
 @property (nonatomic, assign) NSInteger curIndexs;
+@property (nonatomic, assign) BOOL      isClick;  //防止多次快速点击
+@property (nonatomic, assign) NSIndexPath   * selectPath; //选中的cell
 
 @end
 
@@ -48,31 +50,40 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 }
 
 - (NSArray *)resultMapForJson:(NSArray *)result{
-  NSMutableArray *temp = [NSMutableArray new];
-  for (NSDictionary *modelDic in result){
-    DLTCircleofFriendDynamicModel *model = [DLTCircleofFriendDynamicModel modelWithJSON:modelDic];
-    [temp addObject:model];
-  }
-  return [temp copy];
+    NSMutableArray *temp = [NSMutableArray new];
+    for (NSDictionary *modelDic in result){
+        DLTCircleofFriendDynamicModel *model = [DLTCircleofFriendDynamicModel modelWithJSON:modelDic];
+        if(model.likes && model.likes.count > 0){
+            for(DLTCircleofFriendDynamicLikeModel * likeModel in model.likes){
+                if([likeModel.uid isEqualToString:[DLTUserCenter userCenter].curUser.uid]){
+                    model.liked = YES;
+                    break;
+                }
+            }
+        }
+        [temp addObject:model];
+    }
+    return [temp copy];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.title = @"蚂蚁圈";
     [self back:@"friends_15"];
     [self rightItem:@"friends_16"];
-  
-  self.automaticallyAdjustsScrollViewInsets = NO;
-  self.edgesForExtendedLayout = UIRectEdgeNone;
-  
-
-  @weakify(self);
-  NSArray *models = [self resultMapForJson:ZWBucket.userDefault.get(kDltCircleofFriendModels)];
-  if (models) {
-    [self.dataArray addObjectsFromArray:models];
-    [self loadLastDataRefresh:YES]; // 刷新数据
-  }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSelectCell:) name:@"reloadComments" object:nil];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    
+    @weakify(self);
+    NSArray *models = [self resultMapForJson:ZWBucket.userDefault.get(kDltCircleofFriendModels)];
+    if (models) {
+        [self.dataArray addObjectsFromArray:models];
+        [self loadLastDataRefresh:YES]; // 刷新数据
+        
+    }
   
   self.tableView.tableHeaderView = [[UIView alloc]initWithFrame:RectMake_LFL(0, 0, 0, 10)];
   self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -94,6 +105,12 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
   {[self.tableView.mj_header beginRefreshing];}
 }
 
+- (void)reloadSelectCell:(NSNotification *)notity{
+    DLTCircleofFriendDynamicModel * model = (DLTCircleofFriendDynamicModel *)[notity object];
+    [self.dataArray replaceObjectAtIndex:_selectPath.row withObject:model];
+    [self.tableView reloadRowsAtIndexPaths:@[_selectPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
 - (void)loadLastDataRefresh:(BOOL)isHeader{
   if (isHeader) { self->_curIndexs = 1;}
   
@@ -109,13 +126,12 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
                                          [self.dataArray addObjectsFromArray:temp];
                                          [self.tableView reloadData];
                                        }
-                                  
-                                       [self endRefreshing:isHeader];
+                                        [self endRefreshing:isHeader];
+                                         
                                        if (models.count < 10) { // 服务器默认没页返回10条
                                          [self.tableView.mj_footer endRefreshingWithNoMoreData];
                                        }
                                        else{self->_curIndexs++;}
-
                                      } failureBlock:^{
                                        @strongify(self);
                                        [self endRefreshing:isHeader];
@@ -180,8 +196,9 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-  DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
-  [self pushCircleoffriendDetailViewController:model];
+    DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
+    _selectPath = indexPath;
+    [self pushCircleoffriendDetailViewController:model];
 }
 
 - (void)pushCircleoffriendDetailViewController:(DLTCircleofFriendDynamicModel *)model{
@@ -224,17 +241,21 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 }
 
 - (void)circleoffriendCell:(CircleoffriendCell *)cell didClickIndex:(CGFloat)index{
-   NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-  DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
+    _selectPath = indexPath;
+    if (index == 10086) {
+        if(_isClick){
+            return;
+        }
+        _isClick = YES;
+        [self dl_networkForModel:model curIndex:indexPath];
+    }
   
-  if (index == 10086) {
-    [self dl_networkForModel:model curIndex:indexPath];
-  }
-  
-  if (index == 10087) {
-     NSLog(@"请求评论 Event");
-    [self pushCircleoffriendDetailViewController:model];
-  }
+    if (index == 10087) {
+        NSLog(@"请求评论 Event");
+        [self pushCircleoffriendDetailViewController:model];
+    }
   
 }
 
@@ -256,9 +277,9 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
            didPublishDynamicMessages:(NSString *)content
                     publishedDynamic:(BOOL)isSuccessful
 {
-  if (isSuccessful) {
-   [self.tableView.mj_header beginRefreshing];
-  }
+    if (isSuccessful) {
+        [self.tableView.mj_header beginRefreshing];
+    }
 }
 
 
@@ -266,35 +287,45 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 #pragma mark - 网络请求
 
 - (void)dl_networkForModel:(DLTCircleofFriendDynamicModel *)model curIndex:(NSIndexPath *)indexPath{
-  NSString *url = [NSString stringWithFormat:@"%@Article/dianZan",BASE_URL];
-  DLTUserCenter *userCenter = [DLTUserCenter userCenter];
-  NSDictionary *params = @{@"token" : userCenter.token,
-                           @"uid"   : userCenter.curUser.uid,
-                           @"articleId" : model.articleId
-                           };
-  @weakify(self);
-  [BANetManager  ba_requestWithType:BAHttpRequestTypePost
-                          urlString:url
-                         parameters:params
-                       successBlock:^(id response) {
-                         @strongify(self);
-                         if ([response[@"code"] intValue] == 1) {
-                           dispatch_async(dispatch_get_main_queue(), ^{
-                              @strongify(self);
-                             DLTCircleofFriendDynamicModel *likeModel = [self userRequestThumbup:model];
-                             [self.dataArray replaceObjectAtIndex:indexPath.row withObject:likeModel];
-                             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                             [MBProgressHUD showSuccess:@"操作成功"];
-                           });
-                         }
-                         
-                         else{ [MBProgressHUD showError:@"操作失败"];}
-                         
-                       } failureBlock:^(NSError *error) {
-                         [MBProgressHUD showError:@"操作失败"];
-                       } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-                         
-                       }];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Article/dianZan",BASE_URL];
+    DLTUserCenter *userCenter = [DLTUserCenter userCenter];
+    NSDictionary *params = @{@"token" : userCenter.token,
+                             @"uid"   : userCenter.curUser.uid,
+                             @"articleId" : model.articleId
+                             };
+    @weakify(self);
+    [BANetManager  ba_requestWithType:BAHttpRequestTypePost
+                            urlString:url
+                           parameters:params
+                         successBlock:^(id response) {
+                             @strongify(self);
+                             if ([response[@"code"] intValue] == 1) {
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     @strongify(self);
+                                     DLTCircleofFriendDynamicModel *likeModel = [self userRequestThumbup:model];
+                                     [self.dataArray replaceObjectAtIndex:indexPath.row withObject:likeModel];
+                                     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                     //[MBProgressHUD showSuccess:@"操作成功"];
+                                 });
+                             }
+                             
+                             else{ //[MBProgressHUD showError:@"操作失败"];
+                                 
+                             }
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                 self.isClick = NO;
+                             });
+                             
+                         } failureBlock:^(NSError *error) {
+                             
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                 self.isClick = NO;
+                             });
+                             //[MBProgressHUD showError:@"操作失败"];
+                         } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+                             
+                         }];
   
 }
 

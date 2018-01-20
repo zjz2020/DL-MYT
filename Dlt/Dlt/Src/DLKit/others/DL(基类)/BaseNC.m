@@ -23,7 +23,6 @@
 //    [[UINavigationBar appearance] setTintColor:[UIColor co]];
     [[UINavigationBar appearance] setTitleTextAttributes:
    [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"微软雅黑" size:24], NSFontAttributeName, nil]];
-
 }
 
 //设置界面切换动画

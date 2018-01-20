@@ -49,6 +49,10 @@ CGFloat contentLabelFontSize,maxContentLabelHeight;
   
 }
 
+-(void)setLiked:(BOOL)liked{
+    _liked = liked;
+}
+
 - (BOOL)shouldShowMoreButton{
   return self.comments.count > 3;
 }
