@@ -51,6 +51,7 @@ static NSString *const kClassinfomationCell = @"kClassinfomationCell_identifier"
 @property (nonatomic, strong) DLTUserProfile *model;
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UIButton *bottomBtn;
+@property (nonatomic , assign)BOOL isUpButton;
 @end
 
 @implementation DLUserInfDetailViewController
@@ -333,6 +334,9 @@ static NSString *const kClassinfomationCell = @"kClassinfomationCell_identifier"
     vc.model = self.model;
     if (_isBalckFriend) {
         vc.isBlackFriend = YES;
+    }
+    if (_isUpButton) {
+        vc.isUpButton = YES;
     }
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -660,7 +664,7 @@ static NSString *const kClassinfomationCell = @"kClassinfomationCell_identifier"
                             _isBalckFriend = NO;
                             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                             [center postNotificationName:@"RELOASBLACKXELLCENTER" object:nil];
-
+                            _isUpButton = YES;
                         });
                     } else {
                         dispatch_async(dispatch_get_main_queue(), ^{
