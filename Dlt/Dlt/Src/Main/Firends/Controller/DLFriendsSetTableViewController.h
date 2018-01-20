@@ -19,5 +19,5 @@ extern NSString * const kRefreshFriendsListNoticationName;
 @property (nonatomic, strong) DLTUserProfile *model;
 
 @property (nonatomic , assign)BOOL isBlackFriend;
-
+@property (nonatomic , assign)BOOL isUpButton;
 @end
