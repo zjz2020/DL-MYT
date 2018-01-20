@@ -57,7 +57,9 @@ static NSString * kDLRedpacketCellId = @"DLRedpacketCellId";
 DLCustomExpressionTabDelegte
 >
 @property (nonatomic, assign) NSInteger membersCount;
+
 @property (nonatomic, assign) BOOL      isClick; //避免多次点击
+
 @end
 
 @implementation ConversationViewController
@@ -190,8 +192,46 @@ DLCustomExpressionTabDelegte
             vc.membersCount = self.membersCount;
             [self presentViewController:nc animated:YES completion:nil];
         }
+    }else{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIViewController  * ctr = [self topPresentedViewController];
+            NSLog(@"%@",[ctr className]);
+            UIBarButtonItem * leftItem = ctr.navigationItem.leftBarButtonItems[0];
+            [leftItem setTintColor:[UIColor blackColor]];
+            
+            UIBarButtonItem * rightItem = ctr.navigationItem.rightBarButtonItems[0];
+            [rightItem setTintColor:[UIColor blackColor]];
+        });
     }
 }
+
+- (UIViewController *)topPresentedViewController
+{
+    UIViewController *topController = ([[UIApplication sharedApplication] delegate].window).rootViewController;
+    
+    while ([topController presentedViewController] != nil) {
+        topController = [topController presentedViewController];
+    }
+    
+    UIViewController * currVC = nil;
+    UIViewController * Rootvc = topController ;
+    if ([Rootvc isKindOfClass:[UINavigationController class]]) {
+        UINavigationController * nav = (UINavigationController *)Rootvc;
+        UIViewController * v = [nav.viewControllers lastObject];
+        currVC = v;
+        Rootvc = v.presentedViewController;
+        
+    }else if([Rootvc isKindOfClass:[UITabBarController class]]){
+        UITabBarController * tabVC = (UITabBarController *)Rootvc;
+        currVC = tabVC;
+        Rootvc = [tabVC.viewControllers objectAtIndex:tabVC.selectedIndex];
+        
+    }else if([Rootvc isKindOfClass:[UIViewController class]]){
+        currVC = Rootvc;
+    }
+    return currVC;
+}
+
 #pragma mark - 自定义代理
 - (void)privateRedpacketViewController:(UIViewController *)controller sureSendRedpacker:(NSDictionary *)content {
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
@@ -258,21 +298,22 @@ DLCustomExpressionTabDelegte
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
+    [DLAlert alertShowLoad];
     [[RCHttpTools shareInstance] robRedpackerWithRedpackerId:[NSString stringWithFormat:@"%ld",(long)redpackerInfo.rpId] handle:^(NSString *responseObject, BOOL isSuccess) {
         if (isSuccess) {
-            
+            [DLAlert alertHideLoad];
             //Wallet/redpacketInfo
                 
-//               DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
-//                NSString *msgStr = [NSString stringWithFormat:@"%@领取了%@的红包",user.userName,redpackerInfo.userName];
-//                RCInformationNotificationMessage *content = [RCInformationNotificationMessage notificationWithMessage:msgStr extra:nil];
-//                [[RCIM sharedRCIM] sendDirectionalMessage:ConversationType_GROUP targetId:self.targetId toUserIdList:@[@"1271",user.uid] content:content pushContent:msgStr pushData:msgStr success:^(long messageId) {
-//                    
-//                } error:^(RCErrorCode nErrorCode, long messageId) {
-//                    
-//                }];
-//                
-                
+               DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+                NSString *msgStr = [NSString stringWithFormat:@"%@领取了%@的红包",user.userName,redpackerInfo.userName];
+                RCInformationNotificationMessage *content = [RCInformationNotificationMessage notificationWithMessage:msgStr extra:nil];
+                [[RCIM sharedRCIM] sendDirectionalMessage:ConversationType_GROUP targetId:self.targetId toUserIdList:@[redpackerInfo.uid,user.uid] content:content pushContent:msgStr pushData:msgStr success:^(long messageId) {
+                    
+                } error:^(RCErrorCode nErrorCode, long messageId) {
+                    
+                }];
+            
+            
             
     
             
@@ -384,7 +425,8 @@ DLCustomExpressionTabDelegte
             }];
         } else {
             @weakify(self)
-            [[RCHttpTools shareInstance] getRedpacketDetailWithRedpackerId:msgModel.packetId handle:^(DLRedpackerInfo *redpackerInfo) {
+           
+            [[RCHttpTools shareInstance] getRedpacketDetailWithRedpackerId:msgModel.packetId sendUid:model.senderUserId handle:^(DLRedpackerInfo *redpackerInfo) {
                 @strongify(self)
                 /// 如果自己抢了直接去红包详情
                 if (redpackerInfo.isGet) {

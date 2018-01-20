@@ -211,8 +211,7 @@ static NSString * const kFriendSetTableViewCellId = @"FriendSetTableViewCellId";
         alertView.tag = 520;
         [alertView show];
 
-    }
-   }
+    }}
 //取消拉黑
 -(void)cancleBlkack{
 

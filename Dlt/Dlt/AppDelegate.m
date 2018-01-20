@@ -412,8 +412,11 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     }];
 }
 -(void)onResp:(BaseResp *)resp{
+    
     SendAuthResp *aresp = (SendAuthResp *)resp;
+
     //aresp.errCode== 0 &&
+
     if([aresp isKindOfClass:[SendMessageToWXResp class]]){
         return;
     }

@@ -52,6 +52,7 @@
     textField.frame = CGRectMake(CGRectGetMaxX(imageView.frame) + 10, 0, seachView.frame.size.width - 80, 30);
     textField.font = [UIFont systemFontOfSize:14];
     textField.delegate = self;
+    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.placeholder = @"搜索好友";
     textField.textColor = [UIColor colorWithHexString:@"9C9C9C"];
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;

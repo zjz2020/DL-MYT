@@ -27,7 +27,7 @@
  DLTCircleoffriendDetailCommentDelegate
 >
 
-@property (nonatomic, weak) DLTCircleofFriendDynamicModel *model;
+@property (nonatomic, strong) DLTCircleofFriendDynamicModel *model;
 
 @property (nonatomic, weak) UIView *toolbar;
 @property (nonatomic,strong) UITableView *tableView;
@@ -37,7 +37,7 @@
 @property (assign, nonatomic) CGFloat bottomCons;
 @property (assign, nonatomic) CGFloat bottomHCons;
 @property (assign, nonatomic, getter=isCommentArticle) BOOL commentArticle; // 是否评论文章
-
+@property (nonatomic, assign) BOOL      isClick;  //防止多次快速点击
 @end
 
 @implementation DLTCircleoffriendDetailViewController {
@@ -420,6 +420,10 @@
   }
   
   if (index == 10086) {
+      if(_isClick){
+          return;
+      }
+      _isClick = YES;
     [self dl_networkForModel:self.model];
   }
 }
@@ -506,25 +510,32 @@
 }
 
 - (void)commentSuccess:(NSString *)comment {
-  NSMutableArray *temp = [NSMutableArray new];
-  [temp addObjectsFromArray:self.model.comments];
-  
-   DLTUserProfile *user = [DLTUserCenter userCenter].curUser;
-  DLTCircleofFriendDynamicCommentModel *model = [DLTCircleofFriendDynamicCommentModel new];
-  model.userName = user.userName;
-  model.text = comment;
-  model.sex = [NSString stringWithFormat:@"%d",user.sex];
-  model.userImg = user.userHeadImg;
-  model.createTimeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-  
-  [temp addObject:model];
-  
-  self.model.comments = [temp copy];
-  [self.tableView reloadData];
-  
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      [self.tableView  scrollToBottom];
-  });
+    NSMutableArray *temp = [NSMutableArray new];
+    [temp addObjectsFromArray:self.model.comments];
+    
+    DLTUserProfile *user = [DLTUserCenter userCenter].curUser;
+    DLTCircleofFriendDynamicCommentModel *model = [DLTCircleofFriendDynamicCommentModel new];
+    model.userName = user.userName;
+    model.text = comment;
+    model.sex = [NSString stringWithFormat:@"%d",user.sex];
+    model.userImg = user.userHeadImg;
+    model.createTimeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    
+    [temp addObject:model];
+    
+    self.model.comments = [temp copy];
+    [self.tableView reloadData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadComments" object:self.model];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        if (self.tableView.contentSize.height > self.tableView.frame.size.height)
+        {
+            CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+            
+            [self.tableView setContentOffset:offset animated:YES];
+        }
+        
+    });
 }
 
 
@@ -547,13 +558,17 @@
                              DLTCircleofFriendDynamicModel *likeModel = [self userRequestThumbup:model];
                              self.model = likeModel;
                              [self.tableView reloadData];
+                               [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadComments" object:self.model];
 //                             [self.dataArray replaceObjectAtIndex:indexPath.row withObject:likeModel];
 //                             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                             [MBProgressHUD showSuccess:@"操作成功"];
+                            // [MBProgressHUD showSuccess:@"操作成功"];
+                               _isClick = NO;
                            });
                          }
                          
-                         else{ [MBProgressHUD showError:@"操作失败"];}
+                         else{ //[MBProgressHUD showError:@"操作失败"];
+                             
+                         }
                          
                        } failureBlock:^(NSError *error) {
                          [MBProgressHUD showError:@"操作失败"];

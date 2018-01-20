@@ -102,7 +102,7 @@
     
     [likeTap mas_makeConstraints:^(MASConstraintMaker *make) {
       make.height.mas_equalTo(50);
-      make.width.mas_equalTo(100);
+      make.width.mas_equalTo(75);
       make.left.equalTo(self);
       make.centerY.equalTo(self);
     }];
