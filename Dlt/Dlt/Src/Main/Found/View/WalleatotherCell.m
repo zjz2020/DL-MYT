@@ -49,6 +49,7 @@
     self.wageBtn = [[UIButton alloc]init];
 //    self.wageBtn.left_sd = self.topupBtn.right_sd +1;
     self.wageBtn.titleLabel.width_sd = 100;
+    self.wageBtn.width = self.width;
 //    self.wageBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
     [self.wageBtn addTarget:self action:@selector(wage:) forControlEvents:UIControlEventTouchUpInside];
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UserIsPromoter"]) {
@@ -65,14 +66,14 @@
     self.wageBtn.titleLabel.font = AdaptedFontSize(12);
     [self.wageBtn.titleLabel sizeToFit];
     [self.wageBtn setImageEdgeInsets:UIEdgeInsetsMake(20, 48, 40, 41)];
-    [self.wageBtn setTitleEdgeInsets:UIEdgeInsetsMake(41, 0, 0, 33)];
+    [self.wageBtn setTitleEdgeInsets:UIEdgeInsetsMake(41,-20, 0, 0)];
     self.wageBtn.backgroundColor =[UIColor whiteColor];
     [self addSubview:self.wageBtn];
      CGFloat CellH = WIDTH/3;
     [_transferBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(0);
         make.width.mas_equalTo(CellH);
-        make.height.mas_equalTo(99);
+        make.height.mas_equalTo(xyzH(99));
 
 
     }];
@@ -80,13 +81,13 @@
     [_topupBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_transferBtn.mas_right).offset(1);
         make.width.mas_equalTo(CellH);
-        make.height.mas_equalTo(99);
+        make.height.mas_equalTo(xyzH(99));
     }];
     
     [_wageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_topupBtn.mas_right).offset(1);
         make.width.mas_equalTo(CellH);
-        make.height.mas_equalTo(99);
+        make.height.mas_equalTo(xyzH(99));
     }];
     
 }
