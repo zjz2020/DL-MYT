@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2663680AD3C03C2CD8889CE7 /* Pods_Dlt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F823B8D4D6704AE271C54577 /* Pods_Dlt.framework */; };
+		3221521C20118520006A6AB5 /* WSRewardConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3221521520118520006A6AB5 /* WSRewardConfig.m */; };
+		3221521D20118520006A6AB5 /* close_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3221521720118520006A6AB5 /* close_btn@2x.png */; };
+		3221521E20118520006A6AB5 /* redpacket_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3221521920118520006A6AB5 /* redpacket_bg@2x.png */; };
+		3221521F20118520006A6AB5 /* WSRedPacketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3221521A20118520006A6AB5 /* WSRedPacketView.m */; };
+		3221522020118520006A6AB5 /* redpacket_open_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3221521B20118520006A6AB5 /* redpacket_open_btn@2x.png */; };
+		322152242011856F006A6AB5 /* OpenRdeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322152222011856F006A6AB5 /* OpenRdeVC.m */; };
+		322152252011856F006A6AB5 /* WechatIMG1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 322152232011856F006A6AB5 /* WechatIMG1.jpeg */; };
+		3221522B2011DA8E006A6AB5 /* MYGetRedPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3221522A2011DA8E006A6AB5 /* MYGetRedPageVC.m */; };
 		32244837200C7AD7001B5BB8 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244836200C7AD7001B5BB8 /* MapViewController.m */; };
 		32244843200C7D42001B5BB8 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244842200C7D42001B5BB8 /* DataModel.m */; };
 		32244846200C82A2001B5BB8 /* MAPointAnnotation+Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244844200C82A1001B5BB8 /* MAPointAnnotation+Type.m */; };
@@ -642,6 +650,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3221521520118520006A6AB5 /* WSRewardConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRewardConfig.m; sourceTree = "<group>"; };
+		3221521620118520006A6AB5 /* WSRedPacketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRedPacketView.h; sourceTree = "<group>"; };
+		3221521720118520006A6AB5 /* close_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_btn@2x.png"; sourceTree = "<group>"; };
+		3221521820118520006A6AB5 /* WSRewardConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRewardConfig.h; sourceTree = "<group>"; };
+		3221521920118520006A6AB5 /* redpacket_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redpacket_bg@2x.png"; sourceTree = "<group>"; };
+		3221521A20118520006A6AB5 /* WSRedPacketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRedPacketView.m; sourceTree = "<group>"; };
+		3221521B20118520006A6AB5 /* redpacket_open_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redpacket_open_btn@2x.png"; sourceTree = "<group>"; };
+		322152212011856E006A6AB5 /* OpenRdeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenRdeVC.h; sourceTree = "<group>"; };
+		322152222011856F006A6AB5 /* OpenRdeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenRdeVC.m; sourceTree = "<group>"; };
+		322152232011856F006A6AB5 /* WechatIMG1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WechatIMG1.jpeg; sourceTree = "<group>"; };
+		322152292011DA8E006A6AB5 /* MYGetRedPageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYGetRedPageVC.h; sourceTree = "<group>"; };
+		3221522A2011DA8E006A6AB5 /* MYGetRedPageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYGetRedPageVC.m; sourceTree = "<group>"; };
 		32244835200C7AD7001B5BB8 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		32244836200C7AD7001B5BB8 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		32244841200C7D42001B5BB8 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
@@ -1716,6 +1736,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3221521420118520006A6AB5 /* RedPageView */ = {
+			isa = PBXGroup;
+			children = (
+				3221521520118520006A6AB5 /* WSRewardConfig.m */,
+				3221521620118520006A6AB5 /* WSRedPacketView.h */,
+				3221521720118520006A6AB5 /* close_btn@2x.png */,
+				3221521820118520006A6AB5 /* WSRewardConfig.h */,
+				3221521920118520006A6AB5 /* redpacket_bg@2x.png */,
+				3221521A20118520006A6AB5 /* WSRedPacketView.m */,
+				3221521B20118520006A6AB5 /* redpacket_open_btn@2x.png */,
+			);
+			path = RedPageView;
+			sourceTree = "<group>";
+		};
 		32244834200C7AB1001B5BB8 /* RedMoney */ = {
 			isa = PBXGroup;
 			children = (
@@ -1736,6 +1770,11 @@
 				32CF5FEF200DE75B009A6940 /* MaYiRedPacketDetailController.m */,
 				32FEA30F200F276E000BD118 /* MYWebViewController.h */,
 				32FEA310200F276E000BD118 /* MYWebViewController.m */,
+				322152212011856E006A6AB5 /* OpenRdeVC.h */,
+				322152222011856F006A6AB5 /* OpenRdeVC.m */,
+				322152232011856F006A6AB5 /* WechatIMG1.jpeg */,
+				322152292011DA8E006A6AB5 /* MYGetRedPageVC.h */,
+				3221522A2011DA8E006A6AB5 /* MYGetRedPageVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1762,6 +1801,7 @@
 		3224483A200C7BF0001B5BB8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3221521420118520006A6AB5 /* RedPageView */,
 				32244847200C872D001B5BB8 /* MaYiHomePageView */,
 				3224484E200C872D001B5BB8 /* MaYiRedPacketView */,
 			);
@@ -4014,12 +4054,14 @@
 				CE8C6F621EC9B172005D9964 /* MLEmoji_ExpressionImage.plist in Resources */,
 				CE789B151EDC0BA300160F99 /* friend_04@2x.png in Resources */,
 				CE4D6E3B1ED2884900CE82E4 /* wallet_22@2x.png in Resources */,
+				322152252011856F006A6AB5 /* WechatIMG1.jpeg in Resources */,
 				CE8724491EC48C49006CAD85 /* Okami_08@2x.png in Resources */,
 				CE4D6DF11ECEC20F00CE82E4 /* personal_01@2x.png in Resources */,
 				CE4D6E4F1ED2884900CE82E4 /* wallet_02@2x.png in Resources */,
 				CE8C6E841EC5F103005D9964 /* friends_23@2x.png in Resources */,
 				CE8C6E7F1EC5F103005D9964 /* friends_28@2x.png in Resources */,
 				CE789B191EDC0BA300160F99 /* friend_00@2x.png in Resources */,
+				3221521E20118520006A6AB5 /* redpacket_bg@2x.png in Resources */,
 				CE4D6E351ED2884900CE82E4 /* wallet_28@2x.png in Resources */,
 				CEFC371F1EC301C90036C738 /* Login_06.png in Resources */,
 				CE4D6DD81ECEC20F00CE82E4 /* personal_26@2x.png in Resources */,
@@ -4044,6 +4086,7 @@
 				CEFC371A1EC301C90036C738 /* Login_11.png in Resources */,
 				CE789AE91EDC0AFF00160F99 /* wallet_30@2x.png in Resources */,
 				CE789B101EDC0BA300160F99 /* friend_09@2x.png in Resources */,
+				3221522020118520006A6AB5 /* redpacket_open_btn@2x.png in Resources */,
 				CE8C6F611EC9B172005D9964 /* MLEmoji_Expression.plist in Resources */,
 				CE8724341EC48C49006CAD85 /* news_17@2x.png in Resources */,
 				CE8724451EC48C49006CAD85 /* Okami_12@2x.png in Resources */,
@@ -4124,6 +4167,7 @@
 				CE8724311EC48C49006CAD85 /* news_20@2x.png in Resources */,
 				CE8C6E9B1EC5F103005D9964 /* friends_00@2x.png in Resources */,
 				CE8C6E7A1EC5F103005D9964 /* friends_33@2x.png in Resources */,
+				3221521D20118520006A6AB5 /* close_btn@2x.png in Resources */,
 				CE8724591EC56BDF006CAD85 /* SQMenuShowCell.xib in Resources */,
 				CE4D6DD31ECEC20F00CE82E4 /* personal_31@2x.png in Resources */,
 				CE8C6E8D1EC5F103005D9964 /* friends_14@2x.png in Resources */,
@@ -4313,6 +4357,7 @@
 				CEE63D541FA34EDC00ED882F /* DltCircleoffriendToolbar.m in Sources */,
 				CE80FA2E1FD6ABF500BF0B3B /* XWCountryCodeController.m in Sources */,
 				CE8C6F661EC9B172005D9964 /* NSString+MLLabel.m in Sources */,
+				3221522B2011DA8E006A6AB5 /* MYGetRedPageVC.m in Sources */,
 				CE372EE61FE8AF3E00867BCA /* DLBillStatus.m in Sources */,
 				CE789AD51EDA8B0100160F99 /* RCDBaseSettingTableViewCell.m in Sources */,
 				50E3CFE91ED828DE00E6CC67 /* FriendsViewController.m in Sources */,
@@ -4332,6 +4377,7 @@
 				CE4D6E721ED3E6D300CE82E4 /* GBAlertCell.m in Sources */,
 				CEE63D871FA34FF700ED882F /* CircleoffriendCell.m in Sources */,
 				865635A31EDA9A6100802184 /* DltEmoUtils.m in Sources */,
+				3221521C20118520006A6AB5 /* WSRewardConfig.m in Sources */,
 				CE0E916C1ED6EA2D00043138 /* JWShareView.m in Sources */,
 				CE8C6EF21EC9A79E005D9964 /* SDRefreshFooterView.m in Sources */,
 				50F052C71EF7D24300C78F8D /* DLWalletPayModel.m in Sources */,
@@ -4464,6 +4510,7 @@
 				506ADD871EE018E8004A5F86 /* DLChangeGroupName.m in Sources */,
 				CEE63D5A1FA34EDC00ED882F /* DLTCircleoffriendDetailViewController.m in Sources */,
 				CE372EE71FE8AF3E00867BCA /* DLBillTableViewCell.m in Sources */,
+				3221521F20118520006A6AB5 /* WSRedPacketView.m in Sources */,
 				CEE63D911FA34FF700ED882F /* FoundCell.m in Sources */,
 				CE27E87E1FCD0BF7007E2FBD /* DLDailyWageViewController.mm in Sources */,
 				CE8C6F651EC9B172005D9964 /* NSMutableAttributedString+MLLabel.m in Sources */,
@@ -4664,6 +4711,7 @@
 				CE8C6F6B1EC9B172005D9964 /* MLLabelLayoutManager.m in Sources */,
 				86792F481EE39BEE0051C13A /* DLTGreatgodModel.m in Sources */,
 				32CF5FDE200D976E009A6940 /* ZCAFNHelp.m in Sources */,
+				322152242011856F006A6AB5 /* OpenRdeVC.m in Sources */,
 				CEE63D8A1FA34FF700ED882F /* SDTimeLineCellCommentView.m in Sources */,
 				CE789AB91ED9C23C00160F99 /* MySetupViewController.m in Sources */,
 				50053A771EDD2F09009F95DB /* DLGroupMemberCell.m in Sources */,

@@ -72,18 +72,21 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
     self.title = @"蚂蚁圈";
     [self back:@"friends_15"];
     [self rightItem:@"friends_16"];
+
+  self.automaticallyAdjustsScrollViewInsets = NO;
+  self.edgesForExtendedLayout = UIRectEdgeNone;
+  
+
+  @weakify(self);
+  NSArray *models = [self resultMapForJson:ZWBucket.userDefault.get(kDltCircleofFriendModels)];
+  if (models) {
+    [self.dataArray addObjectsFromArray:models]; 
+    [self loadLastDataRefresh:YES]; // 刷新数据
+  }
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSelectCell:) name:@"reloadComments" object:nil];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    
-    @weakify(self);
-    NSArray *models = [self resultMapForJson:ZWBucket.userDefault.get(kDltCircleofFriendModels)];
-    if (models) {
-        [self.dataArray addObjectsFromArray:models];
-        [self loadLastDataRefresh:YES]; // 刷新数据
-        
-    }
   
   self.tableView.tableHeaderView = [[UIView alloc]initWithFrame:RectMake_LFL(0, 0, 0, 10)];
   self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -167,6 +170,7 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CircleoffriendCell *cell = [tableView dequeueReusableCellWithIdentifier:kDLT_CircleoffriendCellIdenifer];
     cell.circleFriendsDelegate = self;
+    DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
     cell.indexPath = indexPath;
     cell.model = self.dataArray[indexPath.row];
     return cell;

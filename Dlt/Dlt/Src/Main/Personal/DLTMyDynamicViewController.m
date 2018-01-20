@@ -16,6 +16,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import "DLThirdShare.h"
 
+
 NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
 
 #define kDLT_MyDynamicViewCellIdenifer @"MyDynamicViewCellIdenifer"
@@ -199,6 +200,7 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
 }
 
 - (void)showMoreUI:(NSIndexPath *)indexPath{
+
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil
                                                                               message:nil
                                                                        preferredStyle:UIAlertControllerStyleActionSheet];
@@ -218,6 +220,7 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
                                                              @strongify(self);
                                                              [self deleteAction:indexPath];
                                                          }];
+
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
@@ -226,19 +229,18 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
                                                              
                                                          }];
     
-    //    UIAlertAction *cancelAction=[UIAlertAction actionWithTitle:@"取消AAAA" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alertController addAction:sendFriendAction];
-    //  [alertController addAction:collectionAction];
-    [alertController addAction:deleteAction];
+
+  [alertController addAction:sendFriendAction];
+//  [alertController addAction:collectionAction];
+  [alertController addAction:deleteAction];
     [alertController addAction:cancelAction];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
+  [self presentViewController:alertController animated:YES completion:nil];
+
 }
 
 //发送给朋友
 - (void)sendFriendAction:(NSIndexPath *)indexPath{
-    
+
     DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
     DLThirdShare  * object = [DLThirdShare thirdShareInstance];
     object.shareTitle = @"蚂蚁通分享";

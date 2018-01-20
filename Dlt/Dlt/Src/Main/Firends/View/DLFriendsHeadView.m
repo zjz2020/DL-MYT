@@ -12,7 +12,7 @@
 
 @interface DLFriendsHeadView ()<UITextFieldDelegate>
 
-@property (nonatomic, strong) UITextField *textField;
+@property(nonatomic, strong)UIButton *searchBtn;
 
 @end
 
@@ -55,15 +55,19 @@
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.placeholder = @"搜索好友";
     textField.textColor = [UIColor colorWithHexString:@"9C9C9C"];
+    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.returnKeyType = UIReturnKeySearch;
+    [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [seachView addSubview:textField];
     
     UIButton *cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancleBtn.frame = CGRectMake(CGRectGetMaxX(textField.frame), 0, 40, 30);
     cancleBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancleBtn setTitle:@"搜索" forState:UIControlStateNormal];
     [cancleBtn setTitleColor:[UIColor colorWithHexString:@"0089f1"] forState:UIControlStateNormal];
     [cancleBtn addTarget:self action:@selector(cancleSearchFriend:) forControlEvents:UIControlEventTouchUpInside];
+    self.searchBtn = cancleBtn;
+    cancleBtn.hidden = YES;
     [seachView addSubview:cancleBtn];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(seachView.frame) + 12.5, viewW, 54)];
@@ -101,6 +105,15 @@
     [self.textField resignFirstResponder];
     return YES;
 }
+
+- (void)textFieldDidChange:(UITextField *)textField{
+    if (textField.text.length > 0) {
+        self.searchBtn.hidden = NO;
+    } else {
+        self.searchBtn.hidden = YES;
+    }
+}
+
 //- (void)keyboardHidden {
 //    if (self.delegate && [self.delegate respondsToSelector:@selector(seachYourSelfFriendsWithNickName:)]) {
 //        [self.delegate seachYourSelfFriendsWithNickName:self.textField.text];
@@ -118,10 +131,14 @@
 }
 
 - (void)cancleSearchFriend:(UIButton *)sender {
-    self.textField.text = nil;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(cancleSearchFriends)]) {
-        [self.delegate cancleSearchFriends];
+//    self.textField.text = nil;
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(cancleSearchFriends)]) {
+//        [self.delegate cancleSearchFriends];
+//    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(seachYourSelfFriendsWithNickName:)]) {
+        [self.delegate seachYourSelfFriendsWithNickName:self.textField.text];
     }
+    [self.textField resignFirstResponder];
 }
 
 @end

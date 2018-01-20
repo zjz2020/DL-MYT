@@ -36,10 +36,39 @@
 -(void)TXTradePasswordView:(TXTradePasswordView *)view WithPasswordString:(NSString *)Password
 {
     if ([_againPassword isEqualToString:Password]) {
-        BOOL result = YES;
-        WalleatViewController * walleat = [[WalleatViewController alloc]init];
-        walleat.result =result;
-        [self.navigationController pushViewController:walleat animated:YES];
+       
+        DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+        
+        NSDictionary * dic = @{@"token":[DLTUserCenter userCenter].token,
+                               @"uid":user.uid,
+                               @"payPwd":Password,
+                               @"oldPaypwd":_oldPassword};
+        
+        NSString * url = [NSString stringWithFormat:@"%@wallet/modifyPayPwd",BASE_URL];
+        [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
+            
+            if ([response[@"code"]integerValue]==1) {
+            
+                BOOL result = YES;
+                WalleatViewController * walleat = [[WalleatViewController alloc]init];
+                walleat.result =result;
+                [self.navigationController pushViewController:walleat animated:YES];
+                
+            }else
+            {
+
+               [BAAlertView showTitle:nil message:@"重置密码失败"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            
+        } failureBlock:^(NSError *error) {
+            // [BAAlertView showTitle:nil message:@"出现错误"];
+        } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+            
+        }];
+        
+
+        
     }else
     {
         [BAAlertView showTitle:nil message:@"两次设置不一样"];

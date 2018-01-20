@@ -30,6 +30,15 @@
     self.qrCodeImage.center = CGPointMake(kScreenSize.width / 2, kScreenSize.height / 2);
     self.qrCodeImage.image = [self generateImage];
     [self.view addSubview:self.qrCodeImage];
+    
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.frame = CGRectMake(0, CGRectGetMaxY(_qrCodeImage.frame) + 25, kScreenWidth, 30);
+    label.text = @"扫描二维码，立即加我为蚂蚁通好友";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:17];
+    label.textColor = [UIColor colorWithHexString:@"9C9C9C"];
+    [self.view addSubview:label];
 }
 
 // 生成二维码

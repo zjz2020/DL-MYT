@@ -22,7 +22,7 @@
 
 
 @interface DLFriendsHeadView : UIView
-
+@property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, weak) id<DLFriendsHeadViewDelegate>delegate;
 
 @end

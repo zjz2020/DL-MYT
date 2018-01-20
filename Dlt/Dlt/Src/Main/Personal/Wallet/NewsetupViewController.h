@@ -11,4 +11,5 @@
 @interface NewsetupViewController : BaseVC
 @property(nonatomic,assign)BOOL resultcode;
 @property(nonatomic,strong)NSString * againPassword;
+@property(nonatomic,strong)NSString * oldPassword;
 @end

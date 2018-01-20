@@ -107,11 +107,12 @@
             NSString * url = [NSString stringWithFormat:@"%@Wallet/verifyPaypwd",BASE_URL];
             [BANetManager ba_request_POSTWithUrlString:url parameters:dic
                                           successBlock:^(id response) {
-                                              BOOL isset = response[@"data"];
-                                        NSString * issetup = isset?@"true":@"false";
+//                                              BOOL isset = [response[@"data"] boolValue];
+//                                              NSString * issetup = isset?@"true":@"false";
+                                               NSString * issetup = [response[@"data"] stringValue];
                                               NSLog(@"密码 = %@",issetup);
 
-                                              if ([issetup isEqualToString:@"true"]) {
+                                              if ([issetup isEqualToString:@"1"]) {
                                                   NSLog(@"密码 = %@",Password);
                                                   SetupagainpasswordViewController * again = [[SetupagainpasswordViewController alloc]init];
                                                   again.seleType = _changeType;
@@ -119,7 +120,7 @@
                                                   [self.navigationController pushViewController:again animated:YES];
                                               }else
                                               {
-                                                  [BAAlertView showTitle:nil message:response[@"msg"]];
+                                                  [BAAlertView showTitle:nil message:@"支付密码错误"];
                                                   [TXView.TF becomeFirstResponder];
                                               }
 

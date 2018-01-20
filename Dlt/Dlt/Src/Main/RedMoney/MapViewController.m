@@ -27,12 +27,16 @@
 #import "MYSearchView.h"
 #import "MYWebViewController.h"
 #import "UIImage+Scale.h"
+#import "WSRewardConfig.h"
+#import "WSRedPacketView.h"
+#import "OpenRdeVC.h"
+#import "MYGetRedPageVC.h"
 #define OpenAntUrl                  @"mayi/start_mayi"//开启蚂蚁
 #define GetNearbyAnt                @"mayi/georadius_user"//获取周边的蚂蚁
 #define SeachIsAnt                  @"mayi/is_mayi_user"//查询是否是蚂蚁用户
 #define SetAntInfoIsOpen            @"mayi/set_mayi_info_state"//设置蚂蚁用户信息是否开放
 #define AntInfoState                @"mayi/mayi_user_state"//蚂蚁用户开放状态
-#define ReceiveAntMoney             @"mayi/get_mayi_rp"//领取蚂蚁红包
+//#define ReceiveAntMoney             @"mayi/get_mayi_rp"//领取蚂蚁红包
 
 #define userShowInfo                @"usercenter/otherUserInfo"//获取用户的展示数据
 
@@ -65,6 +69,8 @@
 @property(nonatomic, strong)NSMutableArray *nearRedPacket;
 //payview
 @property(nonatomic,strong)MaYiOpenPayView *payView;
+@property (nonatomic, copy) NSString *headImageStr;
+@property (nonatomic, copy) NSString *nameStr;
 @end
 
 @implementation MapViewController
@@ -120,8 +126,8 @@
     closeBtn.frame = CGRectMake(SPace, closeY, 80, 40);
     closeBtn.selected = [self userInfoOrOpen];//yes 关闭
     [closeBtn addTarget:self action:@selector(clickeCloseShowViewAction:) forControlEvents:UIControlEventTouchUpInside];
-    [closeBtn setImage:[UIImage imageNamed:@"mayi_14"] forState:UIControlStateNormal];//开启
-    [closeBtn setImage:[UIImage imageNamed:@"mayi_12"] forState:UIControlStateSelected];//关闭
+    [closeBtn setImage:[UIImage imageNamed:@"mayi_14"] forState:UIControlStateNormal];
+    [closeBtn setImage:[UIImage imageNamed:@"mayi_12"] forState:UIControlStateSelected];
     self.showInfoBtn = closeBtn;
     UIButton *addresBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     addresBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - SPace - 40, closeBtn.frame.origin.y, 40, 40);
@@ -219,7 +225,10 @@
         }else if(pointAnnotation.annotType == AntTypeMoney) {//红包
             //开始抢红包
             [self.mapView removeAnnotation:pointAnnotation];
-            [self antGetRedMoneyWithMoneyid:pointAnnotation.rid];
+            _headImageStr = pointAnnotation.rpUserIcon;
+            _nameStr = pointAnnotation.rpUserName;
+             [self openRedPacketActionSucess:YES headImage:pointAnnotation.rpUserIcon redName:pointAnnotation.rpUserName rid:pointAnnotation.rid];
+//            [self antGetRedMoneyWithMoneyid:pointAnnotation.rid userName:pointAnnotation.rpUserName userImageStr:pointAnnotation.rpUserIcon];
         }
     } else if ([view.annotation isKindOfClass:[MAUserLocation class]]){
         DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
@@ -238,6 +247,8 @@
         MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
         pointAnnotation.annotType = AnnotationTypeMoney;
         pointAnnotation.rid = [NSString stringWithFormat:@"%zd",mode.rpid];
+        pointAnnotation.rpUserIcon = mode.rpUserIcon;
+        pointAnnotation.rpUserName = mode.rpUserName;
         pointAnnotation.coordinate = CLLocationCoordinate2DMake([mode.lat floatValue], [mode.lon floatValue]);
         [testArray addObject:pointAnnotation];
     }
@@ -268,6 +279,47 @@
 //停止定位
 - (void)stopLocation{
     [self.locationManager stopUpdatingLocation];
+}
+
+#pragma mark  开启红包
+- (void)openRedPacketActionSucess:(BOOL)sucess headImage:(NSString *)headImage redName:(NSString *)name rid:(NSString *)rid
+{
+    NSString *content = @"快拆开看看,是神马";
+    if (!sucess) {
+        content = @"不要气馁,再接再励!";
+    }
+    
+    WSRewardConfig *info = ({
+        WSRewardConfig *info   = [[WSRewardConfig alloc] init];
+        info.money         = 100.0;
+        info.avatarImageStr    = headImage;
+        info.content = content;
+        info.userName  = name;
+        info.GedRed =  sucess;
+        info.redID = rid;
+        info;
+    });
+    
+    __block typeof(self)weakSelf = self;
+    [WSRedPacketView showRedPackerWithData:info cancelBlock:^{
+        NSLog(@"取消领取");
+    } finishBlock:^(float money) {
+        MYGetRedPageVC *redVc = [[MYGetRedPageVC alloc] init];
+        redVc.nameStr = _nameStr;
+        redVc.headImageStr = _headImageStr;
+        if (money < 0) {//抢红包失败
+            redVc.haveOrNO = NO;
+        } else  {//抢红包成功
+            redVc.haveOrNO = YES;
+        }
+        [UIView animateWithDuration:1 animations:^{
+            
+        } completion:^(BOOL finished) {
+//            OpenRdeVC *redVc = [[OpenRdeVC alloc] init];
+            [weakSelf.navigationController pushViewController:redVc animated:YES];
+        }];
+        NSLog(@"领取金额：%f",money);
+    }];
 }
 //创建定位管理者
 - (void)creatLocationManager{
@@ -315,9 +367,9 @@
 //获取用户展示状态
 - (BOOL)userInfoOrOpen{
     NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:userInfoMapKey];
-    if ([string isEqualToString:userInfoMapHidden]) {
+    if ([string isEqualToString:userInfoMapHidden]) {//默认灰色
         return NO;
-    } else {
+    } else {//选中 蓝色
         return YES;
     }
 }
@@ -331,6 +383,7 @@
 #pragma mark MaYiOpenPayViewDelegate
 
 - (void)openPayJumpProtocalCtr:(ProtocalViewController *)protocolCtr{//跳转到协议
+    protocolCtr.protol = @"Content/html/mayiprotocol.html";
     [self.navigationController pushViewController:protocolCtr animated:YES];
 }
 - (void)openPaySelectPayMethod:(MaYiOpenPayType)payType andPassWord:(NSString *)passWord{//支付
@@ -364,35 +417,7 @@
 
 #pragma mark  数据请求
 
-//蚂蚁领红包
-- (void)antGetRedMoneyWithMoneyid:(NSString *)moneyid{
-    NSString *antGetRedMoney = [NSString stringWithFormat:@"%@%@",BASE_URL,ReceiveAntMoney];
-    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
-    if (![self judeCityCode]) {
-        return;
-    }
-    NSDictionary *parameter = @{
-                                @"cityCode":[DLTUserCenter userCenter].cityCode,
-                                @"rpid":moneyid,
-                                @"uid":user.uid,
-                                @"token":user.token
-                                };
-    [BANetManager ba_request_POSTWithUrlString:antGetRedMoney parameters:parameter successBlock:^(id response) {
-        NSLog(@"GetRedMoney:%@",response);
-        MaYiRedPacketView *packeV = [[MaYiRedPacketView alloc] initWithFrame:self.view.bounds];
-        packeV.delegate = self;
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        [window addSubview:packeV];
-        if ([response[@"code"] isEqual:@0]) {//手慢了
-            packeV.showType = MaYiRedPacketNone;
-        } else if ([response[@"code"] isEqual:@1]){//领取成功
-            packeV.showType = MaYiRedPacketGet;
-        }
-    } failureBlock:^(NSError *error) {
-        NSLog(@"GetRedMoney:%@",error);
-         [DLAlert alertWithText:@"操作失败" afterDelay:3];
-    } progress:nil];
-}
+
 //4获取蚂蚁用户开放状态
 - (void)antInfoGet{
     NSString *isAntUserStr = [NSString stringWithFormat:@"%@%@",BASE_URL,AntInfoState];
@@ -408,12 +433,12 @@
             self.showInfoBtn.selected = YES;
             return ;
         }
-        BOOL isStarted = [dic booleanValueForKey:@"isStarted"];
+        BOOL isStarted = [dic[@"isStarted"] boolValue];
         if (isStarted) {//开启用户状态
-            self.showInfoBtn.selected = NO;
+            self.showInfoBtn.selected = YES;
             [self saveUserInfoWithString:userInfoMapShow];
         }else{//关闭用户状态
-            self.showInfoBtn.selected = YES;
+            self.showInfoBtn.selected = NO;
             [self saveUserInfoWithString:userInfoMapHidden];
         }
     } failureBlock:^(NSError *error) {
@@ -426,39 +451,47 @@
 //3.设置蚂蚁用户信息开放状态
 - (void)antInfoSet{
     self.showInfoBtn.userInteractionEnabled = NO;
-    [DLAlert alertShowLoadStr:@"正在切换状态"];
+//    [DLAlert alertShowLoadStr:@"正在切换状态"];
     if (![self judeCityCode]) {
         [MBProgressHUD hideHUD];
         return;
     }
     NSString *antInfoSet = [NSString stringWithFormat:@"%@%@",BASE_URL,SetAntInfoIsOpen];
+    NSString *longitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.longitude];
+    NSString *latitude = [NSString stringWithFormat:@"%f",[DLTUserCenter userCenter].coordinate.latitude];
+    NSString *status = [NSString stringWithFormat:@"%zd",![self userInfoOrOpen]];
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSDictionary *parameter = @{
                                 @"cityCode":[DLTUserCenter userCenter].cityCode,
                                 @"uid":user.uid,
-                                @"token":user.token
+                                @"token":user.token,
+                                @"lat":latitude,
+                                @"lon":longitude,
+                                @"status":status
                                 };
     @weakify(self);
     [BANetManager ba_request_POSTWithUrlString:antInfoSet parameters:parameter successBlock:^(id response) {
         @strongify(self);
         [MBProgressHUD hideHUD];
-        [DLAlert alertShowLoadStr:@"切换状态成功"];
+        NSNumber *code = response[@"code"];
+        if ([code isEqual:@1]) {//设置成功
+            if ([self userInfoOrOpen]) {
+                [self saveUserInfoWithString:userInfoMapHidden];
+                self.showInfoBtn.selected = NO;
+                [DLAlert alertShowLoadStr:@"关闭个人信息显示成功"];
+            } else {
+                [self saveUserInfoWithString:userInfoMapShow];
+                self.showInfoBtn.selected = YES;
+                [DLAlert alertShowLoadStr:@"设置个人信息显示"];
+            }
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } else {
+            NSLog(@"设置失败");
+        }
+        
+//        [DLAlert alertWithText:response[@"msg"]];
          self.showInfoBtn.userInteractionEnabled = YES;
         [DLAlert alertHideLoadStrWithTime:1.5];
-        NSDictionary *dic = [response dictValueForKey:@"data"];
-        if (!dic) {
-            self.showInfoBtn.selected = YES;
-            return ;
-        }
-        BOOL isStarted = [dic booleanValueForKey:@"isStarted"];
-        NSLog(@"isStarted: %zd",isStarted);
-        if (isStarted) {//开启用户状态
-            [self saveUserInfoWithString:userInfoMapShow];
-            self.showInfoBtn.selected = NO;
-        } else {//关闭用户状态
-            [self saveUserInfoWithString:userInfoMapHidden];
-            self.showInfoBtn.selected = YES;
-        }
     } failureBlock:^(NSError *error) {
         //        NSLog(@"antInfoSet:%@",error);
         [DLAlert alertShowLoadStr:@"切换状失败"];
@@ -488,6 +521,11 @@
     [BANetManager ba_request_POSTWithUrlString:NearbyAnt parameters:parameter successBlock:^(id response) {
         @strongify(self);
         _isAntList = YES;
+        NSNumber *code = response[@"code"];
+        NSString *msg_msg = response[@"msg"];
+        if ([code isEqual:@0] && msg_msg) {
+            [DLAlert alertWithText:msg_msg];
+        }
         NSDictionary *dic = [response dictValueForKey:@"data"];
         [self makeNearPeopleAndRedPacketWithDic:dic];
     } failureBlock:^(NSError *error) {

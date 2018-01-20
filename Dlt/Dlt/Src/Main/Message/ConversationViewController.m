@@ -57,7 +57,9 @@ static NSString * kDLRedpacketCellId = @"DLRedpacketCellId";
 DLCustomExpressionTabDelegte
 >
 @property (nonatomic, assign) NSInteger membersCount;
-@property (nonatomic, assign) BOOL      isClick;  //防止多次点击
+
+@property (nonatomic, assign) BOOL      isClick; //避免多次点击
+
 @end
 
 @implementation ConversationViewController

@@ -38,7 +38,7 @@
         return [(NSNumber *)value boolValue];
     } else if ([value isKindOfClass:[NSString class]]) {
         return [(NSString *)value boolValue];
-    } 
+    }
     
     if (value != nil) {
         NSLog(@"Boolean value for key: %@ is invalid: %@", key, [value class]);
