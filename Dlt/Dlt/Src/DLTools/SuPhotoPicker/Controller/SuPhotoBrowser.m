@@ -58,7 +58,8 @@
 - (void)cancelBtnAction {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
 - (void)refreshBottomView {
     if ([SuPhotoCenter shareCenter].selectedPhotos.count > 0) {
         self.bottomViewCover.hidden = YES;
@@ -70,7 +71,7 @@
         self.comBtn.text = @"完成";
     }
 }
-
+#pragma clang diagnostic pop
 #pragma mark - 数据
 - (void)loadAssetData {
     self.dataSource = [[SuPhotoManager manager]fetchAssetsInCollection:self.assetCollection asending:NO];

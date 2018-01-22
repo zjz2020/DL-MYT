@@ -172,9 +172,10 @@ typedef NSURLSessionTask BAURLSessionTask;
 
 #pragma mark - 网络请求的类方法 --- get / post / put / delete
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /**
  网络请求的实例方法 post
- 
  @param urlString 请求的地址
  @param isNeedCache 是否需要缓存，只有 get / post 请求有缓存配置
  @param parameters 请求的参数
@@ -183,6 +184,7 @@ typedef NSURLSessionTask BAURLSessionTask;
  @param progress 进度
  @return BAURLSessionTask
  */
+#pragma clang diagnostic pop
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
                                       successBlock:(BAResponseSuccess)successBlock

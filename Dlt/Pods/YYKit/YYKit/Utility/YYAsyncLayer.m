@@ -105,7 +105,8 @@ static dispatch_queue_t YYAsyncLayerGetReleaseQueue() {
 }
 
 #pragma mark - Private
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)_displayAsync:(BOOL)async {
     __strong id<YYAsyncLayerDelegate> delegate = (id)self.delegate;
     YYAsyncLayerDisplayTask *task = [delegate newAsyncDisplayTask];
@@ -216,7 +217,7 @@ static dispatch_queue_t YYAsyncLayerGetReleaseQueue() {
         if (task.didDisplay) task.didDisplay(self, YES);
     }
 }
-
+#pragma clang diagnostic pop
 - (void)_cancelAsyncDisplay {
     [_sentinel increase];
 }

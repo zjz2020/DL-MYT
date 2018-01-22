@@ -170,7 +170,7 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CircleoffriendCell *cell = [tableView dequeueReusableCellWithIdentifier:kDLT_CircleoffriendCellIdenifer];
     cell.circleFriendsDelegate = self;
-    DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
+//    DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
     cell.indexPath = indexPath;
     cell.model = self.dataArray[indexPath.row];
     return cell;

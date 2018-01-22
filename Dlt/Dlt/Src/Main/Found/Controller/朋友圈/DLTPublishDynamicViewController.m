@@ -601,7 +601,6 @@ typedef NS_ENUM(NSInteger, DLTPublishDynamicType){
 
   // 如果上传的是视频
   if (_publishType == DLTPublishDynamicTypeVideo) {
-    #warning 暂时没支持视频上传, 所以先上传视频的缩略图
     [self dl_networkForUploadFileType:DLTPublishDynamicTypeVideo
                              withText:content];
   }

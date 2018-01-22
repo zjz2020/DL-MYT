@@ -22,6 +22,8 @@
 }
 
 #pragma mark - 底部消失动画
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)dismissToBottomWithCompleteBlock:(void(^)())completeBlock {
     [self executeAnimationWithFrame:BottomRect completeBlock:completeBlock];
 }
@@ -53,7 +55,7 @@
          if (finished && completeBlock) completeBlock();
      }];
 }
-
+#pragma clang diagnostic pop
 #pragma mark - 按钮震动动画
 - (void)startSelectedAnimation {
     CAKeyframeAnimation * ani = [CAKeyframeAnimation animationWithKeyPath:@"transform"];

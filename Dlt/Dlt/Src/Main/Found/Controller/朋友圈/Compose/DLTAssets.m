@@ -7,9 +7,10 @@
 //
 
 #import "DLTAssets.h"
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 @implementation DLTAssets
-
+#pragma clang diagnostic pop
 - (void)dealloc
 {
   

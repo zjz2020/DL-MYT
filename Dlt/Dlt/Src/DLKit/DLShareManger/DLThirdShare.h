@@ -16,8 +16,10 @@ typedef NS_ENUM(NSInteger, DLShareWechatType){
     
     ShareWechatType_Circle       // 分享到微信朋友圈
 };
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 typedef void(^DLShareSuccessBlock)();
+#pragma clang diagnostic pop
 @interface DLThirdShare : NSObject<WXApiDelegate>
 
 /**< 分享标题 */

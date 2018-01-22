@@ -347,6 +347,9 @@ LevelDBOptions MakeLevelDBOptions() {
 - (void) removeAllObjects {
     [self removeAllObjectsWithPrefix:nil];
 }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void) removeAllObjectsWithPrefix:(id)prefix {
     AssertDBExists(db);
     
@@ -373,7 +376,7 @@ LevelDBOptions MakeLevelDBOptions() {
     }
     delete iter;
 }
-
+#pragma clang diagnostic pop
 #pragma mark - Selection
 
 - (NSArray *)allKeys {

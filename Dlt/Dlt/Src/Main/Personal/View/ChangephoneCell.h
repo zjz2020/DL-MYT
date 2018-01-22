@@ -15,6 +15,8 @@
 
 -(void)filedata:(id)data;
 @property(nonatomic,copy)void(^isUsername)(UITextField * name);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 @property(nonatomic,copy)void(^isdate)();
-
+#pragma clang diagnostic pop
 @end

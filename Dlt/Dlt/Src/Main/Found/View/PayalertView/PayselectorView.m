@@ -7,9 +7,10 @@
 //
 
 #import "PayselectorView.h"
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol"
 @implementation PayselectorView
-
+#pragma clang diagnostic pop
 -(instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

@@ -20,8 +20,11 @@
  @param successBlock      成功回调
  @param errorBlock        失败回调
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+
 -(void)updateShowPushContentStatus:(BOOL)isShowPushContent
                            success:(void (^)())successBlock
                              error:(void (^)(RCErrorCode status))errorBlock;
-
+#pragma clang diagnostic pop
 @end

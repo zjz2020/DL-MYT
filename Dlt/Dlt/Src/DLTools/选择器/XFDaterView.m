@@ -200,6 +200,9 @@
     }
     return count*50;
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
+
 -(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UILabel *rowLab = [[UILabel alloc] init];
     rowLab.textAlignment = NSTextAlignmentCenter;
@@ -226,7 +229,7 @@
     //NSLog(@"row=%ld",(long)row);
     return rowLab;
 }
-
+#pragma clang diagnostic pop
 #pragma mark - Public Methods
 - (void)showInView:(UIView *)aView animated:(BOOL)animated{
     [aView addSubview:self];

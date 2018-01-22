@@ -167,13 +167,16 @@
     self.privateButton.selected = YES;
   }
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wstrict-prototypes"  
 /**
  *  添加一个按钮
  *
  *  @param icon     默认图标
  *  @param highIcon 高亮图标
  */
+#pragma clang diagnostic pop
 - (UIButton *)addButtonWithIcon:(NSString *)icon selectedIcon:(NSString *)selected {
   UIButton *button = [[UIButton alloc] init];
   [button setImage:[UIImage imageWithName:icon] forState:UIControlStateNormal];

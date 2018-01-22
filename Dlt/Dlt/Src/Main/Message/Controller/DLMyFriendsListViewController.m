@@ -38,7 +38,7 @@ NSString * const kSendContactCardMessageNotificationName = @"SendContactCardMess
     [self dl_networkForGetFriendsList];
     
     UIButton * backBtn = [[UIButton alloc]initWithFrame:RectMake_LFL(15, 0, 25, 25)];
-    [backBtn setImage:[UIImage imageNamed:@"friend_00"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"friends_15"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backclick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * leftitem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = leftitem;

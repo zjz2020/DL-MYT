@@ -101,6 +101,8 @@ didRegisterUserNotificationSettings:
                        });
     }
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //进行数据请求  判断是否是审核状态
     [self judeIsAssessor];
@@ -151,10 +153,12 @@ didRegisterUserNotificationSettings:
         [application registerUserNotificationSettings:settings];
     } else {
         //注册推送，用于iOS8之前的系统
+
         UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge |
         UIRemoteNotificationTypeAlert |
         UIRemoteNotificationTypeSound;
         [application registerForRemoteNotificationTypes:myTypes];
+
     }
 
       [[RCIMClient sharedRCIMClient] recordLaunchOptionsEvent:launchOptions];
@@ -209,6 +213,7 @@ didRegisterUserNotificationSettings:
     
     keyboardManager.keyboardDistanceFromTextField = 10.0f; // 输入框距离键盘的距离
 }
+#pragma clang diagnostic pop
 - (void)loginCompleted {
     
   MainTabbarViewController *mainVC = [[MainTabbarViewController alloc]initWithNibName:nil bundle:nil];

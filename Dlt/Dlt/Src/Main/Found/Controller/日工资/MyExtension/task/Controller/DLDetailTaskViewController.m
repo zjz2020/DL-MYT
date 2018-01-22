@@ -28,7 +28,10 @@
 @property (nonatomic , strong)NSMutableArray *imgSrcArray;
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol"
 @implementation DLDetailTaskViewController
+#pragma clang diagnostic pop
 -(NSMutableArray *)imgSrcArray{
     if (_imgSrcArray == nil) {
         _imgSrcArray = [NSMutableArray array];

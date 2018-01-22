@@ -92,7 +92,8 @@ static NSString *const kDatabaseFilenName = @"com.gavin.userDefault";
 
 #pragma mark -
 #pragma mark - properties
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (id (^)(NSString *))get {
   static id(^sc)();
   if (!sc) {
@@ -128,7 +129,7 @@ static NSString *const kDatabaseFilenName = @"com.gavin.userDefault";
   }
   return sc;
 }
-
+#pragma clang diagnostic pop
 #pragma mark -
 #pragma mark - private func
 

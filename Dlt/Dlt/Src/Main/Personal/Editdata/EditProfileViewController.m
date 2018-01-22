@@ -435,11 +435,11 @@
                            @"uid":DLT_USER_CENTER.curUser.uid
                            };
     NSString *url = [NSString stringWithFormat:@"%@Group/myGroups",BASE_URL];
-    @weakify(self)
+//    @weakify(self)
     [BANetManager ba_request_POSTWithUrlString:url
                                     parameters:dic
                                   successBlock:^(id response) {
-                                      @strongify(self)
+//                                      @strongify(self)
                                       if ([response[@"code"] integerValue] == 1) {
                                           NSArray *models = response[@"data"];
                                           

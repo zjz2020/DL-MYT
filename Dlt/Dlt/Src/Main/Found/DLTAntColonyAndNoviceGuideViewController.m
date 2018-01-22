@@ -19,11 +19,12 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 @implementation DLTAntColonyAndNoviceGuideViewController {
   UIButton *_lastButton;
 }
-
+#pragma clang diagnostic pop
 @synthesize type = _type;
 
 - (instancetype)initAntColonyAndNoviceGuideViewControllerWithType:(DLTAntColonyAndNoviceGuideType)type

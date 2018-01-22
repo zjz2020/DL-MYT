@@ -68,13 +68,14 @@ typedef NS_ENUM(NSUInteger, BAModelPositionMode) {
     BAModelPositionCenterBottom,
     BAModelPositionCustom
 };
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /*! 动画所需时间 */
 typedef CGFloat (^ba_modal_animation)();
 
 /*! 回调 */
 typedef void(^ba_modal_block)();
-
+#pragma clang diagnostic pop
 @interface BAModal : NSObject
 
 /**

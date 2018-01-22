@@ -18,8 +18,10 @@
 /**
  *  消失降到底部
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)dismissToBottomWithCompleteBlock:(void(^)())completeBlock;
-
+#pragma clang diagnostic pop
 /**
  *  从透明到不透明
  */

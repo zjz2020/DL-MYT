@@ -85,7 +85,9 @@ static NSMutableArray *tasks;
 @interface BANetManager ()
 
 @end
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation BANetManager
 
 /*!
@@ -210,6 +212,7 @@ static NSMutableArray *tasks;
  @param progress 进度
  @return BAURLSessionTask
  */
+#pragma clang diagnostic pop
 + (BAURLSessionTask *)ba_request_POSTWithUrlString:(NSString *)urlString
                                         parameters:(NSDictionary *)parameters
                                       successBlock:(BAResponseSuccess)successBlock

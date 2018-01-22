@@ -261,12 +261,15 @@ typedef NS_ENUM(NSUInteger, YYImageBlendOperation) {
  @param duration Image duration for animation. Pass 0 to ignore this parameter.
  */
 - (void)addImageWithData:(NSData *)data duration:(NSTimeInterval)duration;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /**
  Add an image from a file path to encoder.
  @param image    Image file path.
  @param duration Image duration for animation. Pass 0 to ignore this parameter.
  */
+
 - (void)addImageWithFile:(NSString *)path duration:(NSTimeInterval)duration;
 
 /**
@@ -447,7 +450,7 @@ CG_EXTERN CFDataRef _Nullable YYCGImageCreateEncodedData(CGImageRef imageRef, YY
  Whether WebP is available in YYImage.
  */
 CG_EXTERN BOOL YYImageWebPAvailable();
-
+#pragma clang diagnostic pop
 /**
  Get a webp image frame count;
  

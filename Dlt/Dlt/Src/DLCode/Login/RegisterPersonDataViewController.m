@@ -54,8 +54,10 @@ typedef NS_ENUM(NSInteger, DLTUserGenderType){
 @property (nonatomic, strong) NSString *headImageUrl;
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol"
 @implementation RegisterPersonDataViewController
-
+#pragma clang diagnostic pop
 - (void)viewDidLoad {
     [super viewDidLoad];
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];

@@ -618,6 +618,9 @@
     self.registerFiled.secureTextEntry = !self.registerFiled.secureTextEntry;
     sender.selected = !sender.selected;
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wint-conversion"
+#pragma clang diagnostic ignored "-Wobjc-literal-conversion"
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 
 {
@@ -663,6 +666,7 @@
     return YES;
     
 }
+#pragma clang diagnostic pop
 - (void)textFieldEditChanged:(UITextField *)textField
 
 {

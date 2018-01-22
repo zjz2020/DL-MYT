@@ -38,7 +38,8 @@
   
   return self;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 -(void)runInMainQueue:(void (^)())queue{
   dispatch_async(dispatch_get_main_queue(), queue);
 }
@@ -46,7 +47,7 @@
 -(void)runInGlobalQueue:(void (^)())queue{
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), queue);
 }
-
+#pragma clang diagnostic pop
 
 -(void)setAssetsArray:(NSMutableArray *)assetsArray {
   

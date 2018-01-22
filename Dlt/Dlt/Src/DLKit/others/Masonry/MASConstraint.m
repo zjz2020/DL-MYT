@@ -61,7 +61,8 @@
 }
 
 #pragma mark - MASLayoutPriority proxies
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (MASConstraint * (^)())priorityLow {
     return ^id{
         self.priority(MASLayoutPriorityDefaultLow);
@@ -82,7 +83,7 @@
         return self;
     };
 }
-
+#pragma clang diagnostic pop
 #pragma mark - NSLayoutConstraint constant proxies
 
 - (MASConstraint * (^)(MASEdgeInsets))insets {

@@ -84,7 +84,8 @@
     self.selBtn.selected = [[SuPhotoCenter shareCenter].selectedPhotos containsObject:self.dataSource[page]];
     self.currentPage = page;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
 - (void)refreshTitle {
     [self setNavigationTitle:[NSString stringWithFormat:@"%ld / %ld", self.currentPage + 1, self.dataSource.count]];
 }
@@ -96,7 +97,7 @@
         self.sendCount.text = @"完成";
     }
 }
-
+#pragma clang diagnostic pop
 
 #pragma mark - collectionView代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

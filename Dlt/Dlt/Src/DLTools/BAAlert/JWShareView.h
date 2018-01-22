@@ -29,7 +29,9 @@ typedef void (^selectItemBlock)(NSInteger tag, NSString *title);
  *  @param selectShareItem 点击回调
  */
 - (void)addShareItems:(UIView *)superView  shareItems:(NSArray *)shareItems selectShareItem:(selectItemBlock)selectShareItem;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 @property(nonatomic,copy)void(^cancle)();
-
+#pragma clang diagnostic pop
 
 @end

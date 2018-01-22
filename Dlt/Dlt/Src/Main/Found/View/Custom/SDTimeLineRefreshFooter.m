@@ -27,13 +27,14 @@
     }
     return self;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)addToScrollView:(UIScrollView *)scrollView refreshOpration:(void (^)())refrsh
 {
     self.scrollView = scrollView;
     self.refreshBlock = refrsh;
 }
-
+#pragma clang diagnostic pop
 - (void)setupView
 {
     UIView *containerView = [UIView new];

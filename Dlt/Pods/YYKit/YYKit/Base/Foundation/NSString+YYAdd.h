@@ -114,10 +114,10 @@ NS_ASSUME_NONNULL_BEGIN
  Returns an NSString for base64 encoded.
  */
 - (nullable NSString *)base64EncodedString;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /**
  Returns an NSString from base64 encoded string.
- @param base64Encoding The encoded string.
  */
 + (nullable NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString;
 
@@ -137,6 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
  Escape common HTML to Entity.
  Example: "a<b" will be escape to "a&lt;b".
  */
+#pragma clang diagnostic pop
 - (NSString *)stringByEscapingHTML;
 
 #pragma mark - Drawing

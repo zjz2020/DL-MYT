@@ -13,7 +13,8 @@
 @property(nonatomic, copy)NSString *appID;
 @property(nonatomic, copy)NSString *pid;
 @property(nonatomic, copy)NSString *redirectUri;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 /**
  *  初始化AuthInfo
  *
@@ -24,6 +25,7 @@
  *
  *  @return authinfo实例
  */
+#pragma clang diagnostic pop
 - (id)initWithAppID:(NSString *)appIDStr
                 pid:(NSString *)pidStr
         redirectUri:(NSString *)uriStr;

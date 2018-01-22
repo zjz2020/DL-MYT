@@ -11,13 +11,15 @@
 @class BABaseHeaderFooterView;
 
 @protocol BABaseHeaderFooterViewDelegate <NSObject>
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 /*!
  *  BABaseHeaderFooterView
  *
  *  @param BABaseHeaderFooterView BABaseHeaderFooterView
  *  @param action                 action
  */
+#pragma clang diagnostic pop
 - (void)ba_customHeaderFooterView:(BABaseHeaderFooterView *)customHeaderFooterView action:(id)action;
 
 @end

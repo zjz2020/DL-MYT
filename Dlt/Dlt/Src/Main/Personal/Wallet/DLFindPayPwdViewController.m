@@ -299,7 +299,8 @@
     }
     return _VerificationcodeBtn;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 -(UIButton *)backBtn
 {
     if (_backBtn == nil) {
@@ -309,7 +310,7 @@
     }
     return _backBtn;
 }
-
+#pragma clang diagnostic pop
 
 
 -(void)verification:(UIButton *)btn

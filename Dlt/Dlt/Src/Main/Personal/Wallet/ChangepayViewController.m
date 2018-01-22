@@ -62,7 +62,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row = indexPath.row;
+//    NSInteger row = indexPath.row;
 
             return 54;
     

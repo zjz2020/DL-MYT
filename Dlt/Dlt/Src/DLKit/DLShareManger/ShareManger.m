@@ -28,7 +28,7 @@
     //正式pkfcgjstp9u28
     //测试bmdehs6pbik1s
     
-    [[RCIM sharedRCIM]initWithAppKey:@"bmdehs6pbik1s"];
+    [[RCIM sharedRCIM]initWithAppKey:RCKKEY];
 }
 
 

@@ -16,6 +16,8 @@
  * BMKLocationProvider 位置数据来源，分iOS系统定位和其他定位服务结果两种，目前仅支持iOS系统定位服务
  *
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnullability-completeness"
 typedef NS_ENUM(int, BMKLocationProvider) {
     
     BMKLocationProviderIOS = 0,           //!<位置来源于iOS本身定位
@@ -46,5 +48,5 @@ typedef NS_ENUM(int, BMKLocationProvider) {
 
 
 @end
-
+#pragma clang diagnostic pop
 #endif /* BMKLocation_h */

@@ -354,7 +354,7 @@ static DLTUserCenter *_userCenter = nil;
                            @"token" :DLT_USER_CENTER.token
                            };
   
-  @weakify(self);
+//  @weakify(self);
   return [RACSignal
           createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
             BAURLSessionTask *task = [BANetManager ba_uploadImageWithUrlString:url
@@ -362,7 +362,7 @@ static DLTUserCenter *_userCenter = nil;
                                                                     imageArray:@[image]
                                                                       fileName:@""
                                                                   successBlock:^(id response) {
-                                                                    @strongify(self);
+//                                                                    @strongify(self);
                                                                     if ([response[@"code"] integerValue] == 1){
                                                                        NSString *headimgeURL = response[@"data"][@"src"];
                                                                       [subscriber sendNext:headimgeURL];

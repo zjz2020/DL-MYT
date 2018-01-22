@@ -53,7 +53,11 @@
 
 extern UIImage *SDScaledImageForKey(NSString *key, UIImage *image);
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+
 typedef void(^SDWebImageNoParamsBlock)();
+#pragma clang diagnostic pop
 
 extern NSString *const SDWebImageErrorDomain;
 

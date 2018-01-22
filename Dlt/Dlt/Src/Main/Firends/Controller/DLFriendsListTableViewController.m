@@ -19,6 +19,7 @@
 #import "DLFriendsSetTableViewController.h"
 #import "DLUserInfDetailViewController.h"
 #import <MJRefresh/MJRefresh.h>
+#import "NSString+PinYin.h"
 #define kHeaderViewH   119
 
 @interface DLFriendsListTableViewController ()<DLFriendsHeadViewDelegate>
@@ -26,6 +27,9 @@
 @property (nonatomic, strong) DLFriendsHeadView *headView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *seachArr;
+///字母分区
+@property (nonatomic, strong)NSMutableDictionary *friendsList;
+@property (nonatomic, strong)NSMutableArray *listArray;
 @property (nonatomic, assign) BOOL isSeach;
 @end
 
@@ -40,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.tableFooterView = [UIView new];
+    self.tableView.sectionIndexColor = [UIColor grayColor];
     self.isSeach = NO;
     DLFriendsHeadView *headView = [[DLFriendsHeadView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kHeaderViewH)];
     self.headView = headView;
@@ -63,17 +68,48 @@
 }
 #pragma mark - tableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    if (self.isSeach) {
+        return 1;
+    }
+    return self.listArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isSeach) {
         return self.seachArr.count;
     }
-    return self.dataArr.count;
+    NSString *key = self.listArray[section];
+    NSMutableArray *array = [self.friendsList objectForKey:key];
+    return array.count;
+}
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+    if (self.isSeach) {
+        return @[];
+    }
+    return self.listArray;
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (self.isSeach) {
+        return @"搜索到";
+    }
+    if (self.listArray.count > section) {
+        return [self.listArray objectAtIndex:section];
+    } else {
+        return @"";
+    }
+}
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+    NSLog(@"sectionForSectionIndexTitle: %@",title);
+    return index;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DLFriendsCell *friendsCell = [DLFriendsCell creatFriendsCellWithTableView:tableView];
-    friendsCell.frinedsInfo = self.isSeach ? self.seachArr[indexPath.row] : self.dataArr[indexPath.row];
+    if (self.listArray.count > indexPath.section) {
+        NSString *key = self.listArray[indexPath.section];
+        NSMutableArray *array = [self.friendsList objectForKey:key];
+        DLFriendsInfo *fInfo = array[indexPath.row];
+//        friendsCell.frinedsInfo = self.isSeach ? self.seachArr[indexPath.row] : self.dataArr[indexPath.row];
+        friendsCell.frinedsInfo = self.isSeach ? self.seachArr[indexPath.row] : fInfo;
+    }
     
     @weakify(self)
     friendsCell.clickBlock = ^(DLFriendsInfo *userInfo) {
@@ -91,7 +127,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    
     DLFriendsInfo *userInfo = self.isSeach ? self.seachArr[indexPath.row] : self.dataArr[indexPath.row];
+    if (self.listArray.count > indexPath.section  && !self.isSeach) {
+        NSString *key = self.listArray[indexPath.section];
+        NSMutableArray *array = [self.friendsList objectForKey:key];
+        userInfo = array[indexPath.row];
+    }
     ConversationViewController *conversation = [[ConversationViewController alloc] init];
     conversation.conversationType = ConversationType_PRIVATE;
     conversation.targetId = userInfo.fid;
@@ -138,12 +180,17 @@
         DLFriendsModel *friendsModel = [DLFriendsModel modelWithJSON:response];
         if ([friendsModel.code integerValue] == 1) {
             [self.dataArr removeAllObjects];
+            //处理返回值首字母
+            for (DLFriendsInfo *info in friendsModel.data) {
+                info.firstLetter = [NSString getFirstNameWithText:info.name];
+            }
             [self.dataArr addObjectsFromArray:friendsModel.data];
+            [self backFirstLetterWithArray:self.dataArr];
             NSMutableArray *temp = [NSMutableArray array];
             for (DLFriendsInfo *model in friendsModel.data) {
                 RCUserInfo *info = [[RCUserInfo alloc] initWithUserId:model.fid name:model.name portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,model.headImg]];
                 [[RCIM sharedRCIM] refreshUserInfoCache:info withUserId:model.fid];
-                
+
                 [temp addObject:info];
             }
             [[RCDataBaseManager shareInstance] insertUserListToDB:temp];
@@ -154,7 +201,36 @@
         [self.tableView.mj_header endRefreshing];
     } progress:nil];
 }
-
+//处理获取的好友列表
+- (void)backFirstLetterWithArray:(NSArray *)friendArray {
+    [self.friendsList removeAllObjects];
+    [self.listArray removeAllObjects];
+    for (DLFriendsInfo *friendInfo in self.dataArr) {
+        if ([self.friendsList.allKeys containsObject:friendInfo.firstLetter]) {//包含  添加到mArray;
+            NSMutableArray *gFriendArray = [self.friendsList objectForKey:friendInfo.firstLetter];
+            [gFriendArray addObject:friendInfo];
+        } else {
+            NSMutableArray *mArray = [NSMutableArray new];
+            [mArray addObject:friendInfo];
+            [self.friendsList setObject:mArray forKey:friendInfo.firstLetter];
+        }
+    }
+    self.listArray = [[[self.friendsList allKeys] sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    /*
+     
+     NSMutableArray *temp = [NSMutableArray array];
+     for (DLFriendsInfo *model in friendsModel.data) {
+     RCUserInfo *info = [[RCUserInfo alloc] initWithUserId:model.fid name:model.name portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,model.headImg]];
+     [[RCIM sharedRCIM] refreshUserInfoCache:info withUserId:model.fid];
+     
+     [temp addObject:info];
+     }
+     [[RCDataBaseManager shareInstance] insertUserListToDB:temp];
+     */
+    
+  
+    
+}
 #pragma mark - 懒加载
 - (NSMutableArray *)dataArr {
     if (!_dataArr) {
@@ -168,7 +244,18 @@
     }
     return _seachArr;
 }
-
+- (NSMutableDictionary *)friendsList {
+    if (!_friendsList) {
+        _friendsList = [NSMutableDictionary dictionary];
+    }
+    return _friendsList;
+}
+- (NSMutableArray *)listArray{
+    if (!_listArray) {
+        _listArray = [NSMutableArray array];
+    }
+    return _listArray;
+}
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kRefreshFriendsListNoticationName object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kHandleRequestNotificationName object:nil];

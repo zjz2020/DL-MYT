@@ -345,6 +345,8 @@
 
  此方法的回调并非为原调用线程，您如果需要进行UI操作，请注意切换到主线程。
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)connectWithToken:(NSString *)token
                  success:(void (^)(NSString *userId))successBlock
                    error:(void (^)(RCConnectErrorCode status))errorBlock
@@ -2263,6 +2265,7 @@ startCustomerService:(NSString *)kefuId
                     leaveMessageDic:(NSDictionary *)leaveMessageDic
                             success:(void (^)())successBlock
                                failure:(void (^)())failureBlock;
+#pragma clang diagnostic pop
 #pragma mark - 搜索
 
 /*!

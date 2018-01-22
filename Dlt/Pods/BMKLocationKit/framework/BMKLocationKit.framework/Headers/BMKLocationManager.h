@@ -11,7 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "BMKLocationReGeocode.h"
 #import "BMKLocation.h"
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnullability-completeness"
 /** BMKLocationCoordinateType 枚举坐标系类型
  *
  */
@@ -225,7 +226,7 @@ typedef void (^BMKLocatingCompletionBlock)(BMKLocation * _Nullable location, BMK
 - (void)BMKLocationManager:(BMKLocationManager * _Nonnull)manager
      didUpdateNetworkState:(BMKLocationNetworkState)state orError:(NSError * _Nullable)error;
 
-
+#pragma clang diagnostic pop
 @end
 
 

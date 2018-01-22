@@ -36,7 +36,9 @@ typedef void(^CompletionBlock)(NSDictionary *resultDic);
  *  @return 返回单例对象
  */
 + (AlipaySDK *)defaultService;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /**
  *  支付接口
  *
@@ -44,6 +46,7 @@ typedef void(^CompletionBlock)(NSDictionary *resultDic);
  *  @param schemeStr      调用支付的app注册在info.plist中的scheme
  *  @param compltionBlock 支付结果回调Block
  */
+#pragma clang diagnostic pop
 - (void)payOrder:(NSString *)orderStr
       fromScheme:(NSString *)schemeStr
         callback:(CompletionBlock)completionBlock;

@@ -41,6 +41,9 @@
 /*!
  上传取消需要调用的block
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+#pragma clang diagnostic ignored "-Wdocumentation"
 @property(nonatomic, strong) void (^cancelBlock)();
 
 /*!
@@ -59,7 +62,7 @@
                   uploadSuccess:(void (^)(NSString *remoteUrl))successBlock
                     uploadError:(void (^)(RCErrorCode errorCode))errorBlock
                    uploadCancel:(void (^)())cancelBlock;
-
+#pragma clang diagnostic pop
 /*!
  取消当前上传
  

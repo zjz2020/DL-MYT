@@ -11,12 +11,13 @@
 @interface SDTimeLineRefreshFooter : SDBaseRefreshView
 
 + (instancetype)refreshFooterWithRefreshingText:(NSString *)text;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)addToScrollView:(UIScrollView *)scrollView refreshOpration:(void(^)())refrsh;
 
 @property (nonatomic, strong) UILabel *indicatorLabel;
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
 
 @property (nonatomic, copy) void (^refreshBlock)();
-
+#pragma clang diagnostic pop
 @end

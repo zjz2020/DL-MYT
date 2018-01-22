@@ -197,7 +197,8 @@ static inline CFTypeRef YYCFAutorelease(CFTypeRef CF_RELEASES_ARGUMENT arg) {
         return (__bridge CFTypeRef)obj;
     }
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /**
  Profile time cost.
  @param ^block     code to benchmark
@@ -211,6 +212,7 @@ static inline CFTypeRef YYCFAutorelease(CFTypeRef CF_RELEASES_ARGUMENT arg) {
     });
  
  */
+#pragma clang diagnostic pop
 static inline void YYBenchmark(void (^block)(void), void (^complete)(double ms)) {
     // <QuartzCore/QuartzCore.h> version
     /*
@@ -291,6 +293,8 @@ static inline bool dispatch_is_main_queue() {
 /**
  Submits a block for asynchronous execution on a main queue and returns immediately.
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"  
 static inline void dispatch_async_on_main_queue(void (^block)()) {
     if (pthread_main_np()) {
         block();
@@ -309,7 +313,7 @@ static inline void dispatch_sync_on_main_queue(void (^block)()) {
         dispatch_sync(dispatch_get_main_queue(), block);
     }
 }
-
+#pragma clang diagnostic pop
 /**
  Initialize a pthread mutex.
  */

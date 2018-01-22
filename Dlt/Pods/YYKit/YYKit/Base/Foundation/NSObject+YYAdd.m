@@ -47,7 +47,8 @@ va_end(args);
     [inv retainArguments];
     [inv performSelector:@selector(invoke) withObject:nil afterDelay:delay];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
 - (id)performSelectorWithArgsOnMainThread:(SEL)sel waitUntilDone:(BOOL)wait, ...{
     INIT_INV(wait, nil);
     if (!wait) [inv retainArguments];
@@ -61,7 +62,7 @@ va_end(args);
     [inv performSelector:@selector(invoke) onThread:thr withObject:nil waitUntilDone:wait];
     return wait ? [NSObject getReturnFromInv:inv withSig:sig] : nil;
 }
-
+#pragma clang diagnostic pop
 - (void)performSelectorWithArgsInBackground:(SEL)sel, ...{
     INIT_INV(sel, );
     [inv retainArguments];

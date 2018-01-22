@@ -31,7 +31,8 @@
  Remove all objects from the database
  */
 - (void) removeAllObjects;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /**
  Set the raw data associated with a key in the database
  
@@ -40,6 +41,7 @@
  @param value The raw data value to put in the database
  @param key The key at which the value can be found
  */
+#pragma clang diagnostic pop
 - (void) setData:(NSData *)data forKey:(id)key;
 
 /**

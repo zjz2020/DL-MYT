@@ -10,8 +10,10 @@
 
 typedef void(^confirmBlock)(NSString *proVince,NSString *city,NSString *area);
 typedef void(^selectOver)(NSString *proVince,NSString *city,NSString *area);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 typedef void(^cancelBlock)();
-
+#pragma clang diagnostic pop
 @interface CityPickView : UIView <UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property (copy,nonatomic) NSString *province;

@@ -7,7 +7,8 @@
 //
 
 #import "BMKGeoFenceRegion.h"
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnullability-completeness"
 @protocol BMKGeoFenceManagerDelegate;
 
 ///地理围栏监听状态类型
@@ -129,6 +130,6 @@ typedef NS_ENUM(NSInteger, BMKGeoFenceErrorCode) {
  * @param error 错误信息，如定位相关的错误
  */
 - (void)BMKGeoFenceManager:(BMKGeoFenceManager * _Nonnull)manager didGeoFencesStatusChangedForRegion:(BMKGeoFenceRegion * _Nullable)region customID:(NSString * _Nullable)customID error:(NSError * _Nullable)error;
-
+#pragma clang diagnostic pop
 @end
 

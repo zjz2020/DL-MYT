@@ -84,5 +84,8 @@
     }
     
 }
-
++ (CGFloat)CellH{
+    NSLog(@"此方法之前没有实现 1.22zjz  添加");
+    return 100;
+}
 @end

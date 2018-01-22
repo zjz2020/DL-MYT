@@ -12,7 +12,8 @@
  *  遍历所有类的block（父类）
  */
 typedef void (^MJClassesEnumeration)(Class c, BOOL *stop);
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /** 这个数组中的属性名才会进行字典和模型的转换 */
 typedef NSArray * (^MJAllowedPropertyNames)();
 /** 这个数组中的属性名才会进行归档 */
@@ -87,4 +88,5 @@ typedef NSArray * (^MJIgnoredCodingPropertyNames)();
 
 #pragma mark - 内部使用
 + (void)mj_setupBlockReturnValue:(id (^)())block key:(const char *)key;
+#pragma clang diagnostic pop
 @end

@@ -138,7 +138,8 @@
 		return innerValue != value && ![innerValue isEqual:value];
 	}] setNameWithFormat:@"[%@] -ignore: %@", self.name, RACDescription(value)];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (__kindof RACStream *)reduceEach:(id (^)())reduceBlock {
 	NSCParameterAssert(reduceBlock != nil);
 
@@ -326,7 +327,7 @@
 		};
 	}] setNameWithFormat:@"[%@] -skipUntilBlock:", self.name];
 }
-
+#pragma clang diagnostic pop
 - (__kindof RACStream *)skipWhileBlock:(BOOL (^)(id x))predicate {
 	NSCParameterAssert(predicate != nil);
 
