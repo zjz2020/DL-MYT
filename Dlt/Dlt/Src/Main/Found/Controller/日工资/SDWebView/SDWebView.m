@@ -41,11 +41,12 @@ form.submit();\
 @property (nonatomic , strong)NSString *nowUrl;
 @end
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol"
 @implementation SDWebView {
     NSString *_imgSrc;//  预览图片的URL路径
 }
-
+#pragma clang diagnostic pop
 //  MARK: - init
 - (instancetype)initWithURLString:(NSString *)urlString {
     self = [super init];

@@ -39,8 +39,10 @@ typedef enum {
 // ---------------------------配置----------------------------------
 
 @interface SDRefreshView : UIView
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 @property (nonatomic, copy) void(^beginRefreshingOperation)();
+#pragma clang diagnostic pop
 @property (nonatomic, weak) id beginRefreshingTarget;
 @property (nonatomic, assign) SEL beginRefreshingAction;
 @property (nonatomic, assign) BOOL isEffectedByNavigationController;

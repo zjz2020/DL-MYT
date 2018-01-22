@@ -39,7 +39,8 @@
     
     self.tableView.tableFooterView = [UIView new];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
 - (void)setRedpackerInfo:(DLRedpackerInfo *)redpackerInfo {
     _redpackerInfo = redpackerInfo;
 
@@ -60,7 +61,7 @@
         }
     });
 }
-
+#pragma clang diagnostic pop
 - (void)setModel:(DLFriendPacketModel *)model {
     _model = model;
     

@@ -27,6 +27,7 @@ static NSString * const ID = @"emotion";
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     // 设置collectionView
     [self setupCollectionView];
 

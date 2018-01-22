@@ -49,7 +49,9 @@
         }];
     }
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
+#pragma clang diagnostic ignored "-Wstrict-prototypes"  
 - (BOOL)isReachMaxSelectedCount {
     if (self.selectedPhotos.count >= self.selectedCount) {
         NSString * msg = [NSString stringWithFormat:@"最多只能选择%ld张", self.selectedCount];
@@ -107,7 +109,7 @@
         [cameraNotice show];
     }
 }
-
+#pragma clang diagnostic pop
 #pragma mark - AlertView代理
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex) {

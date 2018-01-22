@@ -31,7 +31,10 @@ CGContextRef _Nullable YYCGContextCreateARGBBitmapContext(CGSize size, BOOL opaq
 CGContextRef _Nullable YYCGContextCreateGrayBitmapContext(CGSize size, CGFloat scale);
 
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wnullability-completeness-on-arrays"
 /// Get main screen's scale.
 CGFloat YYScreenScale();
 
@@ -122,6 +125,7 @@ NSString *YYUIViewContentModeToCAGravity(UIViewContentMode contentMode);
  @return A rectangle for the given content mode.
  @discussion UIViewContentModeRedraw is same as UIViewContentModeScaleToFill.
  */
+#pragma clang diagnostic pop
 CGRect YYCGRectFitWithContentMode(CGRect rect, CGSize size, UIViewContentMode mode);
 
 /// Returns the center for the rectangle.

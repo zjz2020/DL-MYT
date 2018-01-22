@@ -66,6 +66,9 @@
 /**
  *	Sets the NSLayoutConstraint priority to MASLayoutPriorityLow
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+
 - (MASConstraint * (^)())priorityLow;
 
 /**
@@ -77,6 +80,8 @@
  *	Sets the NSLayoutConstraint priority to MASLayoutPriorityHigh
  */
 - (MASConstraint * (^)())priorityHigh;
+
+#pragma clang diagnostic pop
 
 /**
  *	Sets the constraint relation to NSLayoutRelationEqual

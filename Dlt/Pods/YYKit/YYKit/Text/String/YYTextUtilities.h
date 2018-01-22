@@ -231,6 +231,9 @@ static inline CGRect YYEmojiGetGlyphBoundingRectWithFontSize(CGFloat fontSize) {
  @param char32 Input: a UTF-32 character (equal or larger than 0x10000, not in BMP)
  @param char16 Output: two UTF-16 characters.
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+#pragma clang diagnostic ignored "-Wnullability-completeness-on-arrays"
 static inline void UTF32CharToUTF16SurrogatePair(UTF32Char char32, UTF16Char char16[2]) {
     char32 -= 0x10000;
     char16[0] = (char32 >> 10) + 0xD800;
@@ -258,6 +261,7 @@ NSCharacterSet *YYTextVerticalFormRotateCharacterSet();
  @return The shared character set.
  */
 NSCharacterSet *YYTextVerticalFormRotateAndMoveCharacterSet();
+#pragma clang diagnostic pop
 
 NS_ASSUME_NONNULL_END
 YY_EXTERN_C_END

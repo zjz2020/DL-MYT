@@ -107,6 +107,8 @@
 }
 
 #pragma mark - 网络请求
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
 - (void)dl_networkForWithdrawalsWithPassword:(NSString *)password {
     NSString *url = [NSString stringWithFormat:@"%@Wallet/withdrawals",BASE_URL];
     NSDictionary *params = @{
@@ -125,6 +127,7 @@
         
     } progress:nil];
 }
+#pragma clang diagnostic pop
 - (IBAction)toProtocol:(id)sender {
     ProtocalViewController *ptv = [[ProtocalViewController alloc] init];
     [self.navigationController pushViewController:ptv animated:YES];}

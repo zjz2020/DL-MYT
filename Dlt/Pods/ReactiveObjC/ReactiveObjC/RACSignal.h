@@ -218,6 +218,8 @@ typedef RACSignal * _Nullable (^RACSignalBindBlock)(ValueType _Nullable value, B
 ///               return value must be an object. This argument cannot be nil.
 ///
 /// Returns a new signal of reduced tuple values.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (RACSignal *)reduceEach:(id _Nullable (^)())reduceBlock RAC_WARN_UNUSED_RESULT;
 
 /// Returns a signal consisting of `value`, followed by the values in the
@@ -269,7 +271,7 @@ typedef RACSignal * _Nullable (^RACSignalBindBlock)(ValueType _Nullable value, B
 /// Returns a new signal containing the results from each invocation of
 /// `reduceBlock`.
 + (RACSignal<ValueType> *)zip:(id<NSFastEnumeration>)signals reduce:(id _Nullable (^)())reduceBlock RAC_WARN_UNUSED_RESULT;
-
+#pragma clang diagnostic pop
 /// Returns a signal obtained by concatenating `signals` in order.
 + (RACSignal<ValueType> *)concat:(id<NSFastEnumeration>)signals RAC_WARN_UNUSED_RESULT;
 

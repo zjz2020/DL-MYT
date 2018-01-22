@@ -42,6 +42,10 @@
  *
  * See #strongify for an example of usage.
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+#pragma clang diagnostic ignored "-Wmacro-redefined"
+
 #define weakify(...) \
     rac_keywordify \
     metamacro_foreach_cxt(rac_weakify_,, __weak, __VA_ARGS__)
@@ -89,7 +93,7 @@
 
 /*** implementation details follow ***/
 typedef void (^rac_cleanupBlock_t)();
-
+#pragma clang diagnostic pop
 static inline void rac_executeCleanupBlock (__strong rac_cleanupBlock_t *block) {
     (*block)();
 }

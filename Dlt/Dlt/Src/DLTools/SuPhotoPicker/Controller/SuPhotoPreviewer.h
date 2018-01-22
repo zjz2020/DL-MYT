@@ -14,7 +14,9 @@
 @property (nonatomic, strong) PHAsset * selectedAsset; //初始显示的图片
 @property (nonatomic, strong) NSArray * previewPhotos;
 @property (nonatomic, assign) BOOL isPreviewSelectedPhotos;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 @property (nonatomic, copy) void(^backBlock)();
 @property (nonatomic, copy) void(^doneBlock)();
-
+#pragma clang diagnostic pop
 @end

@@ -19,12 +19,14 @@ LTAlertView* alertView = nil;
     //    [self show];
     
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types"
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (((LTAlertView*)alertView).onTapBlock) {
         ((LTAlertView*)alertView).onTapBlock(alertView,buttonIndex);
     }
 }
+#pragma clang diagnostic pop
 +(void)configAlertView:(ConfigBlock)configBlock{
     
 }

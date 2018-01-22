@@ -63,7 +63,8 @@
 @interface BAModalWindow : NSObject
 
 + (instancetype)ba_sharedModalWindow;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)ba_showModal:(BAModal *)modal animated:(BOOL)animated duration:(CGFloat)duration completion:(void(^)())comletion;
 
 - (void)ba_hideModal:(BAModal *)modal animated:(BOOL)animated duration:(CGFloat)duration completion:(void(^)())comletion;
@@ -392,7 +393,7 @@ static BAModal *_ba_modal = nil;
                          }];
     }
 }
-
+#pragma clang diagnostic pop
 - (void)reloadData{
     BAModal *topModal = [self topModal];
     if (topModal){

@@ -12,6 +12,8 @@
 @interface TZPhotoPreviewCell : UICollectionViewCell
 
 @property (nonatomic, strong) TZAssetModel *model;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 @property (nonatomic, copy) void (^singleTapGestureBlock)();
 @property (nonatomic, copy) void (^imageProgressUpdateBlock)(double progress);
 
@@ -38,6 +40,6 @@
 @property (nonatomic, strong) id asset;
 @property (nonatomic, copy) void (^singleTapGestureBlock)();
 @property (nonatomic, copy) void (^imageProgressUpdateBlock)(double progress);
-
+#pragma clang diagnostic pop
 - (void)recoverSubviews;
 @end

@@ -322,7 +322,8 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 		}]
 		setNameWithFormat:@"[%@] -finally:", self.name];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"  
 - (RACSignal *)bufferWithTime:(NSTimeInterval)interval onScheduler:(RACScheduler *)scheduler {
 	NSCParameterAssert(scheduler != nil);
 	NSCParameterAssert(scheduler != RACScheduler.immediateScheduler);
@@ -468,7 +469,7 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 
 	return [result setNameWithFormat:@"+combineLatest: %@ reduce:", signals];
 }
-
+#pragma clang diagnostic pop
 - (RACSignal *)merge:(RACSignal *)signal {
 	return [[RACSignal
 		merge:@[ self, signal ]]

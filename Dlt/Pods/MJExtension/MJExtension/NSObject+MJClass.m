@@ -131,6 +131,8 @@ static NSMutableDictionary *ignoredCodingPropertyNamesDict_;
     return [self mj_totalObjectsWithSelector:@selector(mj_allowedCodingPropertyNames) key:&MJAllowedCodingPropertyNamesKey];
 }
 #pragma mark - block和方法处理:存储block的返回值
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 + (void)mj_setupBlockReturnValue:(id (^)())block key:(const char *)key
 {
     if (block) {
@@ -142,7 +144,7 @@ static NSMutableDictionary *ignoredCodingPropertyNamesDict_;
     // 清空数据
     [[self dictForKey:key] removeAllObjects];
 }
-
+#pragma clang diagnostic pop
 + (NSMutableArray *)mj_totalObjectsWithSelector:(SEL)selector key:(const char *)key
 {
     NSMutableArray *array = [self dictForKey:key][NSStringFromClass(self)];

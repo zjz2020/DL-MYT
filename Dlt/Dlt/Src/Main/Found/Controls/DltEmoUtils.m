@@ -70,8 +70,6 @@ static M80AttributedLabel *DLTtemplateAttributedLabel(){
 /**
  根据表情Value,匹配key
 
- @param value
- @return value 对应的key
  */
 + (NSString *)emotionKeyForValue:(NSString *)value{
   NSArray *keys = [[YZEmotionManager emotionToTextDict] allKeysForObject:value];  

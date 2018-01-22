@@ -27,7 +27,8 @@ typedef NS_ENUM(NSInteger, MJRefreshState) {
     /** 所有数据加载完毕，没有更多的数据了 */
     MJRefreshStateNoMoreData
 };
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /** 进入刷新状态的回调 */
 typedef void (^MJRefreshComponentRefreshingBlock)();
 /** 开始刷新后的回调(进入刷新状态后的回调) */
@@ -67,6 +68,7 @@ typedef void (^MJRefreshComponentEndRefreshingCompletionBlock)();
 /** 结束刷新状态 */
 - (void)endRefreshing;
 - (void)endRefreshingWithCompletionBlock:(void (^)())completionBlock;
+#pragma clang diagnostic pop
 /** 是否正在刷新 */
 - (BOOL)isRefreshing;
 /** 刷新状态 一般交给子类内部实现 */

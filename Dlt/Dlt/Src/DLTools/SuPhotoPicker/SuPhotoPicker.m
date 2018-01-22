@@ -111,7 +111,8 @@
 //    UIButton * originalTextBtn = [UIButton buttonWithFrame:CGRectMake(158, 193, 40, 20) title:@"原图" target:self selector:@selector(originalSwitch:)];
 //    [self.photoSheet addSubview:originalTextBtn];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
 - (void)refreshDoneStatus {
     if ([SuPhotoCenter shareCenter].selectedPhotos.count > 0) {
         [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld)",[SuPhotoCenter shareCenter].selectedPhotos.count] forState:UIControlStateNormal];
@@ -123,7 +124,7 @@
         self.doneBtn.enabled = NO;
     }
 }
-
+#pragma clang diagnostic pop
 #pragma mark - 通知处理
 - (void)reloadAllPhotos {
     dispatch_async(dispatch_get_main_queue(), ^{

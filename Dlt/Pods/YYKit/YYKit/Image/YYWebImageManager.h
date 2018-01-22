@@ -140,7 +140,8 @@ typedef void(^YYWebImageProgressBlock)(NSInteger receivedSize, NSInteger expecte
  @return The transformed image.
  */
 typedef UIImage * _Nullable (^YYWebImageTransformBlock)(UIImage *image, NSURL *url);
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 /**
  The block invoked when image fetch finished or cancelled.
  
@@ -150,6 +151,7 @@ typedef UIImage * _Nullable (^YYWebImageTransformBlock)(UIImage *image, NSURL *u
  @param error       Error during image fetching.
  @param finished    If the operation is cancelled, this value is NO, otherwise YES.
  */
+#pragma clang diagnostic pop
 typedef void (^YYWebImageCompletionBlock)(UIImage * _Nullable image,
                                           NSURL *url,
                                           YYWebImageFromType from,

@@ -49,8 +49,10 @@
 /**
  *  获取相机权限
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)cameraAuthoriationValidWithHandle:(void(^)())handle;
-
+#pragma clang diagnostic pop
 /**
  *  判断是否达到最大选择数
  */

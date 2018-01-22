@@ -40,10 +40,12 @@
 @property (nonatomic, assign) BOOL      isClick;  //防止多次快速点击
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 @implementation DLTCircleoffriendDetailViewController {
   DLTCircleofFriendDynamicCommentModel *_selectedCommentModel;
 }
-
+#pragma clang diagnostic pop
 #pragma mark -
 
 // 懒加载键盘

@@ -618,7 +618,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                      width:(CGFloat)width
                                                     ascent:(CGFloat)ascent
                                                    descent:(CGFloat)descent;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wstrict-prototypes" 
 /**
  Creates and returns an attachment.
  
@@ -647,6 +649,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An attributed string, or nil if an error occurs.
  @since YYKit:6.0
  */
+#pragma clang diagnostic pop
 + (NSMutableAttributedString *)attachmentStringWithContent:(nullable id)content
                                                contentMode:(UIViewContentMode)contentMode
                                             attachmentSize:(CGSize)attachmentSize

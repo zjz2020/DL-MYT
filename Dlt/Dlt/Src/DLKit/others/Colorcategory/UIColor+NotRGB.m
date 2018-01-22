@@ -71,7 +71,8 @@
 {
     return [UIColor colorWithHex:hexValue alpha:1.0];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-extra-args"
 + (NSString *) hexFromUIColor: (UIColor*) color {
     if (CGColorGetNumberOfComponents(color.CGColor) < 4) {
         const CGFloat *components = CGColorGetComponents(color.CGColor);
@@ -89,7 +90,7 @@
             (int)((CGColorGetComponents(color.CGColor))[1]*255.0),
             (int)((CGColorGetComponents(color.CGColor))[2]*255.0)];
 }
-
+#pragma clang diagnostic pop
 
 
 @end

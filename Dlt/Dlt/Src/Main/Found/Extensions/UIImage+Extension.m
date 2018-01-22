@@ -42,7 +42,9 @@
   
   return newImage;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 /**
  *  实现图片的缩小或者放大
  *
@@ -51,6 +53,7 @@
  *
  *  @return 新的图片
  */
+#pragma clang diagnostic pop
 
 -(UIImage *)scaleImageWithSize:(CGSize)size{
   

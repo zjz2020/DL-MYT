@@ -31,8 +31,12 @@
 /**
  * 显示隐藏后回调
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+
 @property (strong, nonatomic) void (^didShowHandler)();
 @property (strong, nonatomic) void (^didHideHandler)();
+#pragma clang diagnostic pop
 
 @property (copy, nonatomic, readonly  ) NSString  *title;
 @property (copy, nonatomic, readonly  ) NSString  *message;

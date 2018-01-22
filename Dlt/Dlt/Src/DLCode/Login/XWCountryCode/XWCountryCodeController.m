@@ -16,7 +16,10 @@
     //国际代码主tableview
     UITableView *countryCodeTableView;
     //搜索
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     UISearchDisplayController *searchController;
+    #pragma clang diagnostic pop
 //    UISearchController *searchController;
     UISearchBar *searchBar;
     //代码字典
@@ -67,8 +70,10 @@
     //关闭系统自动联想和首字母大写功能
     [searchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [countryCodeTableView setTableHeaderView:searchBar];
-    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"  
     searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+    #pragma clang diagnostic pop
     [searchController setDelegate:self];
     searchController.searchResultsDataSource = self;
     searchController.searchResultsDelegate = self;

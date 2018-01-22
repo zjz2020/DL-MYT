@@ -44,6 +44,8 @@
     [self addleftitem];
     // Do any additional setup after loading the view.
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 -(void)setup
 {
     
@@ -124,6 +126,7 @@
     
     
 }
+#pragma clang diagnostic pop
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

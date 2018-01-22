@@ -12,7 +12,8 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 /**
  Provide some data-model method:
  
@@ -363,6 +364,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return Class to create from this dictionary, `nil` to use current class.
 
  */
+#pragma clang diagnostic pop
+
 + (nullable Class)modelCustomClassForDictionary:(NSDictionary *)dictionary;
 
 /**

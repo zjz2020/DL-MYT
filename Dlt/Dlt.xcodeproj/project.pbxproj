@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2663680AD3C03C2CD8889CE7 /* Pods_Dlt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F823B8D4D6704AE271C54577 /* Pods_Dlt.framework */; };
+		320344BF2015803F00B09B85 /* NSString+PinYin.m in Sources */ = {isa = PBXBuildFile; fileRef = 320344BE2015803F00B09B85 /* NSString+PinYin.m */; };
 		3221521C20118520006A6AB5 /* WSRewardConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3221521520118520006A6AB5 /* WSRewardConfig.m */; };
 		3221521D20118520006A6AB5 /* close_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3221521720118520006A6AB5 /* close_btn@2x.png */; };
 		3221521E20118520006A6AB5 /* redpacket_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3221521920118520006A6AB5 /* redpacket_bg@2x.png */; };
@@ -31,7 +32,6 @@
 		32CF5FF3200DEBE5009A6940 /* MaYiRedPacketDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FF2200DEBE5009A6940 /* MaYiRedPacketDetailHeadView.m */; };
 		32CF5FF5200DEC38009A6940 /* MaYiOpenPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FF4200DEC38009A6940 /* MaYiOpenPayView.m */; };
 		32CF5FF7200DEC51009A6940 /* MaYiOpenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FF6200DEC50009A6940 /* MaYiOpenView.m */; };
-		32FEA30B200EDA35000BD118 /* MapDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA30A200EDA35000BD118 /* MapDataModel.m */; };
 		32FEA30E200EFC7A000BD118 /* MYSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA30D200EFC7A000BD118 /* MYSearchView.m */; };
 		32FEA311200F276E000BD118 /* MYWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA310200F276E000BD118 /* MYWebViewController.m */; };
 		32FEA314200F5FDF000BD118 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FEA313200F5FDC000BD118 /* UIImage+Scale.m */; };
@@ -650,6 +650,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		320344BD2015803F00B09B85 /* NSString+PinYin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYin.h"; sourceTree = "<group>"; };
+		320344BE2015803F00B09B85 /* NSString+PinYin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYin.m"; sourceTree = "<group>"; };
 		3221521520118520006A6AB5 /* WSRewardConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRewardConfig.m; sourceTree = "<group>"; };
 		3221521620118520006A6AB5 /* WSRedPacketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRedPacketView.h; sourceTree = "<group>"; };
 		3221521720118520006A6AB5 /* close_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_btn@2x.png"; sourceTree = "<group>"; };
@@ -692,8 +694,6 @@
 		32CF5FF4200DEC38009A6940 /* MaYiOpenPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiOpenPayView.m; sourceTree = "<group>"; };
 		32CF5FF6200DEC50009A6940 /* MaYiOpenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiOpenView.m; sourceTree = "<group>"; };
 		32CF5FF8200DEC59009A6940 /* MaYiOpenPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiOpenPayView.h; sourceTree = "<group>"; };
-		32FEA309200EDA35000BD118 /* MapDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapDataModel.h; sourceTree = "<group>"; };
-		32FEA30A200EDA35000BD118 /* MapDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapDataModel.m; sourceTree = "<group>"; };
 		32FEA30C200EFC7A000BD118 /* MYSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYSearchView.h; sourceTree = "<group>"; };
 		32FEA30D200EFC7A000BD118 /* MYSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYSearchView.m; sourceTree = "<group>"; };
 		32FEA30F200F276E000BD118 /* MYWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYWebViewController.h; sourceTree = "<group>"; };
@@ -1784,8 +1784,6 @@
 			children = (
 				32C1BDC2200E00C30012BD9F /* MaYiPersonalCardModel.h */,
 				32C1BDC1200E00C30012BD9F /* MaYiPersonalCardModel.m */,
-				32FEA309200EDA35000BD118 /* MapDataModel.h */,
-				32FEA30A200EDA35000BD118 /* MapDataModel.m */,
 				32244841200C7D42001B5BB8 /* DataModel.h */,
 				32244842200C7D42001B5BB8 /* DataModel.m */,
 				32CF5FE2200DD1AF009A6940 /* RedPacket.h */,
@@ -1815,6 +1813,8 @@
 				32244844200C82A1001B5BB8 /* MAPointAnnotation+Type.m */,
 				32CF5FE0200DAD42009A6940 /* NSDictionary+Parser.h */,
 				32CF5FDF200DAD42009A6940 /* NSDictionary+Parser.m */,
+				320344BD2015803F00B09B85 /* NSString+PinYin.h */,
+				320344BE2015803F00B09B85 /* NSString+PinYin.m */,
 				32CF5FDD200D976E009A6940 /* ZCAFNHelp.h */,
 				32CF5FDC200D976D009A6940 /* ZCAFNHelp.m */,
 			);
@@ -4465,7 +4465,6 @@
 				CEE63D571FA34EDC00ED882F /* DLTComposeToolbar.m in Sources */,
 				865635A61EDAAF0A00802184 /* M80AttributedLabel+Extension.m in Sources */,
 				CE21367320032208000EB709 /* KeyChainManager.m in Sources */,
-				32FEA30B200EDA35000BD118 /* MapDataModel.m in Sources */,
 				CECCE9D11FA9671F008ACE4A /* ViewController+MASAdditions.m in Sources */,
 				CEE63D971FA34FF700ED882F /* WalletbalanceCell.m in Sources */,
 				CECCE9CD1FA9671E008ACE4A /* MASViewConstraint.m in Sources */,
@@ -4580,6 +4579,7 @@
 				CE4D6E701ED3E6D300CE82E4 /* GBAlertView.m in Sources */,
 				32244837200C7AD7001B5BB8 /* MapViewController.m in Sources */,
 				CE8723EF1EC48905006CAD85 /* MainTabbarViewController.m in Sources */,
+				320344BF2015803F00B09B85 /* NSString+PinYin.m in Sources */,
 				50471B671EE7E2FA00E85603 /* DLGroupRedpacketViewController.m in Sources */,
 				50F570CA1EF2CC9100FCEFC9 /* DLMyFriendsListViewController.m in Sources */,
 				50FD05F81ED9BC0100E0CC2D /* DLSeachPeopleCell.m in Sources */,
@@ -4874,7 +4874,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Dlt/Dlt.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fujian province fire group network technology co., LTD (87B4WN8274)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GBQSM3XCKE;
@@ -4945,7 +4945,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Dlt/Dlt.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fujian province fire group network technology co., LTD (87B4WN8274)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GBQSM3XCKE;

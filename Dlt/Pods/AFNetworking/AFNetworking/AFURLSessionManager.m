@@ -143,7 +143,8 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 }
 
 #pragma mark - NSProgress Tracking
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)setupProgressForTask:(NSURLSessionTask *)task {
     __weak __typeof__(task) weakTask = task;
 
@@ -211,7 +212,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
                              options:NSKeyValueObservingOptionNew
                              context:NULL];
 }
-
+#pragma clang diagnostic pop
 - (void)cleanUpProgressForTask:(NSURLSessionTask *)task {
     [task removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesReceived))];
     [task removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesExpectedToReceive))];

@@ -90,7 +90,8 @@ typedef NS_OPTIONS(NSUInteger, YYNetworkTrafficType) {
                               YYNetworkTrafficTypeWIFI |
                               YYNetworkTrafficTypeAWDL,
 };
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"  
 /**
  Get device network traffic bytes.
  
@@ -109,6 +110,7 @@ typedef NS_OPTIONS(NSUInteger, YYNetworkTrafficType) {
  @param type traffic types
  @return bytes counter.
  */
+#pragma clang diagnostic pop
 - (uint64_t)getNetworkTrafficBytes:(YYNetworkTrafficType)types;
 
 

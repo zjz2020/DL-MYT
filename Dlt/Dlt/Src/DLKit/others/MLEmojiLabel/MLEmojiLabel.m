@@ -177,11 +177,12 @@ typedef struct CustomGlyphMetrics {
     CGFloat descent;
     CGFloat width;
 } CustomGlyphMetrics, *CustomGlyphMetricsRef;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
 static void deallocCallback(void *refCon) {
     free(refCon), refCon = NULL;
 }
-
+#pragma clang diagnostic pop
 static CGFloat ascentCallback(void *refCon) {
     CustomGlyphMetricsRef metrics = (CustomGlyphMetricsRef)refCon;
     return metrics->ascent;

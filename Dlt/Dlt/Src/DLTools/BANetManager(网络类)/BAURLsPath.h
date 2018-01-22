@@ -20,15 +20,25 @@
 #define DemoVC11URLPath2 @"http://chanyouji.com/api/users/likes/268717.json"
 
 #ifdef DEBUG
+//#define BASE_URL @"http://117.34.109.146:63425/api/"
+//#define BASE_IMGURL  @"http://117.34.109.146:63425"
+
 #define BASE_URL @"http://117.34.109.146:63425/api/"
 #define BASE_IMGURL  @"http://117.34.109.146:63425"
+
+//#define BASE_URL @"http://www.mayiton.com/api/"
+//#define BASE_IMGURL  @"http://www.mayiton.com"
 
 #else
 ////正式
 #define BASE_URL @"http://www.mayiton.com/api/"
 #define BASE_IMGURL  @"http://www.mayiton.com"
 #endif
-
+#ifdef DEBUG
+#define RCKKEY @"bmdehs6pbik1s"
+#else
+#define RCKKEY @"pkfcgjstp9u28"
+#endif
 #import "NSDictionary+Parser.h"
 
 //宏定义

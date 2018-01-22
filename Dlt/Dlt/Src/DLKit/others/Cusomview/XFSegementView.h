@@ -8,8 +8,10 @@
 
 
 #import <UIKit/UIKit.h>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 typedef void (^TouchLabelIndexBlock)();
-
+#pragma clang diagnostic pop
 @protocol TouchLabelDelegate <NSObject>
 
 - (void)touchLabelWithIndex:(NSInteger)index;

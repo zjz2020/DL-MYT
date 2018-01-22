@@ -9,7 +9,7 @@
 #import "M80AttributedLabel+Extension.h"
 #import "objc/runtime.h"
 
-static char ignoreRedrawKey;
+//static char ignoreRedrawKey;
 
 @implementation M80AttributedLabel (Extension)
 

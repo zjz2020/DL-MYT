@@ -259,6 +259,8 @@ typedef RACSequence * _Nullable (^RACSequenceBindBlock)(ValueType _Nullable valu
 ///               return value must be an object. This argument cannot be nil.
 ///
 /// Returns a new sequence of reduced tuple values.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (RACSequence *)reduceEach:(id _Nullable (^)())reduceBlock;
 
 /// Returns a sequence consisting of `value`, followed by the values in the
@@ -310,7 +312,7 @@ typedef RACSequence * _Nullable (^RACSequenceBindBlock)(ValueType _Nullable valu
 /// Returns a new sequence containing the results from each invocation of
 /// `reduceBlock`.
 + (RACSequence<ValueType> *)zip:(id<NSFastEnumeration>)sequences reduce:(id _Nullable (^)())reduceBlock;
-
+#pragma clang diagnostic pop
 /// Returns a sequence obtained by concatenating `sequences` in order.
 + (RACSequence<ValueType> *)concat:(id<NSFastEnumeration>)sequences;
 

@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 typedef void(^InvitationSuccessBlock)();
+#pragma clang diagnostic pop
 @interface DLInvitationNewMemberVC : UITableViewController
 @property (nonatomic, copy) NSString *groupId;
 

@@ -13,7 +13,8 @@
 @interface SDTimeLineRefreshHeader : SDBaseRefreshView
 
 + (instancetype)refreshHeaderWithCenter:(CGPoint)center;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 @property (nonatomic, copy) void(^refreshingBlock)();
-
+#pragma clang diagnostic pop
 @end

@@ -17,7 +17,8 @@
 @property (nonatomic, strong) NSArray *imageViewsArray;
 
 @end
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 @implementation SDWeiXinPhotoContainerView {
   SDWeiXinPhotoContainerViewType _type;
 }
@@ -30,7 +31,7 @@
     }
     return self;
 }
-
+#pragma clang diagnostic pop
 
 - (void)setup
 {

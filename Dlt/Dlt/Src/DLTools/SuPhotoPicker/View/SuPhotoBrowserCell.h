@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageIV;
 
 @property (nonatomic, copy) void(^selectedBlock)(BOOL isSelected);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 @property (nonatomic, copy) void(^imgTapBlock)();
-
+#pragma clang diagnostic pop
 @end

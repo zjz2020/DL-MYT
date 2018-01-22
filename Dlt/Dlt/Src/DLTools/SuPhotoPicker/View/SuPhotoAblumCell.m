@@ -11,7 +11,8 @@
 
 
 @implementation SuPhotoAblumCell
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat"
 + (instancetype)cellForTableView:(UITableView *)tableView info:(SuAblumInfo *)info {
     //表格列表不多，不选择重用机制
     SuPhotoAblumCell * cell = [[NSBundle mainBundle]loadNibNamed:@"SuPhotoAblumCell" owner:tableView options:nil][0];
@@ -32,5 +33,5 @@
     
     return cell;
 }
-
+#pragma clang diagnostic pop
 @end

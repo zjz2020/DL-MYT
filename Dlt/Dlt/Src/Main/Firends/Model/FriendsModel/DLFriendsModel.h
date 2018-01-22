@@ -22,6 +22,8 @@
 @property (nonatomic, assign) BOOL isFriend;
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *note;
+//添加firstLeter
+@property (nonatomic, copy) NSString *firstLetter;
 
 /// 在没在那个群里面
 @property (nonatomic, assign) BOOL isJoined;

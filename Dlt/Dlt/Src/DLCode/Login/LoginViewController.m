@@ -452,7 +452,8 @@
 }
 
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wint-conversion"
 -(void)res
 {
     RegisteredViewController * res = [[RegisteredViewController alloc]init];
@@ -463,6 +464,7 @@
     RetrievepasswordViewController * retrivepassword = [[RetrievepasswordViewController alloc]init];
     [self presentViewController:retrivepassword animated:nil completion:nil];
 }
+#pragma clang diagnostic pop
 -(void)secureTextEntry:(UIButton *)sender
 {
     self.passwordField.secureTextEntry = !self.passwordField.secureTextEntry;

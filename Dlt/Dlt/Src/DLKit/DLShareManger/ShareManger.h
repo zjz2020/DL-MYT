@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #define SHAREMANAGER [ShareManger ba_shareManage]
 //bmdehs6pbik1s
-//pkfcgjstp9u28      正式环境
-#define RONGCLOUD_IM_APPKEY @"bmdehs6pbik1s" //online key
+//pkfcgjstp9u28      融云正式环境
+#define RONGCLOUD_IM_APPKEY @"pkfcgjstp9u28" //online key
 
 @interface ShareManger : NSObject
 

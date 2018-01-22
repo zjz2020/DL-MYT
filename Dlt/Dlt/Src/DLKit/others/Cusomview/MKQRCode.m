@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, MKQRPosition)
     QuietZone
 };
 
-static const CGFloat innerPositionTileOriginWidth = 3;
+//static const CGFloat innerPositionTileOriginWidth = 3;
 static const CGFloat outerPositionPathOriginLength = 6;
 static const CGFloat outerPositionTileOriginWidth = 7;
 

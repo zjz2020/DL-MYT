@@ -418,7 +418,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    RCConversationModel *model = self.conversationListDataSource.firstObject;
+//    RCConversationModel *model = self.conversationListDataSource.firstObject;
     return  self.conversationListDataSource.count;
 }
 // 自定义消息列表样式

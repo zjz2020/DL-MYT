@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "BMKLocationManager.h"
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 ///BMKGeoFence Region State
 typedef NS_ENUM(NSInteger, BMKGeoFenceRegionStatus)
 {
@@ -109,6 +110,6 @@ typedef NS_ENUM(NSInteger, BMKGeoFenceRegionStatus)
  *  @return BMKGeoFencePolygonRegion id
  */
 - (id)initWithCustomID:(NSString *)customid identityID:(NSString *)identityid coor:(CLLocationCoordinate2D *)coor count:(NSInteger)count coor:(BMKLocationCoordinateType)type;
-
+#pragma clang diagnostic pop
 @end
 

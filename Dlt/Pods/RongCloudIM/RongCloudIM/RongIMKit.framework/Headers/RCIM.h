@@ -327,6 +327,9 @@ FOUNDATION_EXPORT NSString *const RCKitDispatchMessageReceiptRequestNotification
  
  此方法的回调并非为原调用线程，您如果需要进行UI操作，请注意切换到主线程。
  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)connectWithToken:(NSString *)token
                  success:(void (^)(NSString *userId))successBlock
                    error:(void (^)(RCConnectErrorCode status))errorBlock
@@ -789,7 +792,7 @@ __deprecated_msg("已废弃，请使用sendMediaMessage函数。");
                            isOpen:(BOOL)isOpen
                           success:(void (^)())successBlock
                             error:(void (^)(RCErrorCode status))errorBlock;
-
+#pragma clang diagnostic pop
 #pragma mark - 用户信息、群组信息相关
 
 /*!
