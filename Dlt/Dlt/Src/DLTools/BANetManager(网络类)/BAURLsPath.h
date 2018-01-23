@@ -50,4 +50,6 @@
 #define showMYKeyYes   @"showMYKeyYes"
 #define showMYKeyNo    @"showMYKeyNo"
 
+#define localizable(a)  NSLocalizedString(a, nil)
+
 #endif /* BAURLsPath_h */

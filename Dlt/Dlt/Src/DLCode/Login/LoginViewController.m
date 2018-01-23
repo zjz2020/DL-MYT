@@ -322,7 +322,8 @@
         _resBtn = [[UIButton alloc]init];
         _resBtn.titleLabel.font = AdaptedFontSize(17);
 //        _resBtn.top_sd = self.loginBtn.bottom_sd + 20;
-        [_resBtn setTitle:@"立即注册" forState:UIControlStateNormal];
+//        [_resBtn setTitle:@"立即注册" forState:UIControlStateNormal];
+         [_resBtn setTitle:localizable(@"abc") forState:UIControlStateNormal];
         [_resBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_resBtn addTarget:self action:@selector(res) forControlEvents:UIControlEventTouchUpInside];
     }

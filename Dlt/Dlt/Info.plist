@@ -14,6 +14,12 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh_CN</string>
+		<string>ja</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
@@ -50,7 +56,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>8</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>mqqOpensdkSSoLogin</string>
@@ -70,6 +78,8 @@
 		<string>weixin</string>
 		<string>wechat</string>
 	</array>
+	<key>LSHasLocalizedDisplayName</key>
+	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -85,8 +95,6 @@
 	<string>我们需要你的同意才能获取相机权限进行拍照、扫描功能</string>
 	<key>NSContactsUsageDescription</key>
 	<string>是否允许此App读取通讯录信息？</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>我们需要你的同意获取位置权限通过您的地理位置信息进行发送位置信息</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>我们需要通过您的地理位置信息获取您周边的相关数据是否允许此App访问位置信息？</string>
 	<key>NSMicrophoneUsageDescription</key>
