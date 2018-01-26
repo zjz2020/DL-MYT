@@ -99,7 +99,9 @@
 - (void)judeToOpenMap{
     self.openView = [[MaYiOpenView alloc] initWithFrame:self.view.bounds];
     _openView.delegate = self;
-    [self.view addSubview:_openView];
+    if ([self orShowRedPage]) {
+        [self.view addSubview:_openView];
+    }
 }
 
 - (void)makeUIScreen{
@@ -133,6 +135,9 @@
     addresBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - SPace - 40, closeBtn.frame.origin.y, 40, 40);
     [addresBtn setImage:[UIImage imageNamed:@"mayi_23"] forState:UIControlStateNormal];
     [addresBtn addTarget:self action:@selector(clickeAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    if (![self orShowRedPage]) {
+        closeBtn.hidden = YES;
+    }
     [_mapView addSubview:closeBtn];
     [_mapView addSubview:addresBtn];
     [_mapView setShowsCompass:NO];
@@ -259,7 +264,7 @@
         pointAnnotation.coordinate = CLLocationCoordinate2DMake([mode.lat floatValue], [mode.lon floatValue]);
         [testArray addObject:pointAnnotation];
     }
-    self.AnnotationRedArray = [testArray mutableCopy];
+    self.AnnotationRedArray = [self orShowRedPage]?[testArray mutableCopy]:@[];
     [testArray removeAllObjects];
     for (int i = 0; i < self.nearPeople.count; i ++){
         RedPacket *mode = self.nearPeople[i];
@@ -480,26 +485,36 @@
     @weakify(self);
     [BANetManager ba_request_POSTWithUrlString:antInfoSet parameters:parameter successBlock:^(id response) {
         @strongify(self);
-        [MBProgressHUD hideHUD];
+//        [MBProgressHUD hideHUD];
         NSNumber *code = response[@"code"];
+        NSString *msg = response[@"msg"];
         if ([code isEqual:@1]) {//设置成功
             if ([self userInfoOrOpen]) {
                 [self saveUserInfoWithString:userInfoMapHidden];
                 self.showInfoBtn.selected = NO;
-                [DLAlert alertShowLoadStr:@"关闭个人信息显示成功"];
+                [DLAlert alertWithText:@"关闭个人信息显示成功"];
+//                [DLAlert alertShowLoadStr:@"关闭个人信息显示成功"];
             } else {
                 [self saveUserInfoWithString:userInfoMapShow];
                 self.showInfoBtn.selected = YES;
-                [DLAlert alertShowLoadStr:@"设置个人信息显示"];
+                [DLAlert alertWithText:@"设置个人信息显示成功"];
+//                [DLAlert alertShowLoadStr:@"设置个人信息显示"];
             }
             [[NSUserDefaults standardUserDefaults] synchronize];
         } else {
             NSLog(@"设置失败");
+            
+            if (msg  && [self orShowRedPage]) {
+                [DLAlert alertWithText:msg];
+            }
         }
         
 //        [DLAlert alertWithText:response[@"msg"]];
          self.showInfoBtn.userInteractionEnabled = YES;
         [DLAlert alertHideLoadStrWithTime:1.5];
+        if (![self orShowRedPage]) {
+            self.showInfoBtn.selected = !self.showInfoBtn.selected;
+        }
     } failureBlock:^(NSError *error) {
         //        NSLog(@"antInfoSet:%@",error);
         [DLAlert alertShowLoadStr:@"切换状失败"];
@@ -739,6 +754,16 @@
     }
     return NO;
 }
+
+//返回 是否显示红包
+- (BOOL)orShowRedPage{
+    NSString *key = [[NSUserDefaults standardUserDefaults] objectForKey:showMYKey];
+    if ([key isEqualToString:showMYKeyYes]) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark 数据初始化
 
 - (NSMutableArray *)nearPeople{

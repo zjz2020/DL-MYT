@@ -44,6 +44,12 @@ typedef NS_ENUM(NSUInteger, DltOnlineState){
 @property (nonatomic, copy, readonly) NSString *token;
 
 /**
+ 服务器返回融云token.
+ */
+@property (nonatomic, copy) NSString *RCToken;
+
+
+/**
  当前用户与RIM服务器连接的状态.
  */
 @property (nonatomic,getter=isOnlineState,readonly) DltOnlineState onlineState;

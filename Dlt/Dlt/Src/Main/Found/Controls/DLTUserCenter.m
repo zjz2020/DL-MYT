@@ -16,6 +16,7 @@ NSString *const DLTUserCenterUserInfoKey  = @"dltUserCenterUserInfoKey";
 NSString *const DLTKeychainserviceNameKey  = @"dltKeychainserviceNameKey";
 NSString *const DLTUserLoggedKey  = @"dltUserLoggedKey";
 NSString *const DLTUserTokenKey  = @"dltUserTokenKey";
+NSString *const refreshToken   =  @"usercenter/refresh_rong_token";
 // UIKIT_EXTERN NSString *const DltUserCenterUserTokenKey NS_AVAILABLE_IOS(8_0);
 
 /**
@@ -89,30 +90,32 @@ static DLTUserCenter *_userCenter = nil;
                    if (code == 1 || code == 2 ){  // 登录成功
                       
                      NSString *tokneStr = response[@"data"][@"token"];
-                     DLTUserProfile *user = [self _updateUserInfo:response[@"data"]];
+                     [self _updateUserInfo:response[@"data"]];
                      ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
                      [self setUserPassword:pwd account:account];
-                     
-                     [self _autoConnectRongCloudWithToken:tokneStr
-                                                  success:^(NSString *userId) {
-                                                    @strongify(self);
-                                                    // 与融云服务器建立连接之后，应该设置当前用户的用户信息，用于SDK显示和发送
-                                                     [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:user.userName portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,user.userHeadImg]];
-                                                    self->_onlineState = DltOnlineState_online;
-                                                    [subscriber sendNext:response];
-                                                    [subscriber sendCompleted];
-                                                     
-                                                  }
-                                                    error:^(RCConnectErrorCode status) {
-                                                      @strongify(self); 
-                                                      self->_onlineState = DltOnlineState_offline;
-                                                      if (status == RC_CONNECTION_EXIST) {
-                                                        [subscriber sendNext:response];
-                                                        [subscriber sendCompleted];
-                                                      }else{
-                                                         [subscriber sendError:nil];
-                                                      }                                                   
-                                                  }];
+                       [subscriber sendNext:response];
+                       [subscriber sendCompleted];
+                       [self toRefreshToken];
+//                     [self _autoConnectRongCloudWithToken:tokneStr
+//                                                  success:^(NSString *userId) {
+//                                                    @strongify(self);
+//                                                    // 与融云服务器建立连接之后，应该设置当前用户的用户信息，用于SDK显示和发送
+//                                                     [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:user.userName portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,user.userHeadImg]];
+//                                                    self->_onlineState = DltOnlineState_online;
+//                                                    [subscriber sendNext:response];
+//                                                    [subscriber sendCompleted];
+//
+//                                                  }
+//                                                    error:^(RCConnectErrorCode status) {
+//                                                      @strongify(self);
+//                                                      self->_onlineState = DltOnlineState_offline;
+//                                                      if (status == RC_CONNECTION_EXIST) {
+//                                                        [subscriber sendNext:response];
+//                                                        [subscriber sendCompleted];
+//                                                      }else{
+//                                                         [subscriber sendError:nil];
+//                                                      }
+//                                                  }];
                      
                    }else{ // 去外部处理
                        if (code == 0) {
@@ -134,7 +137,7 @@ static DLTUserCenter *_userCenter = nil;
                    
             } failure:^{
               [subscriber sendError:nil];
-                [DLAlert alertWithText: @"请检查网络"];
+                [DLAlert alertWithText: @"连接到远程服务器失败"];
             }];
             
             return nil;
@@ -302,7 +305,6 @@ static DLTUserCenter *_userCenter = nil;
             }];
   }] deliverOnMainThread];
 }
-
 - (void)setUserProfile:(DLTUserProfile *)user{
   ZWBucket.userDefault.set(DLTUserCenterUserInfoKey,user);
   
@@ -380,6 +382,44 @@ static DLTUserCenter *_userCenter = nil;
               [task cancel];
             }];
           }];
+}
+//刷新token
+- (void)toRefreshToken{
+    NSString *tokenStr = [NSString stringWithFormat:@"%@%@",BASE_URL,refreshToken];
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSDictionary *dic = @{
+                          @"token":[DLTUserCenter userCenter].token,
+                          @"uid":user.uid
+                          };
+    [BANetManager ba_request_POSTWithUrlString:tokenStr parameters:dic successBlock:^(id response) {
+        NSDictionary *dic = [response dictValueForKey:@"data"];
+        NSString *token = [dic stringValueForKey:@"rongToken"];
+        if (token) {
+            self.RCToken = token;
+            [self _autoConnectRongCloudWithToken:token
+                                         success:^(NSString *userId) {
+                                             // 与融云服务器建立连接之后，应该设置当前用户的用户信息，用于SDK显示和发送
+                                             [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:user.userName portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,user.userHeadImg]];
+                                             self->_onlineState = DltOnlineState_online;
+                                             //                                                    [subscriber sendNext:response];
+                                             //                                                    [subscriber sendCompleted];
+                                             
+                                         }
+                                           error:^(RCConnectErrorCode status) {
+                                               NSLog(@"--%zd",status);
+                                               self->_onlineState = DltOnlineState_offline;
+                                               if (status == RC_CONNECTION_EXIST) {
+                                                   //                                                        [subscriber sendNext:response];
+                                                   //                                                        [subscriber sendCompleted];
+                                               }else{
+                                                   //                                                         [subscriber sendError:nil];
+                                               }
+                                           }];
+        }
+        NSLog(@"--%@",response);
+    } failureBlock:^(NSError *error) {
+        NSLog(@"%@--",error);
+    } progress:nil];
 }
 
 #pragma makr -

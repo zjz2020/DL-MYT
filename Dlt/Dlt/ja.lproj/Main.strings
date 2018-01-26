@@ -1,0 +1,255 @@
+
+/* Class = "UIButton"; normalTitle = "✔️"; ObjectID = "2P2-2l-4s3"; */
+"2P2-2l-4s3.normalTitle" = "✔️";
+
+/* Class = "UIButton"; normalTitle = "清空聊天记录"; ObjectID = "2so-b1-CyE"; */
+"2so-b1-CyE.normalTitle" = "清空聊天记录";
+
+/* Class = "UILabel"; text = "未领取的红包，将于24小时内原路退回"; ObjectID = "2zm-8U-zX3"; */
+"2zm-8U-zX3.text" = "未领取的红包，将于24小时内原路退回";
+
+/* Class = "UILabel"; text = "金额"; ObjectID = "3Wa-Go-JfI"; */
+"3Wa-Go-JfI.text" = "金额";
+
+/* Class = "UILabel"; text = "你家二大爷还是你家二大爷"; ObjectID = "3dL-oE-10F"; */
+"3dL-oE-10F.text" = "你家二大爷还是你家二大爷";
+
+/* Class = "UITableViewController"; title = "转账"; ObjectID = "4iu-BH-ktS"; */
+"4iu-BH-ktS.title" = "转账";
+
+/* Class = "UIButton"; normalTitle = "支付宝"; ObjectID = "4sx-aC-Wqe"; */
+"4sx-aC-Wqe.normalTitle" = "支付宝";
+
+/* Class = "UILabel"; text = "请选择提现账户"; ObjectID = "7bp-9e-ZCL"; */
+"7bp-9e-ZCL.text" = "请选择提现账户";
+
+/* Class = "UITextField"; placeholder = "0.00"; ObjectID = "8yZ-Ju-2b4"; */
+"8yZ-Ju-2b4.placeholder" = "0.00";
+
+/* Class = "UILabel"; text = "创建时间：2017-06-03"; ObjectID = "93U-G2-hbY"; */
+"93U-G2-hbY.text" = "创建时间：2017-06-03";
+
+/* Class = "UIButton"; normalTitle = "确认"; ObjectID = "9E3-Yi-Tqk"; */
+"9E3-Yi-Tqk.normalTitle" = "确认";
+
+/* Class = "UIButton"; normalTitle = "同意《蚂蚁通钱包用户协议》"; ObjectID = "9YW-QJ-tlj"; */
+"9YW-QJ-tlj.normalTitle" = "同意《蚂蚁通钱包用户协议》";
+
+/* Class = "UILabel"; text = "未领取的红包，将于24小时内原路退回"; ObjectID = "9qy-gQ-Sgg"; */
+"9qy-gQ-Sgg.text" = "未领取的红包，将于24小时内原路退回";
+
+/* Class = "UIButton"; normalTitle = "同意《蚂蚁通钱包用户协议》"; ObjectID = "9rZ-WD-wLc"; */
+"9rZ-WD-wLc.normalTitle" = "同意《蚂蚁通钱包用户协议》";
+
+/* Class = "UITextField"; placeholder = "数量"; ObjectID = "BCz-1z-ubv"; */
+"BCz-1z-ubv.placeholder" = "数量";
+
+/* Class = "UILabel"; text = "领取3/5个  5个红包，共20元"; ObjectID = "DOi-rP-fc2"; */
+"DOi-rP-fc2.text" = "领取3/5个  5个红包，共20元";
+
+/* Class = "UILabel"; text = "30/400"; ObjectID = "DTL-Qt-dgr"; */
+"DTL-Qt-dgr.text" = "30/400";
+
+/* Class = "UIButton"; normalTitle = "改为普通红包"; ObjectID = "EbX-ah-EtN"; */
+"EbX-ah-EtN.normalTitle" = "改为普通红包";
+
+/* Class = "UILabel"; text = "20.88"; ObjectID = "FJy-ky-FTv"; */
+"FJy-ky-FTv.text" = "20.88";
+
+/* Class = "UIButton"; normalTitle = "同意"; ObjectID = "FTH-kD-2tQ"; */
+"FTH-kD-2tQ.normalTitle" = "同意";
+
+/* Class = "UIButton"; normalTitle = "邀请新成员"; ObjectID = "GVz-9Z-50i"; */
+"GVz-9Z-50i.normalTitle" = "邀请新成员";
+
+/* Class = "UILabel"; text = "300/1000"; ObjectID = "GeV-YH-a3O"; */
+"GeV-YH-a3O.text" = "300/1000";
+
+/* Class = "UILabel"; text = "群成员"; ObjectID = "HXE-y9-Xsu"; */
+"HXE-y9-Xsu.text" = "群成员";
+
+/* Class = "UIButton"; normalTitle = "确认"; ObjectID = "HpG-7H-EcG"; */
+"HpG-7H-EcG.normalTitle" = "确认";
+
+/* Class = "UILabel"; text = "速冻皮"; ObjectID = "IaP-i5-Rv5"; */
+"IaP-i5-Rv5.text" = "速冻皮";
+
+/* Class = "UIViewController"; title = "发红包"; ObjectID = "JzG-yZ-L4G"; */
+"JzG-yZ-L4G.title" = "发红包";
+
+/* Class = "UILabel"; text = "单个金额"; ObjectID = "K6G-B5-isK"; */
+"K6G-B5-isK.text" = "单个金额";
+
+/* Class = "UILabel"; text = "群介绍"; ObjectID = "KAO-ad-hfo"; */
+"KAO-ad-hfo.text" = "群介绍";
+
+/* Class = "UITableViewController"; title = "红包详情"; ObjectID = "M5I-kh-kbA"; */
+"M5I-kh-kbA.title" = "红包详情";
+
+/* Class = "UIButton"; normalTitle = "管理设置"; ObjectID = "MDG-l3-pce"; */
+"MDG-l3-pce.normalTitle" = "管理设置";
+
+/* Class = "UILabel"; text = "元"; ObjectID = "Nop-mS-PEx"; */
+"Nop-mS-PEx.text" = "元";
+
+/* Class = "UILabel"; text = "红包金额随机，"; ObjectID = "Rjj-qd-iXC"; */
+"Rjj-qd-iXC.text" = "红包金额随机，";
+
+/* Class = "UILabel"; text = "转账金额"; ObjectID = "TC3-b2-Z3t"; */
+"TC3-b2-Z3t.text" = "转账金额";
+
+/* Class = "UILabel"; text = "你家二大爷"; ObjectID = "TRw-kW-99f"; */
+"TRw-kW-99f.text" = "你家二大爷";
+
+/* Class = "UILabel"; text = "6月3日 11:43"; ObjectID = "U0m-kl-rq6"; */
+"U0m-kl-rq6.text" = "6月3日 11:43";
+
+/* Class = "UILabel"; text = "皮皮虾"; ObjectID = "UxL-r8-Sm6"; */
+"UxL-r8-Sm6.text" = "皮皮虾";
+
+/* Class = "UIButton"; normalTitle = "群公告"; ObjectID = "XMi-nv-Eph"; */
+"XMi-nv-Eph.normalTitle" = "群公告";
+
+/* Class = "UITextField"; placeholder = "恭喜发财"; ObjectID = "Y5X-60-aOF"; */
+"Y5X-60-aOF.placeholder" = "恭喜发财";
+
+/* Class = "UIButton"; normalTitle = "✔️"; ObjectID = "YCb-9H-D1n"; */
+"YCb-9H-D1n.normalTitle" = "✔️";
+
+/* Class = "UIButton"; normalTitle = "申请加入"; ObjectID = "Z5C-WL-ra2"; */
+"Z5C-WL-ra2.normalTitle" = "申请加入";
+
+/* Class = "UITextField"; placeholder = "搜索群成员"; ObjectID = "abK-Zb-bax"; */
+"abK-Zb-bax.placeholder" = "搜索群成员";
+
+/* Class = "UILabel"; text = "群成员"; ObjectID = "ai3-pZ-Y3h"; */
+"ai3-pZ-Y3h.text" = "群成员";
+
+/* Class = "UILabel"; text = "速冻皮"; ObjectID = "bwI-wA-Yxr"; */
+"bwI-wA-Yxr.text" = "速冻皮";
+
+/* Class = "UITextField"; placeholder = "0.00"; ObjectID = "cFy-0v-8Dh"; */
+"cFy-0v-8Dh.placeholder" = "0.00";
+
+/* Class = "UIViewController"; title = "发红包"; ObjectID = "cGC-8L-vrJ"; */
+"cGC-8L-vrJ.title" = "发红包";
+
+/* Class = "UIButton"; normalTitle = "进入群聊"; ObjectID = "d4k-3S-F1K"; */
+"d4k-3S-F1K.normalTitle" = "进入群聊";
+
+/* Class = "UILabel"; text = "红包个数"; ObjectID = "dZY-GN-tVY"; */
+"dZY-GN-tVY.text" = "红包个数";
+
+/* Class = "UILabel"; text = "其他信息"; ObjectID = "dcM-rB-fOo"; */
+"dcM-rB-fOo.text" = "其他信息";
+
+/* Class = "UILabel"; text = "上吧，皮卡丘！"; ObjectID = "eDZ-tB-LVt"; */
+"eDZ-tB-LVt.text" = "上吧，皮卡丘！";
+
+/* Class = "UILabel"; text = "广交天下吃货朋友，顺便推荐附近好吃的皮皮虾"; ObjectID = "eIH-K1-4L6"; */
+"eIH-K1-4L6.text" = "广交天下吃货朋友，顺便推荐附近好吃的皮皮虾";
+
+/* Class = "UILabel"; text = "0.00"; ObjectID = "fPb-b1-HDE"; */
+"fPb-b1-HDE.text" = "0.00";
+
+/* Class = "UILabel"; text = "群消息免打扰"; ObjectID = "fsv-3e-I2f"; */
+"fsv-3e-I2f.text" = "群消息免打扰";
+
+/* Class = "UILabel"; text = ">"; ObjectID = "huK-qo-s3S"; */
+"huK-qo-s3S.text" = ">";
+
+/* Class = "UILabel"; text = "附言:"; ObjectID = "i4q-iS-aI2"; */
+"i4q-iS-aI2.text" = "附言:";
+
+/* Class = "UILabel"; text = "0.00"; ObjectID = "iNO-Re-bAg"; */
+"iNO-Re-bAg.text" = "0.00";
+
+/* Class = "UIButton"; normalTitle = "删除并退出"; ObjectID = "jKu-sd-kPl"; */
+"jKu-sd-kPl.normalTitle" = "删除并退出";
+
+/* Class = "UILabel"; text = "恭喜发财"; ObjectID = "kEO-7M-XVq"; */
+"kEO-7M-XVq.text" = "恭喜发财";
+
+/* Class = "UIButton"; normalTitle = "群组管理"; ObjectID = "luK-yC-ibE"; */
+"luK-yC-ibE.normalTitle" = "群组管理";
+
+/* Class = "UILabel"; text = "我的群名片"; ObjectID = "n0v-rL-OEj"; */
+"n0v-rL-OEj.text" = "我的群名片";
+
+/* Class = "UIButton"; normalTitle = "拒绝"; ObjectID = "oIr-Te-ZeW"; */
+"oIr-Te-ZeW.normalTitle" = "拒绝";
+
+/* Class = "UIButton"; normalTitle = ">"; ObjectID = "on8-CG-gky"; */
+"on8-CG-gky.normalTitle" = ">";
+
+/* Class = "UILabel"; text = "皮皮虾群"; ObjectID = "pf6-li-81c"; */
+"pf6-li-81c.text" = "皮皮虾群";
+
+/* Class = "UILabel"; text = "元"; ObjectID = "qAs-6W-svP"; */
+"qAs-6W-svP.text" = "元";
+
+/* Class = "UILabel"; text = "个"; ObjectID = "qKH-AG-E2d"; */
+"qKH-AG-E2d.text" = "个";
+
+/* Class = "UILabel"; text = "本群6人"; ObjectID = "r9X-EF-MFY"; */
+"r9X-EF-MFY.text" = "本群6人";
+
+/* Class = "UILabel"; text = "支付方式"; ObjectID = "s6N-6c-eim"; */
+"s6N-6c-eim.text" = "支付方式";
+
+/* Class = "UITableViewController"; title = "新的朋友"; ObjectID = "sXL-JP-Ice"; */
+"sXL-JP-Ice.title" = "新的朋友";
+
+/* Class = "UILabel"; text = "你的红包"; ObjectID = "set-lq-obA"; */
+"set-lq-obA.text" = "你的红包";
+
+/* Class = "UILabel"; text = "好友通知"; ObjectID = "uAC-w6-5bf"; */
+"uAC-w6-5bf.text" = "好友通知";
+
+/* Class = "UITableViewController"; title = "邀请新成员"; ObjectID = "uR2-oF-Ea0"; */
+"uR2-oF-Ea0.title" = "邀请新成员";
+
+/* Class = "UIButton"; normalTitle = "✔️"; ObjectID = "uf4-qr-il1"; */
+"uf4-qr-il1.normalTitle" = "✔️";
+
+/* Class = "UILabel"; text = " "; ObjectID = "uf7-kL-leM"; */
+"uf7-kL-leM.text" = " ";
+
+/* Class = "UILabel"; text = "设为置顶群"; ObjectID = "uqE-Dy-Cce"; */
+"uqE-Dy-Cce.text" = "设为置顶群";
+
+/* Class = "UIButton"; normalTitle = "同意《蚂蚁通钱包用户协议》"; ObjectID = "wAE-bM-1sY"; */
+"wAE-bM-1sY.normalTitle" = "同意《蚂蚁通钱包用户协议》";
+
+/* Class = "UILabel"; text = "苏东坡"; ObjectID = "wcL-XV-wsr"; */
+"wcL-XV-wsr.text" = "苏东坡";
+
+/* Class = "UILabel"; text = "群号：11223344"; ObjectID = "x1D-en-tMj"; */
+"x1D-en-tMj.text" = "群号：11223344";
+
+/* Class = "UILabel"; text = "已拒绝"; ObjectID = "xYw-YM-BBq"; */
+"xYw-YM-BBq.text" = "已拒绝";
+
+/* Class = "UIButton"; normalTitle = "确定"; ObjectID = "xxk-46-PXL"; */
+"xxk-46-PXL.normalTitle" = "确定";
+
+/* Class = "UILabel"; text = "总金额"; ObjectID = "y8T-CI-CLe"; */
+"y8T-CI-CLe.text" = "总金额";
+
+/* Class = "UISearchBar"; placeholder = "搜索好友"; ObjectID = "yHR-Qq-8Gw"; */
+"yHR-Qq-8Gw.placeholder" = "搜索好友";
+
+/* Class = "UITextField"; placeholder = "限20个字"; ObjectID = "yHW-Zg-yOL"; */
+"yHW-Zg-yOL.placeholder" = "限20个字";
+
+/* Class = "UILabel"; text = "55.99"; ObjectID = "ylS-73-c3g"; */
+"ylS-73-c3g.text" = "55.99";
+
+/* Class = "UITextField"; placeholder = "恭喜发财"; ObjectID = "z1x-Tk-K8l"; */
+"z1x-Tk-K8l.placeholder" = "恭喜发财";
+
+/* Class = "UILabel"; text = "已存入钱包"; ObjectID = "z3C-8N-POG"; */
+"z3C-8N-POG.text" = "已存入钱包";
+
+/* Class = "UITextField"; placeholder = "请输入转账金额"; ObjectID = "zVk-4x-Qtm"; */
+"zVk-4x-Qtm.placeholder" = "请输入转账金额";
