@@ -23,7 +23,7 @@
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     NSString *urlStr = [NSString stringWithFormat:@"%@/Content/html/dlt_wallet_legal.html", BASE_IMGURL];
     if (self.protol) {
-        urlStr = [NSString stringWithFormat:@"%@%@",BASE_URL,self.protol];
+        urlStr = [NSString stringWithFormat:@"%@%@",BASE_IMGURL,self.protol];
         self.title = @"蚂蚁条款";
     }
     // 2.创建请求

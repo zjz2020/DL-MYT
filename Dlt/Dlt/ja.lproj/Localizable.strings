@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  Dlt
+
+  Created by Fang on 2018/1/23.
+  Copyright © 2018年 mr_chen. All rights reserved.
+*/
+"CFBundleDisplayName" = "日文蚂蚁";
+"abc" = "日文登录";

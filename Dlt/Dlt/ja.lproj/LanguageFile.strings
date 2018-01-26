@@ -1,0 +1,9 @@
+/* 
+  LanguageFile.strings
+  Dlt
+
+  Created by Fang on 2018/1/23.
+  Copyright © 2018年 mr_chen. All rights reserved.
+*/
+CFBundleDisplayName = "アント・パス";
+"title1" = "タイトル1";
