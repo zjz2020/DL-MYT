@@ -23,8 +23,6 @@
 		32244853200C872D001B5BB8 /* MaYiPersonalCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244848200C872D001B5BB8 /* MaYiPersonalCardView.m */; };
 		32244855200C872D001B5BB8 /* MaYiRedPacketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3224484C200C872D001B5BB8 /* MaYiRedPacketView.m */; };
 		32244856200C872D001B5BB8 /* MaYiRedPacketDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32244850200C872D001B5BB8 /* MaYiRedPacketDetailCell.m */; };
-		329CF10220173B8800A65B24 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 329CF10420173B8800A65B24 /* Localizable.strings */; };
-		329CF10920173E0500A65B24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 329CF10B20173E0500A65B24 /* InfoPlist.strings */; };
 		32C1BDC3200E00C30012BD9F /* MaYiPersonalCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C1BDC1200E00C30012BD9F /* MaYiPersonalCardModel.m */; };
 		32C1BDC6200E156E0012BD9F /* MYRedListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C1BDC5200E156E0012BD9F /* MYRedListModel.m */; };
 		32CF5FDE200D976E009A6940 /* ZCAFNHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CF5FDC200D976D009A6940 /* ZCAFNHelp.m */; };
@@ -679,14 +677,6 @@
 		3224484D200C872D001B5BB8 /* MaYiOpenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiOpenView.h; sourceTree = "<group>"; };
 		32244850200C872D001B5BB8 /* MaYiRedPacketDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiRedPacketDetailCell.m; sourceTree = "<group>"; };
 		32244851200C872D001B5BB8 /* MaYiRedPacketDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiRedPacketDetailCell.h; sourceTree = "<group>"; };
-		327521D720173410005C04CB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
-		327521D820173410005C04CB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		329CF10320173B8800A65B24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		329CF10520173B8B00A65B24 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		329CF10620173B9000A65B24 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		329CF10A20173E0500A65B24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		329CF10C20173E0900A65B24 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		329CF10D20173E0C00A65B24 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32C1BDC1200E00C30012BD9F /* MaYiPersonalCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaYiPersonalCardModel.m; sourceTree = "<group>"; };
 		32C1BDC2200E00C30012BD9F /* MaYiPersonalCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaYiPersonalCardModel.h; sourceTree = "<group>"; };
 		32C1BDC4200E156E0012BD9F /* MYRedListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYRedListModel.h; sourceTree = "<group>"; };
@@ -3584,8 +3574,6 @@
 				CEFC36871EC2E2740036C738 /* Assets.xcassets */,
 				CEFC36891EC2E2740036C738 /* LaunchScreen.storyboard */,
 				CEFC368C1EC2E2740036C738 /* Info.plist */,
-				329CF10420173B8800A65B24 /* Localizable.strings */,
-				329CF10B20173E0500A65B24 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3976,7 +3964,7 @@
 					CEFC36771EC2E2740036C738 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = GBQSM3XCKE;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3996,7 +3984,6 @@
 				en,
 				Base,
 				"zh-Hans",
-				ja,
 			);
 			mainGroup = CEFC366F1EC2E2740036C738;
 			productRefGroup = CEFC36791EC2E2740036C738 /* Products */;
@@ -4072,7 +4059,6 @@
 				CE4D6DF11ECEC20F00CE82E4 /* personal_01@2x.png in Resources */,
 				CE4D6E4F1ED2884900CE82E4 /* wallet_02@2x.png in Resources */,
 				CE8C6E841EC5F103005D9964 /* friends_23@2x.png in Resources */,
-				329CF10920173E0500A65B24 /* InfoPlist.strings in Resources */,
 				CE8C6E7F1EC5F103005D9964 /* friends_28@2x.png in Resources */,
 				CE789B191EDC0BA300160F99 /* friend_00@2x.png in Resources */,
 				3221521E20118520006A6AB5 /* redpacket_bg@2x.png in Resources */,
@@ -4153,7 +4139,6 @@
 				CE789B131EDC0BA300160F99 /* friend_06@2x.png in Resources */,
 				CE789B031EDC0BA300160F99 /* friend_22@2x.png in Resources */,
 				CE4D6DEB1ECEC20F00CE82E4 /* personal_07@2x.png in Resources */,
-				329CF10220173B8800A65B24 /* Localizable.strings in Resources */,
 				CE8C6E921EC5F103005D9964 /* friends_09@2x.png in Resources */,
 				CE789B021EDC0BA300160F99 /* friend_23@2x.png in Resources */,
 				CE4F238D1F6F769B000C8E9E /* SuPhoto_selected@2x.png in Resources */,
@@ -4752,31 +4737,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		329CF10420173B8800A65B24 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				329CF10320173B8800A65B24 /* en */,
-				329CF10520173B8B00A65B24 /* zh-Hans */,
-				329CF10620173B9000A65B24 /* ja */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		329CF10B20173E0500A65B24 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				329CF10A20173E0500A65B24 /* en */,
-				329CF10C20173E0900A65B24 /* zh-Hans */,
-				329CF10D20173E0C00A65B24 /* ja */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		CEFC36841EC2E2740036C738 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CEFC36851EC2E2740036C738 /* Base */,
-				327521D720173410005C04CB /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -4785,7 +4749,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CEFC368A1EC2E2740036C738 /* Base */,
-				327521D820173410005C04CB /* ja */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -4913,7 +4876,7 @@
 				CODE_SIGN_ENTITLEMENTS = Dlt/Dlt.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = GBQSM3XCKE;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4965,8 +4928,8 @@
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlt.mayitongLinGui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "544372ea-db0d-4aef-8298-58d565b313ab";
+				PROVISIONING_PROFILE_SPECIFIER = mytDevelopment;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4983,8 +4946,8 @@
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Dlt/Dlt.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = GBQSM3XCKE;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5036,8 +4999,8 @@
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlt.mayitongLinGui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "bd489ed0-9942-45ac-baf5-f2bc6a9aba14";
+				PROVISIONING_PROFILE_SPECIFIER = mytDistribution;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";

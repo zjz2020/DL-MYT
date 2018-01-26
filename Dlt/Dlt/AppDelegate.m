@@ -249,6 +249,7 @@ didRegisterUserNotificationSettings:
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [self JSAction_upgrade];
 }
 
 
@@ -436,5 +437,39 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
         }
     }
 }
-
+//版本更新---暂时为实现该方法
+-(void)JSAction_upgrade{
+    //获取当前的版本号
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    NSLog(@"%@",currentVersion);
+    NSString *urlStr = [[NSString alloc] initWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@",@"1299526754"];
+    @weakify(self);
+    [BANetManager ba_requestWithType:BAHttpRequestTypeGet urlString:urlStr parameters:nil successBlock:^(id response) {
+        NSDictionary *results = [response[@"results"] firstObject];
+        NSString *description = @"蚂蚁有了新的版本 请移步App Store下载";
+        NSString *version = [results stringValueForKey:@"version"];
+        
+        if ([version floatValue] > [currentVersion floatValue]) {
+            //弹框更新提醒
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:description preferredStyle:UIAlertControllerStyleAlert];
+            NSString *urlStr = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/jie-zou-da-shi/id1299526754?mt=8"];
+            UIAlertAction *OK = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+            }];
+            //            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertC addAction:OK];
+            //            [alertC addAction:cancel];
+            [self.window.rootViewController presentViewController:alertC animated:YES completion:nil];
+        }
+        //        appv = (NSMutableString *)appStoreVersion;
+    } failureBlock:^(NSError *error) {
+        NSLog(@"--%@",error);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            @strongify(self);
+            [self JSAction_upgrade];
+        });
+    } progress:nil];
+    
+}
 @end

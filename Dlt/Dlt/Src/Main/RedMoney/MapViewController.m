@@ -763,6 +763,7 @@
     }
     return NO;
 }
+
 #pragma mark 数据初始化
 
 - (NSMutableArray *)nearPeople{

@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    [self JSAction_upgrade];
     [self httpIsPromoterData];
     [self setupAllChildViewControllers];
     
@@ -393,4 +393,6 @@
                        
                    });
 }
+
+
 @end
