@@ -4,7 +4,7 @@
 //
 //  Created by Fang on 2018/1/15.
 //  Copyright © 2018年 mr_chen. All rights reserved.
-//  蚂蚁地图红包
+//   蚂蚁地图红包
 
 #import "MapViewController.h"
 #import <AMapLocationKit/AMapLocationKit.h>
