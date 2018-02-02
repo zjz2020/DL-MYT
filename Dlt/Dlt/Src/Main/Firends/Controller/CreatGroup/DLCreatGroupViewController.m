@@ -255,7 +255,12 @@ NSString * const kCreatGroupSuccessNitificationName = @"CreatGroupSuccessNitific
             dispatch_async(dispatch_get_main_queue(), ^{ // 主线程 更新ui
                 self.photo.image = image;
                 self.groupLabel.hidden = YES;
-                self.headImgUrl = response[@"data"][@"src"];
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                       self.headImgUrl = dic[@"src"];
+                    }
+                }
             });
         }else {
             [DLAlert alertWithText:response[@"msg"]];

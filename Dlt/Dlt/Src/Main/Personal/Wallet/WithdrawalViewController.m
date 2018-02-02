@@ -159,13 +159,18 @@
         [DLAlert alertHideLoad];
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([response[@"code"] integerValue] == 1) {
-                NSString *infoStr = response[@"data"][@"infoStr"];
-                if (infoStr) {
-                    [[AlipaySDK defaultService] auth_V2WithInfo:infoStr fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
-                        NSString *result = resultDic[@"result"];
-                        self.resultDic = [self getParameters:result];
-                        [self showPasswordInput];
-                    }];
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                        NSString *infoStr = dic[@"infoStr"];
+                        if (infoStr) {
+                            [[AlipaySDK defaultService] auth_V2WithInfo:infoStr fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
+                                NSString *result = resultDic[@"result"];
+                                self.resultDic = [self getParameters:result];
+                                [self showPasswordInput];
+                            }];
+                        }
+                    }
                 }
             }
         });

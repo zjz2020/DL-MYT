@@ -77,29 +77,39 @@
     [BANetManager ba_request_POSTWithUrlString:url parameters:param successBlock:^(id response) {
         
         @strongify(self)
-        NSArray *array =[DLBillStatus mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
-        if (_index == 0) {
-            self.statuses = (NSMutableArray *)[DLBillStatus mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
-        }else{
-            
-            [self.statuses addObjectsFromArray:array];
-        }
-         [self.tableView.mj_footer endRefreshing];
-        
-        [self.tableView reloadData];
-        if ([_type isEqualToString:@"0"]) {
-            self.topRightLable.text = [NSString stringWithFormat:@"收入 %.2f 支出 %.2f",self.incomeStr,self.outStr];
-            [_topText setTitle:@"全部" forState:0];
-        }else if ([_type isEqualToString:@"1"]){
-             self.topRightLable.text = [NSString stringWithFormat:@"收入 %.2f",self.incomeStr];
-            [_topText setTitle:@"收入" forState:0];
-        }else{
-             self.topRightLable.text = [NSString stringWithFormat:@"支出 %.2f",self.outStr];
-            [_topText setTitle:@"支出" forState:0];
-        }
-        if (array.count < 10) {
-            _index --;
-            self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
+        if(response[@"data"]){
+            NSDictionary  * dic = response[@"data"];
+            if(dic){
+                NSArray *array =[DLBillStatus mj_objectArrayWithKeyValuesArray:dic[@"data"]];
+                if (_index == 0) {
+                    if(response[@"data"]){
+                        NSDictionary  * dic = response[@"data"];
+                        if(dic){
+                            self.statuses = (NSMutableArray *)[DLBillStatus mj_objectArrayWithKeyValuesArray:dic[@"data"]];
+                        }
+                    }
+                }else{
+                    
+                    [self.statuses addObjectsFromArray:array];
+                }
+                [self.tableView.mj_footer endRefreshing];
+                
+                [self.tableView reloadData];
+                if ([_type isEqualToString:@"0"]) {
+                    self.topRightLable.text = [NSString stringWithFormat:@"收入 %.2f 支出 %.2f",self.incomeStr,self.outStr];
+                    [_topText setTitle:@"全部" forState:0];
+                }else if ([_type isEqualToString:@"1"]){
+                    self.topRightLable.text = [NSString stringWithFormat:@"收入 %.2f",self.incomeStr];
+                    [_topText setTitle:@"收入" forState:0];
+                }else{
+                    self.topRightLable.text = [NSString stringWithFormat:@"支出 %.2f",self.outStr];
+                    [_topText setTitle:@"支出" forState:0];
+                }
+                if (array.count < 10) {
+                    _index --;
+                    self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                }
+            }
         }
     } failureBlock:^(NSError *error) {
         [DLAlert alertWithText:@"网络延迟稍后重试"];

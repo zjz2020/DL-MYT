@@ -175,18 +175,22 @@
       
         if ([response[@"code"] integerValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *body = response[@"data"][@"body"];
-                
-                [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
-                    NSLog(@"reslut = %@",resultDic);
-                    NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
-                    if (orderState==9000) {
-                         [self.navigationController popViewControllerAnimated:YES];
-                        [DLAlert alertWithText:@"转账成功"];
-   
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                        NSString *body = dic[@"body"];
+                        
+                        [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
+                            NSLog(@"reslut = %@",resultDic);
+                            NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
+                            if (orderState==9000) {
+                                [self.navigationController popViewControllerAnimated:YES];
+                                [DLAlert alertWithText:@"转账成功"];
+                                
+                            }
+                        }];
                     }
-                    
-                }];
+                }
             });
         }else{
             [DLAlert alertWithText:response[@"msg"]];

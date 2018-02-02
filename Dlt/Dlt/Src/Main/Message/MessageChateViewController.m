@@ -114,11 +114,14 @@
                                          };
             
             [BANetManager ba_request_POSTWithUrlString:urlImage parameters:paramImage successBlock:^(id response) {
-                
-                RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:info.Uid name:response[@"data"][@"userName"] portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,[response valueForKey:@"data"][@"userHeadImg"]]];
-             
-                [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:info.Uid];
-            
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:info.Uid name:dic[@"userName"] portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,dic[@"userHeadImg"]]];
+                        
+                        [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:info.Uid];
+                    }
+                }
             } failureBlock:^(NSError *error) {
                 
             } progress:nil];}
@@ -332,12 +335,14 @@
                                      };
         NSString *urlImage = [NSString stringWithFormat:@"%@UserCenter/otherUserInfo",BASE_URL];
         [BANetManager ba_request_POSTWithUrlString:urlImage parameters:paramImage successBlock:^(id response) {
-            
-            RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:targetId name:response[@"data"][@"userName"] portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,[response valueForKey:@"data"][@"userHeadImg"]]];
-            
-            [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:targetId];
-            
-            
+            if(response[@"data"]){
+                NSDictionary  * dic = response[@"data"];
+                if(dic){
+                    RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:targetId name:dic[@"userName"] portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,dic[@"userHeadImg"]]];
+                    
+                    [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:targetId];
+                }
+            }
         } failureBlock:^(NSError *error) {
             
         } progress:nil];

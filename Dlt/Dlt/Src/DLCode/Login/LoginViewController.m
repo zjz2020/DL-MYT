@@ -390,21 +390,29 @@
         if (code == 1){ // 登录成功
             
              dispatch_async(dispatch_get_main_queue(), ^{
-                 
-                NSString *tokneStr = response[@"data"][@"token"];
-                ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
-                
-                 [[RCIM sharedRCIM] setUserInfoDataSource:self];
-                 [[RCIM sharedRCIM] setGroupInfoDataSource:self];
-                
-           [[AppDelegate  shareAppdelegate] loginCompleted];
+                 if(response[@"data"]){
+                     NSDictionary  * dic = response[@"data"];
+                     if(dic){
+                         NSString *tokneStr = dic[@"token"];
+                         ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
+                         
+                         [[RCIM sharedRCIM] setUserInfoDataSource:self];
+                         [[RCIM sharedRCIM] setGroupInfoDataSource:self];
+                         
+                         [[AppDelegate  shareAppdelegate] loginCompleted];
+                     }
+                 }
              });
          }
-         
          else if (code == 2) {
-             NSString * token = response[@"data"][@"token"];
-             NSString * userId = response[@"data"][@"uid"];
-             [self presentRegisterPersonDataViewController:token withUid:userId];
+             if(response[@"data"]){
+                 NSDictionary  * dic = response[@"data"];
+                 if(dic){
+                     NSString * token = dic[@"token"];
+                     NSString * userId = dic[@"uid"];
+                     [self presentRegisterPersonDataViewController:token withUid:userId];
+                 }
+             }
          }
      }
      error:^(NSError * _Nullable error) {

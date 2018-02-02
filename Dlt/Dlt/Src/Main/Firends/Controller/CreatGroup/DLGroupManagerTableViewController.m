@@ -313,8 +313,15 @@ static bool isFailur;
         [self dl_networkForUploadFileWithImageArray:@[obj]
                                        successBlock:^(id response) {
                                            if ([response[@"code"] intValue] == 1){ // code  == 1 代表成功
-                                               NSString *imgSrcs = response[@"data"][@"src"];
-                                               [temp addObject:imgSrcs];
+                                               if(response[@"data"]){
+                                                   NSDictionary  * dic = response[@"data"];
+                                                   if(dic){
+                                                       NSString *imgSrcs = dic[@"src"];
+                                                       if(imgSrcs){
+                                                           [temp addObject:imgSrcs];
+                                                       }
+                                                   }
+                                               }
                                            }
                                            else{isFailur = YES;}
                                            dispatch_group_leave(batch_api_group);

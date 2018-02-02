@@ -550,9 +550,15 @@
          }
          
          else if (code == 2) {
-             NSString * token = response[@"data"][@"token"];
-             NSString * userId = response[@"data"][@"uid"];
-             [self presentRegisterPersonDataViewController:token withUid:userId];
+             if(response[@"data"]){
+                 NSDictionary  * dic = response[@"data"];
+                 if(dic){
+                     NSString * token = dic[@"token"];
+                     NSString * userId = dic[@"uid"];
+                     [self presentRegisterPersonDataViewController:token withUid:userId];
+                 }
+             }
+            
          }
      }
      error:^(NSError * _Nullable error) {
