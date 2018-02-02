@@ -11,4 +11,5 @@
 @interface NSString (PinYin)
 //获取姓名首字母
 + (NSString *)getFirstNameWithText:(NSString *)name;
++ (NSString *)getStringNameWithHYName:(NSString *)name;
 @end

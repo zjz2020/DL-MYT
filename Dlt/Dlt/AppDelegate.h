@@ -23,6 +23,7 @@
 
 - (void)loginCompleted;
 - (void)logoutCompleted;
+- (void)showLoginViewController;
 
 @end
 

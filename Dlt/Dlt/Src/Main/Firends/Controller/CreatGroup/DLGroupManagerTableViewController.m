@@ -189,6 +189,7 @@
     vc.isMainGrouper = self.isMainGrouper;
     vc.groupId = self.groupId;
     vc.isManager = isManager;
+    vc.NTitle = @"群员管理";
     [self.navigationController pushViewController:vc animated:YES];
 }
 

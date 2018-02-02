@@ -4,7 +4,7 @@
 //
 //  Created by Liuquan on 17/5/27.
 //  Copyright © 2017年 mr_chen. All rights reserved.
-//
+//  群组列表
 
 #import "DLGroupListTableViewController.h"
 #import "DLGroupsCell.h"
@@ -14,12 +14,17 @@
 #import "RCDataBaseManager.h"
 #import "RCHttpTools.h"
 #import "DLGroupSetupViewController.h"
-
-
-@interface DLGroupListTableViewController ()
+#import "DLFriendsHeadView.h"
+#import "NSString+PinYin.h"
+#import <MJRefresh/MJRefresh.h>
+#define kHeaderViewH   119 - 74
+@interface DLGroupListTableViewController ()<DLFriendsHeadViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
-
+//是否是查找事件
+@property (nonatomic, assign)BOOL isSeach;
+@property (nonatomic, strong)DLFriendsHeadView *headView;
+@property (nonatomic, strong) NSMutableArray *seachArr;
 @end
 
 @implementation DLGroupListTableViewController
@@ -33,27 +38,43 @@
     [super viewDidLoad];
     self.tableView.tableFooterView = [UIView new];
     
+    self.isSeach = NO;
+    DLFriendsHeadView *headView = [[DLFriendsHeadView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kHeaderViewH)];
+    self.headView = headView;
+    headView.bottomView.hidden = YES;
+    headView.delegate = self;
+    self.tableView.tableHeaderView = headView;
+    
+    //mj刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(makeMJRefresh)];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadGroupList) name:kCreatGroupSuccessNitificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadGroupList) name:kMainGrouperDeletGroupNitificationName object:nil];
 }
 
 #pragma mark - Table view data source
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (self.isSeach) {
+        return @"搜索到";
+    }
+    return @" ";
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return self.isSeach?30:10;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArr.count;
+    return self.isSeach?self.seachArr.count:self.dataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DLGroupsCell *groupCell = [DLGroupsCell creatGroupCellWithTableView:tableView];
-    groupCell.groupInfo = self.dataArr[indexPath.row];
+    groupCell.groupInfo = self.isSeach?self.seachArr[indexPath.row]:self.dataArr[indexPath.row];
     return groupCell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 70;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -71,7 +92,11 @@
 - (void)reloadGroupList {
     [self dl_networkForGetGroupList];
 }
-
+#pragma mark  MJ刷新
+- (void)makeMJRefresh{
+    self.isSeach = NO;
+    [self dl_networkForGetGroupList];
+}
 #pragma mark - 网络请求
 - (void)dl_networkForGetGroupList {
     
@@ -100,6 +125,7 @@
     @weakify(self)
     [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
         @strongify(self)
+        [self.tableView.mj_header endRefreshing];
         DLGroupsModel *groupModel = [DLGroupsModel modelWithJSON:response];
         if ([groupModel.code integerValue] == 1) {
             [self.dataArr removeAllObjects];
@@ -114,11 +140,37 @@
         }
         [self.tableView reloadData];
     } failureBlock:^(NSError *error) {
-        
+        [self.tableView.mj_header endRefreshing];
     } progress:nil];
+}
+#pragma mark DLFriendsHeadViewDelegate
+//搜索事件
+- (void)seachYourSelfFriendsWithNickName:(NSString *)nickName {
+    self.isSeach = ISNULLSTR(nickName) ? NO : YES;
+    [self.seachArr removeAllObjects];
+    for (DLGroupsInfo *info in self.dataArr) {
+        if ([info.groupName containsString:nickName]) {
+            [self.seachArr addObject:info];
+        } else if ([[NSString getStringNameWithHYName:info.groupName] containsString:nickName] && ![self.seachArr containsObject:info]){
+            [self.seachArr addObject:info];
+        }
+        
+    }
+    if (self.seachArr.count == 0) {
+        self.isSeach = NO;
+        [DLAlert alertWithText:@"没有搜索到群组"];
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - 懒加载
+- (NSMutableArray *)seachArr {
+    if (!_seachArr) {
+        _seachArr = [NSMutableArray array];
+    }
+    return _seachArr;
+}
+
 - (NSMutableArray *)dataArr {
     if (!_dataArr) {
         _dataArr = [NSMutableArray array];

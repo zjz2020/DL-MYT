@@ -178,7 +178,11 @@
     }
     return nil;
 }
-
+- (BOOL)judgeTokenAvaillabelWithDic:(NSDictionary *)dic{
+    
+    
+    return YES;
+}
 - (void)setObject:(id)anObject forKey:(id <NSCopying>)aKey
 {
     NSLog(@"Exception mutating method: %@ sent to immutable object !!!", NSStringFromSelector(_cmd));

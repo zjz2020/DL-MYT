@@ -17,5 +17,7 @@
 @property (nonatomic , assign)BOOL isAdmin;//管理
 
 @property (nonatomic , assign)BOOL isMainGrouper;//群主
+//名称
+@property (nonatomic, copy) NSString *NTitle;
 
 @end

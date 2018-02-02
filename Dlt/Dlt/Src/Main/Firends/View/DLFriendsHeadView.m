@@ -95,6 +95,7 @@
     UITapGestureRecognizer *friendTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seeMoreNewFriends:)];
     [bottomView addGestureRecognizer:friendTap];
     
+    self.bottomView = bottomView;
 }
 
 #pragma mark - textField delegate

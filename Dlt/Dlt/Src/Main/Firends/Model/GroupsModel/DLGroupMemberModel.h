@@ -22,5 +22,6 @@
 @property (nonatomic, strong) NSString *sex;
 @property (nonatomic, strong) NSString *note;
 @property (nonatomic, assign) BOOL isSetManager;
-
+//添加首字母
+@property (nonatomic, copy) NSString *firstLetter;
 @end

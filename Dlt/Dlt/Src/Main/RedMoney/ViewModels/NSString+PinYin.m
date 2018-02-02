@@ -26,4 +26,17 @@
     }
     return firstL;
 }
+
++ (NSString *)getStringNameWithHYName:(NSString *)name{
+    //1:将字符串转换成可变字符串对象
+    NSMutableString *nameM = [NSMutableString stringWithFormat:@"%@", name];
+    //2:将字符串转换成带音标的拼音//0代表所有
+    CFStringTransform((__bridge CFMutableStringRef)nameM, 0, kCFStringTransformMandarinLatin, NO);
+    //    NSLog(@"%@", nameM);
+    //3:将带音标的拼音转换成不带音标的拼音
+    CFStringTransform((__bridge CFMutableStringRef)nameM, 0, kCFStringTransformStripDiacritics, NO);
+    NSString * newStr = [nameM stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return newStr;
+}
+
 @end
