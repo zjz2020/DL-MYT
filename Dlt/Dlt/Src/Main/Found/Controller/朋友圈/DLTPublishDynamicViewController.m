@@ -688,8 +688,13 @@ static bool isFailur;
                                    successBlock:^(id response) {
                                       @strongify(self);
                                      if ([response[@"code"] intValue] == 1){ // code  == 1 代表成功
-                                       NSString *imgSrcs = response[@"data"][@"src"];
-                                       self.tempStr = [self.tempStr stringByAppendingString:[NSString stringWithFormat:@"%@;",imgSrcs]];
+                                         if(response[@"data"]){
+                                             NSDictionary  * dic = response[@"data"];
+                                             if(dic){
+                                                 NSString *imgSrcs = dic[@"src"];
+                                                 self.tempStr = [self.tempStr stringByAppendingString:[NSString stringWithFormat:@"%@;",imgSrcs]];
+                                             }
+                                         }
                                      }
                                      
                                      else{isFailur = YES;}

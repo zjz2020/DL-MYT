@@ -56,8 +56,14 @@
 
             [DLAlert alertWithText:@"暂时没有账单信息"];
         }
-        self.status = (NSMutableArray *)response[@"data"][@"months"];
-        [self.tableView reloadData];
+        if(response[@"data"]){
+            NSDictionary  * dic = response[@"data"];
+            if(dic){
+                self.status = (NSMutableArray *)dic[@"months"];
+                [self.tableView reloadData];
+            }
+        }
+        
     } failureBlock:^(NSError *error) {
        
     } progress:nil];

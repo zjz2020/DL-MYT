@@ -408,8 +408,13 @@ TZImagePickerControllerDelegate
                                 successBlock:^(id response) {
                                   @strongify(self);
                                   if ([response[@"code"] integerValue] == 1){
-                                    NSString *backImageURL = response[@"data"][@"src"] ;
-                                    [self dl_networkForUpdateUserBackImage:backImageURL];
+                                      if(response[@"data"]){
+                                          NSDictionary  * dic = response[@"data"];
+                                          if(dic){
+                                              NSString *backImageURL = dic[@"src"] ;
+                                              [self dl_networkForUpdateUserBackImage:backImageURL];
+                                          }
+                                      }
                                   }
                                   else{
                                    [DLAlert alertWithText:@"上传背景照片出错了"];
@@ -434,15 +439,20 @@ TZImagePickerControllerDelegate
                                 successBlock:^(id response) {
                                     if ([response[@"code"] integerValue] == 1) {                                  
                                       @strongify(self)
-                                       NSString *backImageURL = response[@"data"][@"bgImg"];
-                                      DLTUserProfile *newUser = DLT_USER_CENTER.curUser.copy;
-                                      newUser.bgImg = backImageURL;
-                                      [DLT_USER_CENTER setUserProfile:newUser];
-                                      
-                                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                        @strongify(self)
-                                        self.tableHeaderView.userBackgroundImageview.image = self->_selectedBackgroundImage;
-                                      });
+                                        if(response[@"data"]){
+                                            NSDictionary  * dic = response[@"data"];
+                                            if(dic){
+                                                NSString *backImageURL = dic[@"bgImg"];
+                                                DLTUserProfile *newUser = DLT_USER_CENTER.curUser.copy;
+                                                newUser.bgImg = backImageURL;
+                                                [DLT_USER_CENTER setUserProfile:newUser];
+                                                
+                                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                    @strongify(self)
+                                                    self.tableHeaderView.userBackgroundImageview.image = self->_selectedBackgroundImage;
+                                                });
+                                            }
+                                        }
                                      }
                                     else{
                                       [DLAlert alertWithText:@"上传背景照片出错了"];
