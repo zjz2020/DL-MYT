@@ -508,8 +508,12 @@ typedef NS_ENUM(NSInteger, DLTUserGenderType){
         if ([response[@"code"] integerValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{ // 主线程 更新ui
            _addImageBtn.image = image;
-                self.headImageUrl = response[@"data"][@"src"];
-
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                         self.headImageUrl = dic[@"src"];
+                    }
+                }
             });
         }else {
             [DLAlert alertWithText:response[@"msg"]];

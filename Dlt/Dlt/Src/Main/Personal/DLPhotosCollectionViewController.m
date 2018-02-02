@@ -192,8 +192,13 @@ static bool isFailur;
         [self dl_networkForUploadFileWithImageArray:@[obj]
                                        successBlock:^(id response) {
                                            if ([response[@"code"] intValue] == 1){ // code  == 1 代表成功
-                                               NSString *imgSrcs = response[@"data"][@"src"];
-                                               [temp addObject:imgSrcs];
+                                               if(response[@"data"]){
+                                                   NSDictionary  * dic = response[@"data"];
+                                                   if(dic){
+                                                       NSString *imgSrcs = dic[@"src"];
+                                                       [temp addObject:imgSrcs];
+                                                   }
+                                               }
                                            }
                                            else{isFailur = YES;}
                                            dispatch_group_leave(batch_api_group);
@@ -260,18 +265,23 @@ static bool isFailur;
             @strongify(self)
             dispatch_async(dispatch_get_main_queue(), ^{
                 [DLAlert alertWithText:@"上传成功"];
-                NSArray *arr = [response[@"data"][@"photos"] componentsSeparatedByString:@";"];
-                DLTUserProfile *profie = [DLTUserCenter userCenter].curUser;
-                NSArray *localImages = profie.photoNames;
-                NSMutableArray *temp = [NSMutableArray arrayWithArray:localImages];
-                [temp addObjectsFromArray:arr];
-                profie.photoNames = temp.mutableCopy;
-                [[DLTUserCenter userCenter] setUserProfile:profie];
-                [self.dataArr removeAllObjects];
-                for (NSString *str in arr) {
-                    [self.dataArr addObject:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,str]];
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                        NSArray *arr = [dic[@"photos"] componentsSeparatedByString:@";"];
+                        DLTUserProfile *profie = [DLTUserCenter userCenter].curUser;
+                        NSArray *localImages = profie.photoNames;
+                        NSMutableArray *temp = [NSMutableArray arrayWithArray:localImages];
+                        [temp addObjectsFromArray:arr];
+                        profie.photoNames = temp.mutableCopy;
+                        [[DLTUserCenter userCenter] setUserProfile:profie];
+                        [self.dataArr removeAllObjects];
+                        for (NSString *str in arr) {
+                            [self.dataArr addObject:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,str]];
+                        }
+                        [self.collectionView reloadData];
+                    }
                 }
-                [self.collectionView reloadData];
             });
         }
     } failureBlock:^(NSError *error) {

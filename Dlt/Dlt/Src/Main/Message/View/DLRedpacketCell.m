@@ -73,12 +73,16 @@
             NSLog(@"%@",[response valueForKey:@"msg"]);
             if ([response[@"code"] integerValue] == 1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-            
-                    if ([response[@"data"][@"isGet"] integerValue] == 1) {
-                        self.redpacketState.text = @"红包已被领取";
-                    }
-                    if ([response[@"data"][@"expired"] integerValue] == 1) {
-                        self.redpacketState.text = @"红包已过期";
+                    if(response[@"data"]){
+                        NSDictionary  * dic = response[@"data"];
+                        if(dic){
+                            if ([dic[@"isGet"] integerValue] == 1) {
+                                self.redpacketState.text = @"红包已被领取";
+                            }
+                            if ([dic[@"expired"] integerValue] == 1) {
+                                self.redpacketState.text = @"红包已过期";
+                            }
+                        }
                     }
                 });
             } else {
@@ -91,12 +95,16 @@
             NSLog(@"%@",[response valueForKey:@"msg"]);
             if ([response[@"code"] integerValue] == 1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    if ([response[@"data"][@"isGet"] integerValue] == 1) {
-                        self.redpacketState.text = @"红包已被领取";
-                    }
-                    if ([response[@"data"][@"expired"] integerValue] == 1) {
-                        self.redpacketState.text = @"红包已过期";
+                    if(response[@"data"]){
+                        NSDictionary  * dic = response[@"data"];
+                        if(dic){
+                            if ([dic[@"isGet"] integerValue] == 1) {
+                                self.redpacketState.text = @"红包已被领取";
+                            }
+                            if ([dic[@"expired"] integerValue] == 1) {
+                                self.redpacketState.text = @"红包已过期";
+                            }
+                        }
                     }
                 });
             } else {

@@ -267,13 +267,18 @@
     [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
         
         if ([response[@"code"]integerValue]==1) {
-            NSString *icode = response[@"data"][@"icode"];
-            self.passwordField.text = icode;
-            
-            self.loginBtn.backgroundColor = [UIColor ColorWithHexString:@"0080f5"];
-            self.loginBtn.userInteractionEnabled= YES;
-            [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            codetext = self.passwordField.text;
+            if(response[@"data"]){
+                NSDictionary * dic = response[@"data"];
+                if(dic){
+                    NSString *icode = dic[@"icode"];
+                    self.passwordField.text = icode;
+                    
+                    self.loginBtn.backgroundColor = [UIColor ColorWithHexString:@"0080f5"];
+                    self.loginBtn.userInteractionEnabled= YES;
+                    [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    codetext = self.passwordField.text;
+                }
+            }
         }
         else
         {
@@ -305,17 +310,18 @@
             NSString * url = [NSString stringWithFormat:@"%@Order/icodeInfo",BASE_URL];
             [BANetManager ba_request_POSTWithUrlString:url parameters:nil successBlock:^(id response) {
                 if ([response[@"code"]integerValue]==1) {
-                    pName =response[@"data"][@"pName"];
-                    pPrice =response[@"data"][@"pPrice"];
-                    pId =response[@"data"][@"pId"];
-                    int price =[pPrice intValue];
-                    float  a = (float)price/100;
-                     newprice = [NSString stringWithFormat:@"¥%.2f",a];
-                 
-
-                    
-                    [self aleart1];
-                    
+                    if(response[@"data"]){
+                        NSDictionary  * dic = response[@"data"];
+                        if(dic){
+                            pName = dic[@"pName"];
+                            pPrice = dic[@"pPrice"];
+                            pId = dic[@"pId"];
+                            int price =[pPrice intValue];
+                            float  a = (float)price/100;
+                            newprice = [NSString stringWithFormat:@"¥%.2f",a];
+                            [self aleart1];
+                        }
+                    }
                 }
             } failureBlock:^(NSError *error) {
                // [BAAlertView showTitle:nil message:@"出现错误"];
@@ -332,14 +338,18 @@
             NSString * url = [NSString stringWithFormat:@"%@Order/icodeInfo",BASE_URL];
             [BANetManager ba_request_POSTWithUrlString:url parameters:nil successBlock:^(id response) {
                 if ([response[@"code"]integerValue]==1) {
-                    pName =response[@"data"][@"pName"];
-                    pPrice =response[@"data"][@"pPrice"];
-                    pId =response[@"data"][@"pId"];
-                    int price =[pPrice intValue];
-                    float  a = (float)price/100;
-                    newprice = [NSString stringWithFormat:@"¥%.2f",a];
-                    [self aleart];
-                    
+                    if(response[@"data"]){
+                        NSDictionary  * dic = response[@"data"];
+                        if(dic){
+                            pName = dic[@"pName"];
+                            pPrice = dic[@"pPrice"];
+                            pId = dic[@"pId"];
+                            int price =[pPrice intValue];
+                            float  a = (float)price/100;
+                            newprice = [NSString stringWithFormat:@"¥%.2f",a];
+                            [self aleart];
+                        }
+                    }
                 }
             } failureBlock:^(NSError *error) {
              //   [BAAlertView showTitle:nil message:@"出现错误"];
@@ -466,21 +476,25 @@
             NSString * url = [NSString stringWithFormat:@"%@Order/icodeOrder",BASE_URL];
             [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
                 if ([response[@"code"]integerValue]==1) {
-                    body = response[@"data"][@"body"];
-                    // 判断支付宝是否有安装
-                    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"alipay:"]]) {
-                        NSLog(@"请安装支付宝客户端....");
-                        return;
+                    if(response[@"data"]){
+                        NSDictionary * dic = response[@"data"];
+                        if(dic){
+                            body = dic[@"body"];
+                            // 判断支付宝是否有安装
+                            if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"alipay:"]]) {
+                                NSLog(@"请安装支付宝客户端....");
+                                return;
+                            }
+                            [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
+                                NSLog(@"reslut = %@",resultDic);
+                                NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
+                                if (orderState==9000) {
+                                    [BAAlertView showTitle:@"购买成功" message:@"我们将以短信的形式发送到您的手机上,请注意查收!"];
+                                    
+                                }
+                            }];
+                        }
                     }
-                    [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk" callback:^(NSDictionary *resultDic) {
-                        NSLog(@"reslut = %@",resultDic);
-                        NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
-                        if (orderState==9000) {
-                            [BAAlertView showTitle:@"购买成功" message:@"我们将以短信的形式发送到您的手机上,请注意查收!"];
-                            
-                                        }
-
-                    }];
                 }else
                 {
                   //  [BAAlertView showTitle:nil message:@"出现错误"];

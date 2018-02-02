@@ -88,35 +88,44 @@ static DLTUserCenter *_userCenter = nil;
                     @strongify(self);
                    int code = [response[@"code"] intValue];
                    if (code == 1 || code == 2 ){  // 登录成功
-                      
-                     NSString *tokneStr = response[@"data"][@"token"];
-                     [self _updateUserInfo:response[@"data"]];
-                     ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
-                     [self setUserPassword:pwd account:account];
-                       [subscriber sendNext:response];
-                       [subscriber sendCompleted];
-                       [self toRefreshToken];
-//                     [self _autoConnectRongCloudWithToken:tokneStr
-//                                                  success:^(NSString *userId) {
-//                                                    @strongify(self);
-//                                                    // 与融云服务器建立连接之后，应该设置当前用户的用户信息，用于SDK显示和发送
-//                                                     [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:user.userName portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,user.userHeadImg]];
-//                                                    self->_onlineState = DltOnlineState_online;
-//                                                    [subscriber sendNext:response];
-//                                                    [subscriber sendCompleted];
-//
-//                                                  }
-//                                                    error:^(RCConnectErrorCode status) {
-//                                                      @strongify(self);
-//                                                      self->_onlineState = DltOnlineState_offline;
-//                                                      if (status == RC_CONNECTION_EXIST) {
-//                                                        [subscriber sendNext:response];
-//                                                        [subscriber sendCompleted];
-//                                                      }else{
-//                                                         [subscriber sendError:nil];
-//                                                      }
-//                                                  }];
-                     
+                       if(response[@"data"]){
+                           NSDictionary  * dic = response[@"data"];
+                           if(dic){
+                               NSString *tokneStr = dic[@"token"];
+                               [self _updateUserInfo:response[@"data"]];
+                               ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
+                               [self setUserPassword:pwd account:account];
+                               [subscriber sendNext:response];
+                               [subscriber sendCompleted];
+                               [self toRefreshToken];
+                               //                     [self _autoConnectRongCloudWithToken:tokneStr
+                               //                                                  success:^(NSString *userId) {
+                               //                                                    @strongify(self);
+                               //                                                    // 与融云服务器建立连接之后，应该设置当前用户的用户信息，用于SDK显示和发送
+                               //                                                     [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:user.userName portrait:[NSString stringWithFormat:@"%@%@",BASE_IMGURL,user.userHeadImg]];
+                               //                                                    self->_onlineState = DltOnlineState_online;
+                               //                                                    [subscriber sendNext:response];
+                               //                                                    [subscriber sendCompleted];
+                               //
+                               //                                                  }
+                               //                                                    error:^(RCConnectErrorCode status) {
+                               //                                                      @strongify(self);
+                               //                                                      self->_onlineState = DltOnlineState_offline;
+                               //                                                      if (status == RC_CONNECTION_EXIST) {
+                               //                                                        [subscriber sendNext:response];
+                               //                                                        [subscriber sendCompleted];
+                               //                                                      }else{
+                               //                                                         [subscriber sendError:nil];
+                               //                                                      }
+                               //                                                  }];
+                           }else{
+                               //无数据
+                               [subscriber sendError:[NSError errorWithDomain:@"登录出错了"
+                                                                         code:10086
+                                                                     userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%@",response[@"msg"]]
+                                                                                                          forKey:NSLocalizedDescriptionKey]]];
+                           }
+                       }
                    }else{ // 去外部处理
                        if (code == 0) {
                           
@@ -165,12 +174,15 @@ static DLTUserCenter *_userCenter = nil;
                              @strongify(self);
                              int code = [response[@"code"] intValue];
                              if (code == 1 || code == 2){  // 登录成功
-                                 NSString *tokneStr = response[@"data"][@"token"];
-                               
-                                 ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
-                                 [self setUserPassword:pwd account:account];
-                                 
-                                                                 
+                                 if(response[@"data"]){
+                                     NSDictionary  * dic = response[@"data"];
+                                     if(dic){
+                                         NSString *tokneStr = dic[@"token"];
+                                         
+                                         ZWBucket.userDefault.set(DLTUserTokenKey,tokneStr);
+                                         [self setUserPassword:pwd account:account];
+                                     }
+                                 }
                              }else{ // 去外部处理
                                  [subscriber sendError:[NSError errorWithDomain:@"登录出错了"
                                                                            code:10086
@@ -366,9 +378,14 @@ static DLTUserCenter *_userCenter = nil;
                                                                   successBlock:^(id response) {
 //                                                                    @strongify(self);
                                                                     if ([response[@"code"] integerValue] == 1){
-                                                                       NSString *headimgeURL = response[@"data"][@"src"];
-                                                                      [subscriber sendNext:headimgeURL];
-                                                                      [subscriber sendCompleted];
+                                                                        if(response[@"data"]){
+                                                                            NSDictionary * dic = response[@"data"];
+                                                                            if(dic){
+                                                                                NSString *headimgeURL = dic[@"src"];
+                                                                                [subscriber sendNext:headimgeURL];
+                                                                                [subscriber sendCompleted];
+                                                                            }
+                                                                        }
                                                                     }
                                                                     else{                                                                  
                                                                       [subscriber sendError:nil];

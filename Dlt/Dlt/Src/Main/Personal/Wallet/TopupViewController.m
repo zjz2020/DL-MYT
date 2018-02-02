@@ -126,14 +126,20 @@
                            };
     [BANetManager ba_request_POSTWithUrlString:url parameters:dic successBlock:^(id response) {
         if ([response[@"code"]integerValue]==1) {
-            NSString * body = response[@"data"][@"body"];
-            [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk"
-                                        callback:^(NSDictionary *resultDic) {
-                                            NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
-                                            if (orderState==9000) {
-                                                 [DLAlert alertWithText:@"充值成功"];
-                                            }
-                                        }];
+            if(response[@"data"]){
+                NSDictionary  * dic = response[@"data"];
+                if(dic){
+                    NSString * body = dic[@"body"];
+                    [[AlipaySDK defaultService] payOrder:body fromScheme:@"alipaysdk"
+                                                callback:^(NSDictionary *resultDic) {
+                                                    NSInteger orderState=[resultDic[@"resultStatus"]integerValue];
+                                                    if (orderState==9000) {
+                                                        [DLAlert alertWithText:@"充值成功"];
+                                                    }
+                                                }];
+                }
+            }
+          
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [DLAlert alertWithText:response[@"msg"]];

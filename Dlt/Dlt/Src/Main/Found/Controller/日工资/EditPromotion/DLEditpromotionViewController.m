@@ -603,15 +603,17 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [DLAlert alertHideLoad];
             if ( [str isEqualToString:@"1"]) {
-                
-                NSString *imageStr = [NSString stringWithFormat:@"%@",response[@"data"][@"src"]];
-
-                [DLAlert alertHideLoad];
-                [weakSelf.coverBtn setBackgroundImage:[_tkImageView currentCroppedImage] forState:UIControlStateNormal];
-                weakSelf.coverBtn.tag = 10086;
-                weakSelf.lastTkStr = imageStr;
-                [weakSelf.tkImageMainView removeFromSuperview];
-                
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                        NSString *imageStr = dic[@"src"];
+                        [DLAlert alertHideLoad];
+                        [weakSelf.coverBtn setBackgroundImage:[_tkImageView currentCroppedImage] forState:UIControlStateNormal];
+                        weakSelf.coverBtn.tag = 10086;
+                        weakSelf.lastTkStr = imageStr;
+                        [weakSelf.tkImageMainView removeFromSuperview];
+                    }
+                }
             }else{
                 [DLAlert alertWithText:response[@"msg"]];
             }
@@ -646,60 +648,60 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if ( [str isEqualToString:@"1"]) {
-                    
-                    NSString *imageStr = [NSString stringWithFormat:@"%@",response[@"data"][@"src"]];
-                    imageStr = [NSString stringWithFormat:@"{{%@}}",imageStr];
-                    if (row == 0) {
-                        if (_topImageView&&i == imgArray.count - 1) {
-                            [_topImageView removeFromSuperview];
+                    if(response[@"data"]){
+                        NSDictionary  * dic = response[@"data"];
+                        if(dic){
+                            NSString *imageStr = dic[@"src"];
+                            imageStr = [NSString stringWithFormat:@"{{%@}}",imageStr];
+                            if (row == 0) {
+                                if (_topImageView&&i == imgArray.count - 1) {
+                                    [_topImageView removeFromSuperview];
+                                }
+                                if (i==0 ) {
+                                    weakSelf.topPhotosStr = imageStr;
+                                    
+                                }else{
+                                    weakSelf.topPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.topPhotosStr,imageStr];
+                                }
+                                if (i == imgArray.count - 1) {
+                                    [DLAlert alertHideLoad];
+                                    [weakSelf upPhotos:weakSelf.topPhotos row:0];
+                                }
+                                
+                                
+                            }else if (row == 1){
+                                if (_midImageView&&i == imgArray.count - 1) {
+                                    [_midImageView removeFromSuperview];
+                                }
+                                
+                                if (i==0) {
+                                    weakSelf.midPhotosStr = imageStr;
+                                }else{
+                                    weakSelf.midPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.midPhotosStr,imageStr];
+                                }
+                                if (i == imgArray.count - 1) {
+                                    [DLAlert alertHideLoad];
+                                    [weakSelf upPhotos:weakSelf.midPhotos row:1];
+                                }
+                                
+                                
+                            }else{
+                                if (_downImageView&&i == imgArray.count - 1) {
+                                    [_downImageView removeFromSuperview];
+                                }
+                                
+                                if (i==0) {
+                                    weakSelf.downPhotosStr = imageStr;
+                                }else{
+                                    weakSelf.downPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.downPhotosStr,imageStr];
+                                }
+                                if (i == imgArray.count - 1) {
+                                    [DLAlert alertHideLoad];
+                                    [weakSelf upPhotos:weakSelf.downPhotos row:2];
+                                }
+                            }
                         }
-                        if (i==0 ) {
-                            weakSelf.topPhotosStr = imageStr;
-                                                       
-                        }else{
-                            weakSelf.topPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.topPhotosStr,imageStr];
-                        }
-                        if (i == imgArray.count - 1) {
-                            [DLAlert alertHideLoad];
-                            [weakSelf upPhotos:weakSelf.topPhotos row:0];
-                        }
-                        
-                        
-                    }else if (row == 1){
-                        if (_midImageView&&i == imgArray.count - 1) {
-                            [_midImageView removeFromSuperview];
-                        }
-                       
-                        if (i==0) {
-                            weakSelf.midPhotosStr = imageStr;
-                        }else{
-                            weakSelf.midPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.midPhotosStr,imageStr];
-                        }
-                        if (i == imgArray.count - 1) {
-                            [DLAlert alertHideLoad];
-                             [weakSelf upPhotos:weakSelf.midPhotos row:1];
-                        }
-                       
-                        
-                    }else{
-                        if (_downImageView&&i == imgArray.count - 1) {
-                            [_downImageView removeFromSuperview];
-                        }
-                       
-                        if (i==0) {
-                            weakSelf.downPhotosStr = imageStr;
-                        }else{
-                            weakSelf.downPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.downPhotosStr,imageStr];
-                        }
-                        if (i == imgArray.count - 1) {
-                            [DLAlert alertHideLoad];
-                             [weakSelf upPhotos:weakSelf.downPhotos row:2];
-                        }
-                       
-                        
                     }
-                    
-                    
                 }else{
                     [DLAlert alertWithText:response[@"msg"]];
                 }

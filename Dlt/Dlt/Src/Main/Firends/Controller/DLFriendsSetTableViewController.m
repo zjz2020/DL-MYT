@@ -449,8 +449,13 @@ static NSString * const kFriendSetTableViewCellId = @"FriendSetTableViewCellId";
         NSLog(@"%@",response);
         if ([response[@"code"] integerValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.mySwitch.on = ([response[@"data"][@"isGetSee"] integerValue] == 0) ? YES : NO;
-                self.otherSwitch.on = ([response[@"data"][@"isSee"] integerValue] == 0) ? YES : NO;
+                if(response[@"data"]){
+                    NSDictionary  * dic = response[@"data"];
+                    if(dic){
+                        self.mySwitch.on = [dic[@"isGetSee"] integerValue] == 0 ? YES : NO;
+                        self.otherSwitch.on = [dic[@"isSee"] integerValue] == 0 ? YES : NO;
+                    }
+                }
             });
         }
         [DLAlert alertHideLoad];
