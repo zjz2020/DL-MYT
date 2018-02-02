@@ -56,6 +56,9 @@
 @property (nonatomic,assign) NSInteger index2;
 @property (nonatomic , strong)NSString *cityCodeStr;
 @property (nonatomic,strong) ActionSheetCustomPicker *picker;
+
+
+@property (nonatomic , assign)int imagePage;
 @end
 
 @implementation DLEditpromotionViewController
@@ -629,10 +632,15 @@
     NSArray *imgArray;
     if (row == 0) {
         imgArray = _topPhotos;
+        _topPhotosStr = @"";
+        
     }else if (row == 1){
         imgArray = _midPhotos;
+        _midPhotosStr = @"";
+        
     }else if (row == 2){
         imgArray = _downPhotos;
+        _downPhotosStr = @"";
     }
     NSString *url = [NSString stringWithFormat:@"%@Upload/uploadFile",BASE_URL];
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
@@ -642,11 +650,12 @@
                              @"uid"   : user.uid
                              };
     __weak typeof(self)weakSelf = self;
+    _imagePage = 0;
     for (int i = 0; i < imgArray.count; i++) {
         [BANetManager ba_uploadImageWithUrlString:url parameters:params imageArray:@[imgArray[i]] fileName:@"groupImage" successBlock:^(id response) {
             NSString *str = [NSString stringWithFormat:@"%@",response[@"code"]];
             dispatch_async(dispatch_get_main_queue(), ^{
-                
+                _imagePage ++;
                 if ( [str isEqualToString:@"1"]) {
                     if(response[@"data"]){
                         NSDictionary  * dic = response[@"data"];
@@ -654,48 +663,41 @@
                             NSString *imageStr = dic[@"src"];
                             imageStr = [NSString stringWithFormat:@"{{%@}}",imageStr];
                             if (row == 0) {
-                                if (_topImageView&&i == imgArray.count - 1) {
+                                if (_topImageView&&_imagePage == imgArray.count) {
                                     [_topImageView removeFromSuperview];
                                 }
-                                if (i==0 ) {
-                                    weakSelf.topPhotosStr = imageStr;
-                                    
-                                }else{
+                                
                                     weakSelf.topPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.topPhotosStr,imageStr];
-                                }
-                                if (i == imgArray.count - 1) {
+                                
+                                if (_imagePage == imgArray.count) {
                                     [DLAlert alertHideLoad];
                                     [weakSelf upPhotos:weakSelf.topPhotos row:0];
                                 }
                                 
                                 
                             }else if (row == 1){
-                                if (_midImageView&&i == imgArray.count - 1) {
+                                if (_midImageView&&_imagePage == imgArray.count) {
                                     [_midImageView removeFromSuperview];
                                 }
                                 
-                                if (i==0) {
-                                    weakSelf.midPhotosStr = imageStr;
-                                }else{
-                                    weakSelf.midPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.midPhotosStr,imageStr];
-                                }
-                                if (i == imgArray.count - 1) {
+                                
+                                weakSelf.midPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.midPhotosStr,imageStr];
+                                
+                                if (_imagePage == imgArray.count) {
                                     [DLAlert alertHideLoad];
                                     [weakSelf upPhotos:weakSelf.midPhotos row:1];
                                 }
                                 
                                 
                             }else{
-                                if (_downImageView&&i == imgArray.count - 1) {
+                                if (_downImageView&&_imagePage == imgArray.count) {
                                     [_downImageView removeFromSuperview];
                                 }
                                 
-                                if (i==0) {
-                                    weakSelf.downPhotosStr = imageStr;
-                                }else{
-                                    weakSelf.downPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.downPhotosStr,imageStr];
-                                }
-                                if (i == imgArray.count - 1) {
+                                
+                                weakSelf.downPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.downPhotosStr,imageStr];
+                               
+                                if (_imagePage == imgArray.count) {
                                     [DLAlert alertHideLoad];
                                     [weakSelf upPhotos:weakSelf.downPhotos row:2];
                                 }
@@ -709,6 +711,13 @@
             });
             
         } failurBlock:^(NSError *error) {
+            if (row == 0) {
+              [self.topPhotos removeObjectAtIndex:i];
+            }else if (row == 1){
+               [self.midPhotos removeObjectAtIndex:i];
+            }else if (row == 2){
+                [self.downPhotos removeObjectAtIndex:i];
+            }
             [DLAlert alertWithText:@"请保持网络畅通"];
         } upLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
             
@@ -799,6 +808,7 @@
 }
 //点击了下一步按钮
 -(void)upNextButton{
+   
     if (_islink) {
         if ([_titleField.text isEqualToString:@""] || [_topTextView.text isEqualToString:@""]  ) {
              [DLAlert alertWithText:@"请填写完整"];

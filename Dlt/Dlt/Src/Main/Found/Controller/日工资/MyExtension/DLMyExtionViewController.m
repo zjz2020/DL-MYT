@@ -101,7 +101,7 @@
         rightDownLabel.textColor = [UIColor grayColor];
         rightDownLabel.font = [UIFont systemFontOfSize:12];
         rightDownLabel.textAlignment  = NSTextAlignmentCenter;
-        rightDownLabel.text = @"微信转发次数计费20元/次";
+        rightDownLabel.text = @"微信转发次数计费10元/次";
         UILabel *leftDownLabel = [UILabel new];
         leftDownLabel.textColor = [UIColor grayColor];
         leftDownLabel.textAlignment  = NSTextAlignmentCenter;
