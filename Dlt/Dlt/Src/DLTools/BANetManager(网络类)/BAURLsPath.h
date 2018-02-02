@@ -23,11 +23,14 @@
 //#define BASE_URL @"http://117.34.109.146:63425/api/"
 //#define BASE_IMGURL  @"http://117.34.109.146:63425"
 
-#define BASE_URL @"http://39.108.102.255/api/"
-#define BASE_IMGURL  @"http://39.108.102.255"
+//#define BASE_URL @"http://39.108.102.255/api/"
+//#define BASE_IMGURL  @"http://39.108.102.255"
 
-//#define BASE_URL @"http://www.mayiton.com/api/"
-//#define BASE_IMGURL  @"http://www.mayiton.com"
+//#define BASE_URL @"http://192.168.31.39/api/"
+//#define BASE_IMGURL  @"http://192.168.31.39"
+
+#define BASE_URL @"http://www.mayiton.com/api/"
+#define BASE_IMGURL  @"http://www.mayiton.com"
 
 #else
 ////正式
@@ -49,6 +52,9 @@
 #define showMYKey      @"showMYKey"
 #define showMYKeyYes   @"showMYKeyYes"
 #define showMYKeyNo    @"showMYKeyNo"
+
+#define MYUserAccount  @"MYUserAccount"
+#define showMYKeyChange @"showMYKeyChange"
 
 #define localizable(a)  NSLocalizedString(a, nil)
 

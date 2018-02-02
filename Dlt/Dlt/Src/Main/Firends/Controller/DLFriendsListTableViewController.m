@@ -50,7 +50,6 @@
     self.headView = headView;
     headView.delegate = self;
     self.tableView.tableHeaderView = headView;
-    
     // 获取好友列表
 //    [self dl_networkForGetFriendsList];
     
@@ -148,9 +147,13 @@
     for (DLFriendsInfo *info in self.dataArr) {
         if ([info.name containsString:nickName]) {
             [self.seachArr addObject:info];
+        } else if ([[NSString getStringNameWithHYName:info.name] containsString:nickName] && ![self.seachArr containsObject:info]){
+            [self.seachArr addObject:info];
         }
+        
     }
     if (self.seachArr.count == 0) {
+        self.isSeach = NO;
         [DLAlert alertWithText:@"没有搜索到好友"];
     }
     [self.tableView reloadData];

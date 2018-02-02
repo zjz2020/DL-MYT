@@ -4,7 +4,7 @@
 //
 //  Created by Fang on 2018/1/15.
 //  Copyright © 2018年 mr_chen. All rights reserved.
-//
+//   蚂蚁地图红包
 
 #import "MapViewController.h"
 #import <AMapLocationKit/AMapLocationKit.h>
@@ -110,6 +110,8 @@
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
     [_mapView setZoomLevel:14];
+    [self.mapView
+     performSelector:@selector(setShowsWorldMap:) withObject:@YES];//打开海外版定位
     [self.view addSubview:_mapView];
     CGFloat seachY = 20;
     if ([self isIphoneX]) {
@@ -292,6 +294,8 @@
 //停止定位
 - (void)stopLocation{
     [self.locationManager stopUpdatingLocation];
+    [self.mapView
+     performSelector:@selector(setShowsWorldMap:) withObject:@NO];//关闭海外定位
 }
 
 #pragma mark  开启红包
@@ -437,7 +441,7 @@
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSDictionary *parameter = @{
                                 @"uid":user.uid,
-                                @"token":user.token
+                                @"token":[DLTUserCenter userCenter].token
                                 };
     @weakify(self);
     [BANetManager ba_request_POSTWithUrlString:isAntUserStr parameters:parameter successBlock:^(id response) {
@@ -477,7 +481,7 @@
     NSDictionary *parameter = @{
                                 @"cityCode":[DLTUserCenter userCenter].cityCode,
                                 @"uid":user.uid,
-                                @"token":user.token,
+                                @"token":[DLTUserCenter userCenter].token,
                                 @"lat":latitude,
                                 @"lon":longitude,
                                 @"status":status
@@ -538,7 +542,7 @@
                                 @"lon":longitude,
                                 @"lat":latitude,
                                 @"uid":user.uid,
-                                @"token":user.token
+                                @"token":[DLTUserCenter userCenter].token
                                 };
     @weakify(self);
     [BANetManager ba_request_POSTWithUrlString:NearbyAnt parameters:parameter successBlock:^(id response) {
@@ -580,7 +584,7 @@
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSDictionary *parameter = @{
                                 @"uid":user.uid,
-                                @"token":user.token
+                                @"token":[DLTUserCenter userCenter].token
                                 };
     @weakify(self);
     [BANetManager ba_request_POSTWithUrlString:isAntUserStr parameters:parameter successBlock:^(id response) {
@@ -620,7 +624,7 @@
                           @"payPwd":passWord,
                           @"payType":type,
                           @"uid":user.uid,
-                          @"token":user.token
+                          @"token":[DLTUserCenter userCenter].token
                           };
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,OpenAntUrl];
     @weakify(self);
@@ -648,7 +652,7 @@
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     NSDictionary *parameter = @{
                                 @"uid":user.uid,
-                                @"token":user.token,
+                                @"token":[DLTUserCenter userCenter].token,
                                 @"toId":uid
                                 };
     
@@ -705,7 +709,7 @@
                           @"amount":@"100",
                           @"payType":@"2",
                           @"uid":user.uid,
-                          @"token":user.token
+                          @"token":[DLTUserCenter userCenter].token
                           };
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,OpenAntUrl];
     @weakify(self);

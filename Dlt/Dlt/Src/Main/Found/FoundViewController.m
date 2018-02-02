@@ -49,6 +49,7 @@
     [BANetManager ba_request_POSTWithUrlString:url parameters:params successBlock:^(id response) {
         @strongify(self)
          dispatch_async(dispatch_get_main_queue(), ^{
+             
         NSString *str = [NSString stringWithFormat:@"%@",response[@"data"][@"status"]];
         if ([str isEqualToString:@"0"]&&[[NSUserDefaults standardUserDefaults]boolForKey:@"UserIsPromoter"]) {
             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"UserIsPromoter"];

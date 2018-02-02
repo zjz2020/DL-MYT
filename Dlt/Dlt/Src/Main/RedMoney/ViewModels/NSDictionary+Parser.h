@@ -26,7 +26,8 @@
 
 - (NSArray *)arrayValueForKey:(NSString *)key;
 - (NSMutableArray *)mutableArrayValueForKey:(NSString *)key;
-
+//添加判断 token 是否失效
+- (BOOL)judgeTokenAvaillabelWithDic:(NSDictionary *)dic;
 /* 异常容错处理 */
 - (void)setObject:(id)anObject forKey:(id <NSCopying>)aKey;
 - (void)removeObjectForKey:(id)aKey;
