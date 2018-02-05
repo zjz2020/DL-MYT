@@ -56,6 +56,10 @@
 #define MYUserAccount  @"MYUserAccount"
 #define showMYKeyChange @"showMYKeyChange"
 
+
+#define   VersionNotificationC @"VersionNotificationC"
+#define   RequsetVerion        @"RequsetVerion"
+
 #define localizable(a)  NSLocalizedString(a, nil)
 
 #endif /* BAURLsPath_h */

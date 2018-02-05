@@ -29,6 +29,7 @@ static NSString * const kWeChatAppKey = @"wx33af1f1e0e029d19";
 
 #define GDKEY @"09743428909b1f7e88bfe1db55ae328b"
 #define iosSee @"temp/ios_display"
+#define versionNum  @"temp/iosVersion"
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,WXApiDelegate>
 @property(nonatomic,assign)NSInteger afnCount;
 @end
@@ -44,6 +45,8 @@ static NSString * const kWeChatAppKey = @"wx33af1f1e0e029d19";
     [RCIM sharedRCIM].enableMessageMentioned = YES;
     [RCIM sharedRCIM].enableMessageRecall = YES;
     [RCIM sharedRCIM].userInfoDataSource = self;
+    //版本请求
+    [self versionReqest];
 }
 
 - (void)configurationWechatShare {
@@ -471,5 +474,28 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
         });
     } progress:nil];
     
+}
+- (void)versionReqest{
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    NSString *versionUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,versionNum];
+    @weakify(self);
+    [BANetManager ba_request_POSTWithUrlString:versionUrl parameters:nil successBlock:^(id response) {
+        NSDictionary *dic = [response dictValueForKey:@"data"];
+        NSString *version = [dic stringValueForKey:@"version"];
+        if ([version isEqualToString:currentVersion]) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:VersionNotificationC object:dic];
+            });
+        }
+        [[NSUserDefaults standardUserDefaults] setObject:version forKey:RequsetVerion];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } failureBlock:^(NSError *error) {
+        @strongify(self);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self versionReqest];
+        });
+    } progress:nil];
 }
 @end

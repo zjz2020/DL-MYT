@@ -36,6 +36,7 @@
     label.text = @"www.mayiton.com";
     label.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
     label.textAlignment = NSTextAlignmentLeft;
+    self.searchLabel = label;
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(label.maxX, 4, 1, label.height - 8)];
     lineView.backgroundColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];

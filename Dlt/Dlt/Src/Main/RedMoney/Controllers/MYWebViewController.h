@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MYWebViewController : UIViewController
-
+@property (nonatomic, copy) NSString *antWeb;
 @end

@@ -39,9 +39,11 @@
 //#define ReceiveAntMoney             @"mayi/get_mayi_rp"//领取蚂蚁红包
 
 #define userShowInfo                @"usercenter/otherUserInfo"//获取用户的展示数据
+#define antSearchUrlStr                   @"temp/mayi_search_url"//蚂蚁搜索
 
 #define baiduLatitude   @"http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location="
 #define baiduLontude    @"&output=json&pois=1&ak=RleBOaL1HWYYRpyKFwzleMsGT0I6yOGX"
+#define antSearch       @"www.mayiton.com"
 @interface MapViewController ()<AMapLocationManagerDelegate,MAMapViewDelegate,
                             MaYiOpenViewDelegate,DLPasswordInputViewDelegate,
                             MaYiRedPacketViewDelegate,MaYiOpenPayViewDelegate,MYSearchViewDelegate>
@@ -71,6 +73,7 @@
 @property(nonatomic,strong)MaYiOpenPayView *payView;
 @property (nonatomic, copy) NSString *headImageStr;
 @property (nonatomic, copy) NSString *nameStr;
+@property (nonatomic, strong)MYSearchView *seachV;
 @end
 
 @implementation MapViewController
@@ -92,9 +95,34 @@
     [self judeToOpenMap];
     //判断是否是蚂蚁用户
     [self judementIsAntUser];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requstNumWithNotification:) name:VersionNotificationC object:nil];
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    if ([currentVersion isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:RequsetVerion]]) {
+        if (self.openView) {
+            [self.openView removeFromSuperview];
+        }
+        if (self.payView) {
+            [self.payView removeFromSuperview];
+        }
+    }
     // Do any additional setup after loading the view.
 }
-
+//版本号通知
+- (void)requstNumWithNotification:(NSNotification *)notification{
+    NSDictionary *dic = notification.object;
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    if ([currentVersion isEqualToString:[dic stringValueForKey:@"version"]]) {
+        if (self.openView) {
+            [self.openView removeFromSuperview];
+        }
+        if (self.payView) {
+            [self.payView removeFromSuperview];
+        }
+        
+    }
+}
 //判断是否一元开启
 - (void)judeToOpenMap{
     self.openView = [[MaYiOpenView alloc] initWithFrame:self.view.bounds];
@@ -121,6 +149,7 @@
     CGFloat SPace = 10;
     seachV.delegate = self;
     [self.mapView addSubview:seachV];
+    self.seachV = seachV;
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGFloat closeY = [UIScreen mainScreen].bounds.size.height - 2 *SPace - 40- 44;
@@ -144,6 +173,7 @@
     [_mapView addSubview:addresBtn];
     [_mapView setShowsCompass:NO];
     [_mapView setShowsScale:NO];
+    [self getAntSearchUrl];
 }
 
 #pragma mark   展示地图上的点--------点点   MAMapViewDelegate
@@ -294,8 +324,11 @@
 //停止定位
 - (void)stopLocation{
     [self.locationManager stopUpdatingLocation];
+    
     [self.mapView
      performSelector:@selector(setShowsWorldMap:) withObject:@NO];//关闭海外定位
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark  开启红包
@@ -429,6 +462,7 @@
 #pragma mark MYSearchViewDelegate
 - (void)mySearchClicke{
     MYWebViewController *web = [[MYWebViewController alloc] init];
+    web.antWeb = self.seachV.searchLabel.text;
     [self.navigationController pushViewController:web animated:YES];
 }
 
@@ -687,13 +721,35 @@
         NSData * data = [receiveStr dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
         NSDictionary *res = jsonDict[@"result"][@"addressComponent"];
-        NSString *adCode = res[@"adcode"];
+        NSString *adCode =  [res stringValueForKey:@"adcode"];
         adCode = [self makeNewAdCodeWithString:adCode];
         [DLTUserCenter userCenter].cityCode = adCode;
         NSLog(@"getADCodeWithLoction:%@",adCode);
     } failure:^(NSError *error) {
         NSLog(@"getADCodeWithLoction: %@",error);
     }];
+}
+//请求蚂蚁搜一搜数据
+- (void)getAntSearchUrl{
+    DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
+    NSDictionary *paramter = @{
+                             @"uid":user.uid,
+                             @"token":[DLTUserCenter userCenter].token
+                             };
+    @weakify(self);
+    [BANetManager ba_request_POSTWithUrlString:[NSString stringWithFormat:@"%@%@",BASE_URL,antSearchUrlStr] parameters:paramter successBlock:^(id response) {
+        @strongify(self);
+        NSDictionary *dic = [response dictValueForKey:@"data"];
+        NSString *urlStr = [dic stringValueForKey:@"url"];
+        if (urlStr) {
+            self.seachV.searchLabel.text = urlStr;
+        }
+    } failureBlock:^(NSError *error) {
+        @strongify(self)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self getAntSearchUrl];
+        });
+    } progress:nil];
 }
 #pragma mark 阿里支付
 -(void)alipayTransfer{
