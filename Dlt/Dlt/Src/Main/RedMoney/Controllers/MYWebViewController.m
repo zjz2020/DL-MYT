@@ -21,7 +21,16 @@
     [self addrightitem];
     self.webview = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_webview];
-    [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.antWeb]]];
+    NSString *firstStr = @"http://";
+    NSString *httpP = [[NSUserDefaults standardUserDefaults] objectForKey:isHttp];
+    if (httpP) {
+        if (httpP.length > 0) {
+            firstStr = httpP;
+        }
+    }
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",firstStr,self.antWeb];
+    
+    [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
     // Do any additional setup after loading the view.
 }
 -(void)addrightitem {
