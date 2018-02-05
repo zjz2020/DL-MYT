@@ -217,7 +217,7 @@ static DLTUserCenter *_userCenter = nil;
 }
 
 - (void)remoteToken:(NSDictionary *)param successBlock:(void(^)(id result))success failure:(dispatch_block_t)failure{
-  NSString * url = [NSString stringWithFormat:@"%@UserCenter/login",BASE_URL];
+  NSString * url = [NSString stringWithFormat:@"%@UserCenter/login2",BASE_URL];
   [BANetManager ba_request_POSTWithUrlString:url
                                   parameters:param
                                 successBlock:^(id response) {

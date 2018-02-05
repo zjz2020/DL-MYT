@@ -16,12 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"蚂蚁官网";
+    self.title = @"蚂蚁搜搜";
     self.view.backgroundColor = [UIColor whiteColor];
     [self addrightitem];
     self.webview = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_webview];
-    [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.mayiton.com"]]];
+    [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.antWeb]]];
     // Do any additional setup after loading the view.
 }
 -(void)addrightitem {

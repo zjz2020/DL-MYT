@@ -17,4 +17,5 @@
 @interface MYSearchView : UIView
 + (MYSearchView *)searchViewWithFram:(CGRect)fram;
 @property(nonatomic,weak)id<MYSearchViewDelegate> delegate;
+@property (nonatomic, strong) UILabel *searchLabel;
 @end
