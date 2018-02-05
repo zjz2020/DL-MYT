@@ -263,6 +263,7 @@
         _phoneField.placeholder = @" / 请输入您的手机号";
         _phoneField.font = AdaptedFontSize(17);
         _phoneField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
         UIImageView * phoneimage = [[UIImageView alloc]initWithFrame:RectMake_LFL(0, 0, 24, 24)];
         phoneimage.image = [UIImage imageNamed:@"Login_01"];
         _phoneField.leftView = phoneimage;

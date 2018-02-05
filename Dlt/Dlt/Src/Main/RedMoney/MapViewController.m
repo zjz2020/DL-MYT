@@ -99,6 +99,7 @@
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
     if ([currentVersion isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:RequsetVerion]]) {
+        self.showInfoBtn.hidden = YES;
         if (self.openView) {
             [self.openView removeFromSuperview];
         }
@@ -114,6 +115,7 @@
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
     if ([currentVersion isEqualToString:[dic stringValueForKey:@"version"]]) {
+        self.showInfoBtn.hidden = YES;
         if (self.openView) {
             [self.openView removeFromSuperview];
         }
@@ -740,6 +742,9 @@
     [BANetManager ba_request_POSTWithUrlString:[NSString stringWithFormat:@"%@%@",BASE_URL,antSearchUrlStr] parameters:paramter successBlock:^(id response) {
         @strongify(self);
         NSDictionary *dic = [response dictValueForKey:@"data"];
+        NSString *httpProtocol = [dic stringValueForKey:@"httpProtocol"];
+        [[NSUserDefaults standardUserDefaults] setObject:httpProtocol forKey:isHttp];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         NSString *urlStr = [dic stringValueForKey:@"url"];
         if (urlStr) {
             self.seachV.searchLabel.text = urlStr;
