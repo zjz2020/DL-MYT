@@ -169,7 +169,8 @@ static DLTUserCenter *_userCenter = nil;
     return [[[[[RACSignal
                 createSignal:^RACDisposable *(id<RACSubscriber>subscriber) {
                     @strongify(self);
-                    [self remoteToken: @{@"account":account,@"password":pwd}
+                     NSString  * saveKeyAccountStr = [KeyChainManager readUUID];
+                    [self remoteToken: @{@"account":account,@"password":pwd,@"login_device_id":saveKeyAccountStr}
                          successBlock:^(id response) {   // remote token
                              @strongify(self);
                              int code = [response[@"code"] intValue];
