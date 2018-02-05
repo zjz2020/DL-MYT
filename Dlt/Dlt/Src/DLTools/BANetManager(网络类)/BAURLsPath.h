@@ -55,6 +55,7 @@
 
 #define MYUserAccount  @"MYUserAccount"
 #define showMYKeyChange @"showMYKeyChange"
+#define isHttp          @"isHttp"
 
 
 #define   VersionNotificationC @"VersionNotificationC"
