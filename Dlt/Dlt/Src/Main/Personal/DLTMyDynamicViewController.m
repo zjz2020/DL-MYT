@@ -82,6 +82,7 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
     NSMutableArray *temp = [NSMutableArray new];
     for (NSDictionary *modelDic in result){
         DLTCircleofFriendDynamicModel *model = [DLTCircleofFriendDynamicModel modelWithJSON:modelDic];
+        model.hiddenOperationMoreButton = NO;
         if(model.likes && model.likes.count > 0){
             for(DLTCircleofFriendDynamicLikeModel * likeModel in model.likes){
                 if([likeModel.uid isEqualToString:[DLTUserCenter userCenter].curUser.uid]){
@@ -90,6 +91,7 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
                 }
             }
         }
+        
         [temp addObject:model];
     }
     return [temp copy];
@@ -127,6 +129,7 @@ NSString *const kDltMyDynamicModels = @"dlt_mydynamic_models";
   cell.circleFriendsDelegate = self;
   cell.indexPath = indexPath;
   cell.model = self.dataArray[indexPath.row];
+    NSLog(@"%@",cell.model);
   return cell;
 }
 

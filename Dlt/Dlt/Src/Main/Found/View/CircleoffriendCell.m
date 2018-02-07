@@ -189,7 +189,6 @@
   _operationView.likeds = model.likes.count;
   _operationView.hiddenLine = (model.comments.count)? NO: YES;
   _operationView.hiddenMoreBtn = model.hiddenOperationMoreButton;
-
    NSArray *displayComments = nil;
    if (model.shouldShowMoreButton) { // 评论超过3
     NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)];

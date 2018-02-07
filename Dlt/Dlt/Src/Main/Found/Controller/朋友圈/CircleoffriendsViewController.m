@@ -173,6 +173,7 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
 //    DLTCircleofFriendDynamicModel *model = self.dataArray[indexPath.row];
     cell.indexPath = indexPath;
     cell.model = self.dataArray[indexPath.row];
+    NSLog(@"%@",cell.model);
     return cell;
 }
 

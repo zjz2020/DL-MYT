@@ -4,7 +4,7 @@
 //
 //  Created by USER on 2017/9/15.
 //  Copyright © 2017年 mr_chen. All rights reserved.
-//  
+//
 
 #import "DLEditpromotionViewController.h"
 #import <SDAutoLayout/SDAutoLayout.h>
@@ -38,6 +38,10 @@
 @property (nonatomic , strong)NSString *topPhotosStr;
 @property (nonatomic , strong)NSString *midPhotosStr;
 @property (nonatomic , strong)NSString *downPhotosStr;
+
+@property (nonatomic , strong)NSMutableArray *topStrArray;
+@property (nonatomic , strong)NSMutableArray *midStrArray;
+@property (nonatomic , strong)NSMutableArray *downStrArray;
 
 @property (nonatomic , strong)UILabel *topLabel;
 @property (nonatomic , strong)UILabel *midLabel;
@@ -108,17 +112,31 @@
     }
     return _addressArr;
 }
-
+-(NSMutableArray *)topStrArray{
+    if (_topStrArray == nil) {
+        _topStrArray = [NSMutableArray array];
+    }return _topStrArray;
+}
+-(NSMutableArray *)midStrArray{
+    if ( _midStrArray == nil) {
+        _midStrArray = [NSMutableArray array];
+    }return _midStrArray;
+}
+-(NSMutableArray *)downStrArray{
+    if (_downStrArray == nil) {
+        _downStrArray = [NSMutableArray array];
+    }return _downStrArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _cityCodeStr = @"100000";
     self.view.backgroundColor = [UIColor whiteColor];
     if (_islink) {
-         self.navigationItem.title = @"链接推广";
+        self.navigationItem.title = @"链接推广";
     }else{
-         self.navigationItem.title = @"图文推广";
+        self.navigationItem.title = @"图文推广";
     }
-   
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self addMainScrollView];
     [self calculateFirstData];
@@ -154,7 +172,7 @@
     if (_islink) {
         [nextBtn setTitle:@"完成" forState:0];
     }else{
-       [nextBtn setTitle:@"下一步" forState:0];
+        [nextBtn setTitle:@"下一步" forState:0];
     }
     
     [nextBtn addTarget:self action:@selector(upNextButton) forControlEvents:UIControlEventTouchUpInside];
@@ -219,7 +237,7 @@
         _cityCodeBtn.sd_layout
         .topSpaceToView(line, 20)
         .leftSpaceToView(_mainView, 10);
-         [_cityCodeBtn setupAutoSizeWithHorizontalPadding:10 buttonHeight:38];
+        [_cityCodeBtn setupAutoSizeWithHorizontalPadding:10 buttonHeight:38];
         nextBtn.sd_layout
         .topSpaceToView(_cityCodeBtn, 10)
         .centerXEqualToView(_mainView)
@@ -254,15 +272,15 @@
     }
     
     textView.font = [UIFont systemFontOfSize:17];
-
+    
     UILabel *  label = [[UILabel alloc]initWithFrame:CGRectMake(7 , 7, self.view.bounds.size.width-10, 21)];
     label.text = @"描述你的广告词";
     label.font = [UIFont systemFontOfSize:16];
     label.textColor = [UIColor grayColor];
     label.enabled = NO;//lable必须设置为不可用
     [textView addSubview:label];
-
-
+    
+    
     if (row == 0) {
         _topImageView = [UIView new];
         _topLabel = label;
@@ -280,11 +298,11 @@
         _downView = view;
         _downLabel = label;
         _downTextView = textView;
-       
+        
     }
-   [self  upPhotos:nil row:row];
+    [self  upPhotos:nil row:row];
     
-   
+    
     
 }
 //实现UITextView的代理
@@ -297,7 +315,7 @@
             _topLabel.text = @"";
             
         }
-
+        
     }else if ([textView isEqual:_midTextView]){
         if (textView.text.length == 0) {
             
@@ -319,7 +337,7 @@
 }
 
 -(void)upImageButton:(UIButton *)btn{
-   
+    
     __weak typeof(self) weakSelf = self;
     [_topTextView resignFirstResponder];
     if (_islink) {
@@ -332,46 +350,46 @@
     
     [picker showInSender:self handle:^(NSArray<UIImage *> *photos) {
         [DLAlert alertShowLoad];
-       
+        
         if (btn.tag == 100) {
-
-        [weakSelf.topPhotos addObjectsFromArray:photos];
-        [weakSelf httpImageNameData:0];
-
+            
+            // [weakSelf.topPhotos addObjectsFromArray:photos];
+            [weakSelf httpImageNameData:0 images:photos];
+            
         }else if (btn.tag == 101){
-
-            [weakSelf.midPhotos addObjectsFromArray:photos];
-            [weakSelf httpImageNameData:1];
-
+            
+            //  [weakSelf.midPhotos addObjectsFromArray:photos];
+            [weakSelf httpImageNameData:1 images:photos];
+            
         }else{
-
-            [weakSelf.downPhotos addObjectsFromArray:photos];
-            [weakSelf httpImageNameData:2];
-
+            
+            //[weakSelf.downPhotos addObjectsFromArray:photos];
+            [weakSelf httpImageNameData:2 images:photos];
+            
         }
-           }];
+    }];
 }
 -(void)upPhotos:(NSArray *)imgs row:(int)row{
     //图片长度值
     CGFloat length = (WIDTH - 50)/4;
     // 保存前一个button的宽以及前一个button距离屏幕边缘的距
-     CGFloat edge =0;
+    CGFloat edge =0;
     if (row == 0) {
         edge =length + 10;
     }
-   
+    
     //设置button 距离父视图的高
     CGFloat h =10;
-
+    
     UIView *imageView = [UIView new];
     //添加封面
     if (row == 0) {
         if (self.coverBtn.tag == 10086) {
             [self.coverBtn setBackgroundImage:[_tkImageView currentCroppedImage] forState:UIControlStateNormal];
         }else{
-           [self.coverBtn setBackgroundImage:[UIImage imageNamed:@"fengmianadd.png"] forState:UIControlStateNormal];
+            [self.coverBtn setBackgroundImage:[UIImage imageNamed:@"fengmianadd.png"] forState:UIControlStateNormal];
         }
-       
+        
         [_coverBtn addTarget:self action:@selector(upCoverBtnButton) forControlEvents:UIControlEventTouchUpInside];
         [imageView addSubview:_coverBtn];
         _coverBtn.frame =CGRectMake(10,h , length  , length );
@@ -389,7 +407,7 @@
     }else{
         addBtn.hidden = NO;
     }
-   
+    
     for (int i =0; i< imgs.count; i++) {
         UIButton *button =[UIButton buttonWithType:UIButtonTypeSystem];
         if (row == 0) {
@@ -417,21 +435,21 @@
         [deleBtn.imageView  setContentMode:UIViewContentModeScaleAspectFill];
         deleBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentFill;
         deleBtn.contentVerticalAlignment=UIControlContentVerticalAlignmentFill;
-       
+        
         if (row == 0) {
-             deleBtn.tag = 10 + i;
+            deleBtn.tag = 10 + i;
         }else if (row == 1){
-             deleBtn.tag = 100 + i;
+            deleBtn.tag = 100 + i;
         }else{
-             deleBtn.tag = 1000 + i;
+            deleBtn.tag = 1000 + i;
         }
         [deleBtn addTarget:self action:@selector(selectClick:) forControlEvents:(UIControlEventTouchUpInside)];
         [deleBtn setImage:deleImage forState:UIControlStateNormal];
         [button addSubview:deleBtn];
         
         //设置button的frame
-            button.frame =CGRectMake(edge+10, h, length, length);
-       
+        button.frame =CGRectMake(edge+10, h, length, length);
+        
         
         
         //当button的位置超出屏幕边缘时换行 320 只是button所在父视图的宽度
@@ -456,7 +474,7 @@
                 h=h+button.frame.size.height +10;
                 //标签换行后的frame
             }
-             addBtn.frame =CGRectMake(edge+10, h, length, length);
+            addBtn.frame =CGRectMake(edge+10, h, length, length);
         }
         
     }
@@ -470,7 +488,7 @@
         
     }
     [imageView addSubview:addBtn];
-  [imageView setupAutoHeightWithBottomView:addBtn bottomMargin:0];
+    [imageView setupAutoHeightWithBottomView:addBtn bottomMargin:0];
     CGFloat left = 10;
     if (row == 0) {
         _topImageView = imageView;
@@ -528,14 +546,14 @@
     picker.selectedCount = 1;
     
     [picker showInSender:self handle:^(NSArray<UIImage *> *photos) {
-         dispatch_async(dispatch_get_main_queue(), ^{
-             [self addTkImageMianView:photos[0]];
-         });
-
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self addTkImageMianView:photos[0]];
+        });
         
-       
+        
+        
     }];
-
+    
 }
 -(void)addTkImageMianView:(UIImage *)image{
     _tkImageMainView = [UIView new];
@@ -547,7 +565,7 @@
     [leftBtn setTitle:@"取消" forState:0];
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [rightBtn setTitle:@"截取" forState:0];
-     [rightBtn setTintColor:[UIColor whiteColor]];
+    [rightBtn setTintColor:[UIColor whiteColor]];
     [rightBtn addTarget:self action:@selector(upTkImageRightButton) forControlEvents:UIControlEventTouchUpInside];
     _tkImageView = [[TKImageView alloc]init];
     _tkImageView.toCropImage = image;
@@ -601,7 +619,7 @@
                              @"uid"   : user.uid
                              };
     __weak typeof(self)weakSelf = self;
-     [BANetManager ba_uploadImageWithUrlString:url parameters:params imageArray:@[[_tkImageView currentCroppedImage]] fileName:@"groupImage" successBlock:^(id response) {
+    [BANetManager ba_uploadImageWithUrlString:url parameters:params imageArray:@[[_tkImageView currentCroppedImage]] fileName:@"groupImage" successBlock:^(id response) {
         NSString *str = [NSString stringWithFormat:@"%@",response[@"code"]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [DLAlert alertHideLoad];
@@ -622,26 +640,14 @@
             }
         });
         
-     } failurBlock:^(NSError *error) {
-          [DLAlert alertWithText:@"保持网络畅通"];
-     } upLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-         
-     }];
+    } failurBlock:^(NSError *error) {
+        [DLAlert alertWithText:@"保持网络畅通"];
+    } upLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+        
+    }];
 }
--(void)httpImageNameData:(int)row{
-    NSArray *imgArray;
-    if (row == 0) {
-        imgArray = _topPhotos;
-        _topPhotosStr = @"";
-        
-    }else if (row == 1){
-        imgArray = _midPhotos;
-        _midPhotosStr = @"";
-        
-    }else if (row == 2){
-        imgArray = _downPhotos;
-        _downPhotosStr = @"";
-    }
+-(void)httpImageNameData:(int)row images:(NSArray *)imgArray{
+    
     NSString *url = [NSString stringWithFormat:@"%@Upload/uploadFile",BASE_URL];
     DLTUserProfile * user = [DLTUserCenter userCenter].curUser;
     
@@ -667,7 +673,8 @@
                                     [_topImageView removeFromSuperview];
                                 }
                                 
-                                    weakSelf.topPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.topPhotosStr,imageStr];
+                                [self.topStrArray addObject:imageStr];
+                                [self.topPhotos addObject:imgArray[i]];
                                 
                                 if (_imagePage == imgArray.count) {
                                     [DLAlert alertHideLoad];
@@ -681,7 +688,8 @@
                                 }
                                 
                                 
-                                weakSelf.midPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.midPhotosStr,imageStr];
+                                [self.midStrArray addObject:imageStr];
+                                [self.midPhotos addObject:imgArray[i]];
                                 
                                 if (_imagePage == imgArray.count) {
                                     [DLAlert alertHideLoad];
@@ -695,8 +703,9 @@
                                 }
                                 
                                 
-                                weakSelf.downPhotosStr = [NSString stringWithFormat:@"%@%@",weakSelf.downPhotosStr,imageStr];
-                               
+                                [self.downStrArray addObject:imageStr];
+                                [self.downPhotos addObject:imgArray[i]];
+                                
                                 if (_imagePage == imgArray.count) {
                                     [DLAlert alertHideLoad];
                                     [weakSelf upPhotos:weakSelf.downPhotos row:2];
@@ -711,18 +720,12 @@
             });
             
         } failurBlock:^(NSError *error) {
-            if (row == 0) {
-              [self.topPhotos removeObjectAtIndex:i];
-            }else if (row == 1){
-               [self.midPhotos removeObjectAtIndex:i];
-            }else if (row == 2){
-                [self.downPhotos removeObjectAtIndex:i];
-            }
+            
             [DLAlert alertWithText:@"请保持网络畅通"];
         } upLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
             
         }];
-
+        
     }
 }
 //点击图片
@@ -743,75 +746,86 @@
         browser.imageCount = self.downPhotos.count;
     }else{
         browser.tag = 2;
-         browser.currentImageIndex = btn.tag - 100;
+        browser.currentImageIndex = btn.tag - 100;
         browser.sourceImagesContainerView = self.midImageView;
         browser.imageCount = self.midPhotos.count;
     }
-   
+    
     browser.delegate = self;
     [browser show];
 }
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
     if (browser.tag == 0) {
-         return self.topPhotos[index];
+        return self.topPhotos[index];
     }else if (browser.tag == 1){
-         return self.midPhotos[index];
+        return self.midPhotos[index];
     }else{
-         return self.downPhotos[index];
+        return self.downPhotos[index];
     }
-   
+    
 }
 
 //点击删除
 - (void)selectClick:(UIButton *)btn {
     int I = btn.tag;
-    [DLAlert alertShowLoad];
+    
     if (I<100) {
         [self.topPhotos removeObjectAtIndex:btn.tag - 10];
-      
+        [self.topStrArray removeObjectAtIndex:btn.tag - 10];
+        [_topImageView removeFromSuperview];
         if (self.topPhotos.count > 0) {
-             [self httpImageNameData:0];
+            [self upPhotos:self.topPhotos row:0];
         }else{
-             [_topImageView removeFromSuperview];
             
-            _topPhotosStr = nil;
-        
+            
             [self upPhotos:nil row:0];
-            [DLAlert alertHideLoad];
-      
+            
         }
     }else if (I >= 1000){
         [self.downPhotos removeObjectAtIndex:btn.tag - 1000];
-     
+        [self.downStrArray removeObjectAtIndex:btn.tag - 1000];
+        [_downImageView removeFromSuperview];
         if (self.downPhotos.count > 0) {
-            [self httpImageNameData:2];
+            [self upPhotos:self.downPhotos row:2];
+            
         }else{
-              [_downImageView removeFromSuperview];
-            _downPhotosStr = nil;
+            
             [self upPhotos:nil row:2];
-             [DLAlert alertHideLoad];
+            
         }
     }else{
         [self.midPhotos removeObjectAtIndex:btn.tag - 100];
-      
+        [self.midStrArray removeObjectAtIndex:btn.tag - 100];
+        [_midImageView removeFromSuperview];
         if (self.midPhotos.count > 0) {
-            [self httpImageNameData:1];
+            [self upPhotos:self.midPhotos row:1];
+            
         }else{
-            [_midImageView removeFromSuperview];
-            _midPhotosStr = nil;
+            
             [self upPhotos:nil row:1];
-             [DLAlert alertHideLoad];
+            
         }
-   }
-   
+    }
+    
 }
 //点击了下一步按钮
 -(void)upNextButton{
-   
+    _topPhotosStr = @"";
+    _midPhotosStr = @"";
+    _downPhotosStr = @"";
+    for (int i = 0; i < _topStrArray.count; i ++) {
+        _topPhotosStr = [NSString stringWithFormat:@"%@%@",_topPhotosStr,_topStrArray[i]];
+    }
+    for (int i = 0; i < _midStrArray.count; i ++) {
+        _midPhotosStr = [NSString stringWithFormat:@"%@%@",_midPhotosStr,_midStrArray[i]];
+    }
+    for (int i = 0; i < _downStrArray.count; i ++) {
+        _downPhotosStr = [NSString stringWithFormat:@"%@%@",_downPhotosStr,_downStrArray[i]];
+    }
     if (_islink) {
         if ([_titleField.text isEqualToString:@""] || [_topTextView.text isEqualToString:@""]  ) {
-             [DLAlert alertWithText:@"请填写完整"];
+            [DLAlert alertWithText:@"请填写完整"];
         }else{
             DLCostViewController *sdView = [DLCostViewController new];
             NSString *postText = [NSString stringWithFormat:@"%@%@%@%@%@%@",_topTextView.text,_topPhotosStr,_midTextView.text,_midPhotosStr,_downTextView.text,_downPhotosStr];
@@ -828,9 +842,9 @@
         if ([_topTextView.text isEqualToString:@""] || _topPhotos.count == 0        ) {
             [DLAlert alertWithText:@"请填写完整"];
         }else{
-             NSLog(@"%@",_cityCodeStr);
+            NSLog(@"%@",_cityCodeStr);
             DLCostViewController *sdView = [DLCostViewController new];
-    
+            
             NSString *postText = [NSString stringWithFormat:@"%@%@",_topTextView.text,_topPhotosStr];
             sdView.AdTitle = postText;
             sdView.covorImage = _lastTkStr;
@@ -840,7 +854,7 @@
         }
         
     }
-   
+    
 }
 - (void)loadFirstData
 {
@@ -849,11 +863,11 @@
     
     NSString *jsonStr = [NSString stringWithContentsOfFile:path usedEncoding:nil error:nil];
     self.addressArr = [jsonStr mj_JSONObject];
-  
+    
     NSMutableArray *firstName = [[NSMutableArray alloc] init];
     for (NSDictionary *dict in self.addressArr)
     {
-      
+        
         NSString *name = dict[@"name"];
         [firstName addObject:name];
     }
@@ -869,9 +883,9 @@
     NSMutableArray *cityNameArr = [[NSMutableArray alloc] init];
     // 根据省的index1，默认是0，拿出对应省下面的市
     NSLog(@"%@",[self.addressArr[self.index1] allValues].firstObject);
-
     
-   
+    
+    
     for (NSDictionary *cityName in [self.addressArr[self.index1] valueForKey:@"c"]) {
         NSLog(@"%@",cityName);
         NSString *name1 = cityName [@"name"];
@@ -879,7 +893,7 @@
     }
     // 组装对应省下面的市
     self.countryArr = cityNameArr;
-  
+    
 }
 
 #pragma mark - UIPickerViewDataSource Implementation
@@ -944,14 +958,14 @@
             [pickerView reloadComponent:1];
             
             [pickerView selectRow:0 inComponent:1 animated:YES];
-           
+            
         }
             break;
             
         case 1:
         {
             self.index2 = row;
-
+            
         }
             break;
         default:break;
@@ -974,8 +988,10 @@
         [detailAddress appendString:secondAddress];
     }
     self.cityCodeStr =  [self.addressArr[self.index1] valueForKey:@"c"][self.index2][@"adcode"];
-  
+    
     [_cityCodeBtn setTitle:detailAddress forState:0];
 }
 
 @end
+
+
