@@ -479,7 +479,7 @@ static NSMutableArray *tasks;
             }
             
             /*! 此处压缩方法是jpeg格式是原图大小的0.8倍，要调整大小的话，就在这里调整就行了还是原图等比压缩 */
-            NSData *imgData = UIImageJPEGRepresentation(resizedImage, 0.8);
+            NSData *imgData = UIImageJPEGRepresentation(resizedImage, 0.7);
             
             /*! 拼接data */
             if (imgData != nil)
