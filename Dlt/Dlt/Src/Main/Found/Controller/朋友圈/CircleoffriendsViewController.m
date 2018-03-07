@@ -53,6 +53,9 @@ NSString *const kDltCircleofFriendModels = @"dlt_circleofFriend_models";
     NSMutableArray *temp = [NSMutableArray new];
     for (NSDictionary *modelDic in result){
         DLTCircleofFriendDynamicModel *model = [DLTCircleofFriendDynamicModel modelWithJSON:modelDic];
+        if ([model.uid isEqualToString: [DLTUserCenter userCenter].curUser.uid]) {
+            model.hiddenOperationMoreButton = NO;
+        }
         if(model.likes && model.likes.count > 0){
             for(DLTCircleofFriendDynamicLikeModel * likeModel in model.likes){
                 if([likeModel.uid isEqualToString:[DLTUserCenter userCenter].curUser.uid]){
